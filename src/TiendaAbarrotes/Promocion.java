@@ -26,6 +26,15 @@ import javax.swing.table.DefaultTableModel;
 public class Promocion {
     
     private int idPromocion;
+    private PreparedStatement preparedStatement;
+
+    public int getIdPromocion() {
+        return idPromocion;
+    }
+
+    public void setIdPromocion(int idPromocion) {
+        this.idPromocion = idPromocion;
+    }
     
     public Promocion(){
         this.idPromocion = -1;
@@ -50,7 +59,7 @@ public class Promocion {
                 auxiliar[1] = resultSet.getString(2);
                 auxiliar[2] = resultSet.getString(3);
                 auxiliar[3] = resultSet.getString(4);
-                BigDecimal bd = new BigDecimal(Float.toString(resultSet.getFloat(4)));
+                BigDecimal bd = new BigDecimal(Float.toString(resultSet.getFloat(5)));
                 bd = bd.setScale(2, BigDecimal.ROUND_CEILING);
                 auxiliar[4] = bd.floatValue();
                 modelo.addRow(auxiliar);
@@ -81,7 +90,7 @@ public class Promocion {
         }
     }
     
-    public void agregaPromocion(Connection conexion, PreparedStatement preparedStatement, int idProducto, LocalDate fechaInicio, LocalDate fechaFinal, float descuento){
+    public void agregaPromocion(Connection conexion,int idProducto, LocalDate fechaInicio, LocalDate fechaFinal, float descuento){
         String query ="INSERT INTO Transaccion.Promocion (IdProducto, FechaInicio, FechaFinal, Descuento) VALUES (?,?,?,?)";
         try{
             preparedStatement = conexion.prepareCall(query);
@@ -92,6 +101,41 @@ public class Promocion {
             int register = preparedStatement.executeUpdate();
             if(register > 0){
                 JOptionPane.showMessageDialog(null, "Se ingresó correctamente");
+            }
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+    
+    public void modificaPromocion(Connection conexion,int idProducto, LocalDate fechaInicio, LocalDate fechaFinal, float descuento)
+    {
+        String query = "UPDATE Transaccion.Promocion SET IdProducto = ?, FechaInicio= ?, FechaFinal=?, Descuento=? WHERE IdPromocion = ?";
+        try{
+            preparedStatement = conexion.prepareCall(query);
+            preparedStatement.setInt(1, idProducto);
+            preparedStatement.setDate(2, Date.valueOf(fechaInicio));
+            preparedStatement.setDate(3, Date.valueOf(fechaFinal));
+            preparedStatement.setFloat(4, descuento);
+            preparedStatement.setInt(5, getIdPromocion());
+            int register = preparedStatement.executeUpdate();
+            if(register > 0){
+                JOptionPane.showMessageDialog(null, "Se modificó correctamente");
+            }
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+    
+    public void eliminaPromocion(Connection conexion){
+        String query = "DELETE FROM Transaccion.Promocion WHERE IdPromocion = ?";
+        try{
+            preparedStatement = conexion.prepareCall(query);
+            preparedStatement.setInt(1, getIdPromocion());
+            int register = preparedStatement.executeUpdate();
+            if(register > 0){
+                JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
             }
         }
         catch(Exception ex){

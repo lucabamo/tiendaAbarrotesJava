@@ -5,15 +5,19 @@
  */
 package TiendaAbarrotes;
 
+import java.sql.Connection;
+import javax.swing.JTable;
+
 /**
  *
  * @author Karla Rosas
  */
 public class jfProveedor extends javax.swing.JFrame {
-
-    /**
-     * Creates new form jfProveedor
-     */
+    
+    private Connection conexion;
+    
+    private Proveedor proveedor;
+ 
     public jfProveedor() {
         initComponents();
     }
@@ -43,7 +47,12 @@ public class jfProveedor extends javax.swing.JFrame {
         tfEmail = new javax.swing.JTextField();
         tfNombre = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jtProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -56,13 +65,33 @@ public class jfProveedor extends javax.swing.JFrame {
 
             }
         ));
+        jtProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtProveedoresMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtProveedores);
 
         btAgregar.setText("Agregar");
+        btAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAgregarActionPerformed(evt);
+            }
+        });
 
         btModificar.setText("Modificar");
+        btModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarActionPerformed(evt);
+            }
+        });
 
         btEliminar.setText("Eliminar");
+        btEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Email");
 
@@ -148,6 +177,55 @@ public class jfProveedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarActionPerformed
+        proveedor.agregaProveedor(conexion, tfNombre.getText(), tfTelefono.getText(), tfEmail.getText(), tfRFC.getText(), tfDomicilio.getText());
+        proveedor.seleccionaProveedores(conexion, jtProveedores);
+        resetControles();
+    }//GEN-LAST:event_btAgregarActionPerformed
+
+    private void btModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarActionPerformed
+        proveedor.modificaProveedor(conexion, tfNombre.getText(), tfTelefono.getText(), tfEmail.getText(), tfRFC.getText(), tfDomicilio.getText());
+        proveedor.seleccionaProveedores(conexion, jtProveedores);
+        resetControles();
+    }//GEN-LAST:event_btModificarActionPerformed
+
+    private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
+        proveedor.eliminaProveedor(conexion);
+        proveedor.seleccionaProveedores(conexion, jtProveedores);
+        resetControles();
+    }//GEN-LAST:event_btEliminarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        proveedor = new Proveedor();
+        proveedor.seleccionaProveedores(conexion, jtProveedores);
+        resetControles();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jtProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProveedoresMouseClicked
+        JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+        
+        proveedor.setIdProveedor(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
+        
+        tfNombre.setText(source.getModel().getValueAt(row, 1).toString());
+        tfTelefono.setText(source.getModel().getValueAt(row, 2).toString());
+        tfEmail.setText(source.getModel().getValueAt(row, 3).toString());
+        tfRFC.setText(source.getModel().getValueAt(row, 4).toString());
+        tfDomicilio.setText(source.getModel().getValueAt(row, 5).toString());
+        
+    }//GEN-LAST:event_jtProveedoresMouseClicked
+
+    public void asignaConexion(Connection connection){
+        this.conexion = connection;
+    }
+    
+    public void resetControles(){
+        tfNombre.setText("");
+        tfTelefono.setText("");
+        tfEmail.setText("");
+        tfRFC.setText("");
+        tfDomicilio.setText("");
+    }
     /**
      * @param args the command line arguments
      */

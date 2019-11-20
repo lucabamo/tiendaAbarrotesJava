@@ -29,6 +29,7 @@ import static org.postgresql.util.ByteConverter.float8;
 public class Venta {
     
     private int idVenta;
+    private PreparedStatement preparedStatement;
     
     public Venta(){
         idVenta= -1;
@@ -82,7 +83,7 @@ public class Venta {
         }
     }
     
-    public void agregaVenta(Connection conexion, PreparedStatement preparedStatement, int idEmpleado, LocalDate fechaVenta, float total){
+    public void agregaVenta(Connection conexion,int idEmpleado, LocalDate fechaVenta, float total){
         String query ="INSERT INTO Transaccion.Venta (idEmpleado, FechaVenta, Total) VALUES (?,?,?)";
         try{
             preparedStatement = conexion.prepareCall(query);
@@ -99,7 +100,7 @@ public class Venta {
         }
     }
     
-    public void modificaVenta(Connection conexion, PreparedStatement preparedStatement, int idEmpleado, LocalDate fechaVenta, float total){
+    public void modificaVenta(Connection conexion,int idEmpleado, LocalDate fechaVenta, float total){
         String query = "UPDATE Transaccion.Venta SET idEmpleado = ?, FechaVenta = ?, Total = ? WHERE IdVenta = ?";
          try{
             preparedStatement = conexion.prepareCall(query);
@@ -117,7 +118,7 @@ public class Venta {
         }
     }
     
-    public void eliminaVenta(Connection conexion, PreparedStatement preparedStatement)
+    public void eliminaVenta(Connection conexion)
     {
         String query ="DELETE FROM Transaccion.Venta WHERE IdVenta = ?";    
         try{
