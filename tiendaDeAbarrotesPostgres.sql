@@ -130,3 +130,37 @@ CREATE TABLE Transaccion.Entrega(
 	CONSTRAINT FK_EMPLEADO4 FOREIGN KEY(IdEmpleado) REFERENCES Empresa.Empleado(IdEmpleado),
 	CONSTRAINT FK_DEVOLUCION2 FOREIGN KEY(IdDevolucion) REFERENCES Transaccion.Devolucion(IdDevolucion)
 )
+
+--Trigger para actualizar existencias de un producto despues de realizar una compra al proveedor
+CREATE FUNCTION ActualizarInventario() RETURNS TRIGGER 
+AS $$
+DECLARE BEGIN
+	UPDATE Inventario.Producto SET
+	Existencia = Existencia + NEW.Cantidad
+	WHERE Producto.IdProducto = NEW.IdProducto;
+	return NEW;
+END;
+$$
+Language plpgsql;
+
+CREATE TRIGGER ActualizarExistenciasCompra AFTER INSERT
+ON Transaccion.DetalleCompra FOR EACH ROW
+EXECUTE PROCEDURE ActualizarInventario();
+
+--Trigger para actualizar existencias de un producto despues de realizar una venta
+CREATE FUNCTION ActualizarExistencias() RETURNS TRIGGER 
+AS $$
+DECLARE BEGIN
+	UPDATE Inventario.Producto SET
+	Existencia = Existencia - NEW.Cantidad
+	WHERE Producto.IdProducto = NEW.IdProducto;
+	return NEW;
+END;
+$$
+Language plpgsql;
+
+CREATE TRIGGER ActualizarExistenciasVenta AFTER INSERT
+ON Transaccion.DetalleVenta FOR EACH ROW
+EXECUTE PROCEDURE ActualizarExistencias();
+
+Select * from Transaccion.Venta
