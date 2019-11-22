@@ -37,7 +37,7 @@ public class JFProducto extends javax.swing.JFrame {
         tfCostoVentaProducto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProducto = new javax.swing.JTable();
-        btIngresarProducto = new javax.swing.JButton();
+        btInsertarrProducto = new javax.swing.JButton();
         btModificarProducto = new javax.swing.JButton();
         btEliminarProducto = new javax.swing.JButton();
 
@@ -64,7 +64,7 @@ public class JFProducto extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tableProducto);
 
-        btIngresarProducto.setText("Insertar");
+        btInsertarrProducto.setText("Insertar");
 
         btModificarProducto.setText("Modificar");
 
@@ -100,7 +100,7 @@ public class JFProducto extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
-                        .addComponent(btIngresarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btInsertarrProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(85, 85, 85)
                         .addComponent(btModificarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)
@@ -124,7 +124,7 @@ public class JFProducto extends javax.swing.JFrame {
                     .addComponent(tfCostoVentaProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btIngresarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btInsertarrProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btModificarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btEliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
@@ -172,7 +172,7 @@ public class JFProducto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEliminarProducto;
-    private javax.swing.JButton btIngresarProducto;
+    private javax.swing.JButton btInsertarrProducto;
     private javax.swing.JButton btModificarProducto;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCostoProvProducto;
