@@ -30,7 +30,6 @@ public class JFEmpleado extends javax.swing.JFrame {
     
     public JFEmpleado() {
         initComponents();
-        ConectaBD();
         empleado = new Empleado(conexion);
     }
 
@@ -236,6 +235,11 @@ public class JFEmpleado extends javax.swing.JFrame {
         tfContrasenaEmpleado.setText((String)tableEmpleado.getValueAt(tableEmpleado.getSelectedRow(), 6));
     }//GEN-LAST:event_tableEmpleadoMouseClicked
 
+    public void AsignaConexion(Connection con)
+    {
+        conexion = con;
+    }
+    
     public void ActualizaTablaEmpleado()
     {
         modelo = new DefaultTableModel();

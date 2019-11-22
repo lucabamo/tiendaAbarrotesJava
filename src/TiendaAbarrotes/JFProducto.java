@@ -5,15 +5,27 @@
  */
 package TiendaAbarrotes;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sonia Hernandez
  */
 public class JFProducto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JFProducto
-     */
+    Connection conexion;
+    Producto producto;
+    private DefaultTableModel modelo;
+    private Statement st;
+    private PreparedStatement pt;
+    private ResultSet rs;
+    private String Qry;
+    private String idRow;
+    
     public JFProducto() {
         initComponents();
     }
@@ -135,6 +147,41 @@ public class JFProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void AsignaConexion(Connection con)
+    {
+        conexion = con;
+    }
+    
+    public void ActualizaTablaProducto()
+    {
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Id Producto");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Existencia");
+        modelo.addColumn("Costo proveedor");
+        modelo.addColumn("Costo venta");
+        
+        try {
+            Qry = "SELECT * FROM Inventario.Producto";
+            st = conexion.createStatement();
+            rs = st.executeQuery(Qry);
+            String Aux[] = new String[5];
+            while(rs.next()) {
+                Aux[0] = rs.getString(1);
+                Aux[1] = rs.getString(2);
+                Aux[2] = rs.getString(3);
+                Aux[3] = rs.getString(4);
+                Aux[4] = rs.getString(5);
+                modelo.addRow(Aux);
+            }
+            tableProducto.setModel(modelo);
+        }
+        catch(Exception e) {
+            
+        }
+        
+    }
+    
     /**
      * @param args the command line arguments
      */

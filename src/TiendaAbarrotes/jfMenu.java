@@ -48,6 +48,11 @@ public class jfMenu extends javax.swing.JFrame {
         btDetalleVenta = new javax.swing.JButton();
         btPromocion = new javax.swing.JButton();
         btProveedor = new javax.swing.JButton();
+        btEmpleado = new javax.swing.JButton();
+        btProducto = new javax.swing.JButton();
+        btCompra = new javax.swing.JButton();
+        btDetalleCompra = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -84,31 +89,82 @@ public class jfMenu extends javax.swing.JFrame {
             }
         });
 
+        btEmpleado.setText("Empleado");
+        btEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEmpleadoActionPerformed(evt);
+            }
+        });
+
+        btProducto.setText("Producto");
+        btProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProductoActionPerformed(evt);
+            }
+        });
+
+        btCompra.setText("Compra");
+        btCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCompraActionPerformed(evt);
+            }
+        });
+
+        btDetalleCompra.setText("Detalle Compra");
+        btDetalleCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDetalleCompraActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("MENU");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btVenta)
-                    .addComponent(btProveedor)
-                    .addComponent(btPromocion)
-                    .addComponent(btDetalleVenta))
-                .addContainerGap(408, Short.MAX_VALUE))
+                    .addComponent(btVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btPromocion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btDetalleVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(btProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btDetalleCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(258, 258, 258))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(247, 247, 247))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(btVenta)
-                .addGap(28, 28, 28)
-                .addComponent(btPromocion)
-                .addGap(27, 27, 27)
-                .addComponent(btDetalleVenta)
-                .addGap(28, 28, 28)
-                .addComponent(btProveedor)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btPromocion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btDetalleVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -143,6 +199,26 @@ public class jfMenu extends javax.swing.JFrame {
         proveedorFrame.setVisible(true);
     }//GEN-LAST:event_btProveedorActionPerformed
 
+    private void btEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEmpleadoActionPerformed
+        JFEmpleado empleado = new JFEmpleado();
+        empleado.AsignaConexion(conexion);
+        empleado.setVisible(true);
+    }//GEN-LAST:event_btEmpleadoActionPerformed
+
+    private void btProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProductoActionPerformed
+        JFProducto producto = new JFProducto();
+        producto.AsignaConexion(conexion);
+        producto.setVisible(true);
+    }//GEN-LAST:event_btProductoActionPerformed
+
+    private void btCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCompraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCompraActionPerformed
+
+    private void btDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDetalleCompraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btDetalleCompraActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -175,9 +251,14 @@ public class jfMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCompra;
+    private javax.swing.JButton btDetalleCompra;
     private javax.swing.JButton btDetalleVenta;
+    private javax.swing.JButton btEmpleado;
+    private javax.swing.JButton btProducto;
     private javax.swing.JButton btPromocion;
     private javax.swing.JButton btProveedor;
     private javax.swing.JButton btVenta;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
