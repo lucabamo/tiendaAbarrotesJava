@@ -34,6 +34,7 @@ CREATE TABLE Empresa.Proveedor(
 )
 
 ALTER TABLE Empresa.Proveedor ADD CONSTRAINT UQ_EMAIL UNIQUE (Email);
+ALTER TABLE Empresa.Proveedor ADD CONSTRAINT UQ_RFC UNIQUE (RFC);
 
 --Tabla Producto--
 CREATE TABLE Inventario.Producto(
@@ -69,11 +70,13 @@ CREATE TABLE Transaccion.Promocion(
 
 --Tabla detalle venta--
 CREATE TABLE Transaccion.DetalleVenta(
+	IdDetalleVenta BIGSERIAL NOT NULL,
 	IdVenta BIGINT NOT NULL,
 	IdPromocion BIGINT NOT NULL,
 	IdProducto BIGINT NOT NULL,
 	Cantidad INT NOT NULL,
 	Subtotal FLOAT8, --Usado para calcular subtotal--
+	CONSTRAINT PK_DETALLEVENTA PRIMARY KEY (IdDetalleVenta)
 	CONSTRAINT FK_VENTA2 FOREIGN KEY(IdVenta) REFERENCES Transaccion.Venta(IdVenta),
 	CONSTRAINT FK_PROMOCION FOREIGN KEY(IdPromocion) REFERENCES Transaccion.Promocion(IdPromocion),
 	CONSTRAINT FK_PRODUCTO1 FOREIGN KEY(IdProducto) REFERENCES Inventario.Producto(IdProducto)
@@ -91,10 +94,12 @@ CREATE TABLE Transaccion.Compra(
 )
 
 CREATE TABLE Transaccion.DetalleCompra(
+	IdDetalleCompra BIGSERIAL NOT NULL
 	IdCompra BIGINT NOT NULL,
 	IdProducto BIGINT NOT NULL,
 	Cantidad INT NOT NULL,
 	Subtotal FLOAT8,
+	CONSTRAINT PK_DETALLECOMPRA PRIMARY KEY (IdDetalleCompra)
 	CONSTRAINT FK_COMPRA1 FOREIGN KEY(IdCompra) REFERENCES Transaccion.Compra(IdCompra),
 	CONSTRAINT FK_PRODUCTO3 FOREIGN KEY(IdProducto) REFERENCES Inventario.Producto(IdProducto)
 )
@@ -131,6 +136,7 @@ CREATE TABLE Transaccion.Entrega(
 	CONSTRAINT FK_DEVOLUCION2 FOREIGN KEY(IdDevolucion) REFERENCES Transaccion.Devolucion(IdDevolucion)
 )
 
+
 --Trigger para actualizar existencias de un producto despues de realizar una compra al proveedor
 CREATE FUNCTION ActualizarInventario() RETURNS TRIGGER 
 AS $$
@@ -164,3 +170,144 @@ ON Transaccion.DetalleVenta FOR EACH ROW
 EXECUTE PROCEDURE ActualizarExistencias();
 
 Select * from Transaccion.Venta
+
+--Trigger para actualizar total de la venta
+CREATE FUNCTION ActualizarTotalVenta() RETURNS TRIGGER
+AS $$
+DECLARE BEGIN
+	UPDATE Transaccion.Venta SET 
+	Total = Total + NEW.Subtotal 
+	WHERE Venta.IdVenta = NEW.IdVenta;
+	RETURN NEW;
+END;
+$$
+Language plpgsql;
+
+CREATE TRIGGER ActualizarTotalVenta AFTER INSERT
+ON Transaccion.DetalleVenta FOR EACH ROW
+EXECUTE PROCEDURE ActualizarTotalVenta();
+
+CREATE FUNCTION ActualizarTotalVentaDel() RETURNS TRIGGER
+AS $$
+DECLARE BEGIN
+	UPDATE Transaccion.Venta SET 
+	Total = Total - OLD.Subtotal 
+	WHERE Venta.IdVenta = OLD.IdVenta;
+	RETURN OLD;
+END;
+$$
+Language plpgsql;
+
+CREATE TRIGGER ActualizarTotalVentaDelete AFTER DELETE
+ON Transaccion.DetalleVenta FOR EACH ROW
+EXECUTE PROCEDURE ActualizarTotalVentaDel();
+
+--Actualizar total compra
+CREATE FUNCTION ActualizarTotalCompra() RETURNS TRIGGER
+AS $$
+DECLARE BEGIN
+	UPDATE Transaccion.Compra SET 
+	Total = Total + NEW.Subtotal 
+	WHERE Compra.IdCompra = NEW.IdCompra;
+	RETURN NEW;
+END;
+$$
+Language plpgsql;
+
+CREATE TRIGGER ActualizarTotalCompra AFTER INSERT
+ON Transaccion.DetalleCompra FOR EACH ROW
+EXECUTE PROCEDURE ActualizarTotalCompra();
+
+CREATE FUNCTION ActualizarTotalCompraDel() RETURNS TRIGGER
+AS $$
+DECLARE BEGIN
+	UPDATE Transaccion.Compra SET 
+	Total = Total - OLD.Subtotal 
+	WHERE Compra.IdCompra = OLD.IdCompra;
+	RETURN OLD;
+END;
+$$
+Language plpgsql;
+
+CREATE TRIGGER ActualizarTotalCompraDelete AFTER DELETE
+ON Transaccion.DetalleCompra FOR EACH ROW
+EXECUTE PROCEDURE ActualizarTotalCompraDel();
+
+--Trigger para calcular el subtotal de la venta tomando en consideracion el descuento
+CREATE FUNCTION CalcularSubtotalVenta() RETURNS TRIGGER
+AS $$
+DECLARE 
+	id_Producto BIGINT;
+	id_Promocion BIGINT;
+	cantidad INT;
+	costoVenta FLOAT8;
+	descuento_Promo REAL;
+	fecha_inicio TIMESTAMP;
+	fecha_final TIMESTAMP;
+
+BEGIN
+	cantidad = NEW.Cantidad;
+	id_Producto = NEW.IdProducto;
+	id_Promocion = NEW.IdPromocion;
+	SELECT Producto.CostoVenta INTO costoVenta FROM Inventario.Producto WHERE Producto.IdProducto = id_Producto;
+	SELECT Promocion.Descuento INTO descuento_Promo FROM Transaccion.Promocion WHERE Promocion.IdPromocion = id_Promocion;
+	SELECT Promocion.FechaInicio INTO fecha_inicio FROM Transaccion.Promocion WHERE Promocion.IdPromocion = id_Promocion;
+	SELECT Promocion.FechaFinal INTO fecha_final FROM Transaccion.Promocion WHERE Promocion.IdPromocion = id_Promocion;
+	IF CURRENT_DATE NOT BETWEEN fecha_inicio AND fecha_final THEN
+		descuento_Promo = 0;
+	 END IF;
+	NEW.Subtotal := (cantidad*costoVenta - (descuento_Promo * costoVenta * cantidad)); 
+	RETURN NEW;
+
+END;
+$$
+Language plpgsql;	
+
+CREATE TRIGGER ActualizarSubtotalDetalleVenta BEFORE INSERT
+ON Transaccion.DetalleVenta FOR EACH ROW
+EXECUTE PROCEDURE CalcularSubtotalVenta();
+
+--Trigger para calcular el subtotal de la compra
+
+CREATE FUNCTION CalcularSubtotalCompra() RETURNS TRIGGER
+AS $$
+DECLARE 
+	id_Producto BIGINT;
+	cantidad INT;
+	costo_proveedor FLOAT8;
+BEGIN
+	cantidad = NEW.Cantidad;
+	id_Producto = NEW.IdProducto;
+	SELECT Producto.CostoProveedor INTO costo_proveedor FROM Inventario.Producto WHERE Producto.IdProducto = id_Producto;
+	NEW.Subtotal := (cantidad * costo_proveedor); 
+	RETURN NEW;
+
+END;
+$$
+Language plpgsql;	
+
+CREATE TRIGGER ActualizarSubtotalDetalleCompra BEFORE INSERT
+ON Transaccion.DetalleCompra FOR EACH ROW
+EXECUTE PROCEDURE CalcularSubtotalCompra();
+
+
+DROP TRIGGER ActualizarSubtotalDetalleVenta ON Transaccion.DetalleVenta
+DROP FUNCTION CalcularSubtotalVenta()
+
+SELECT * FROM Transaccion.Venta
+
+SELECT * FROM Transaccion.DetalleVenta
+
+INSERT INTO Transaccion.DetalleVenta (IdVenta, IdPromocion, IdProducto,Cantidad) VALUES (4,1,1,10)
+
+SELECT * FROM Transaccion.Promocion
+
+INSERT INTO Transaccion.DetalleVenta (IdVenta, IdPromocion, IdProducto,Cantidad) VALUES (4,3,1,1)
+
+SELECT * FROM Empresa.Proveedor
+SELECT * FROM  Transaccion.DetalleCompra
+SELECT * FROM Transaccion.Compra
+INSERT INTO Transaccion.Compra (IdProveedor,IdEmpleado,Fecha,Total) VALUES (1,1, '2019-11-20',0)
+INSERT INTO Transaccion.DetalleCompra(IdCompra, IdProducto,Cantidad) VALUES (1,1,1)
+
+SELECT * FROM Inventario.Producto
