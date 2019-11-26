@@ -32,26 +32,6 @@ public class JFEmpleado extends javax.swing.JFrame {
         initComponents();
         empleado = new Empleado(conexion);
     }
-
-    public void ConectaBD()
-    {
-        String URL, Nombre, PWD;
-        
-        URL = "jdbc:postgresql://localhost:5432/TiendaAbarrotes";
-        Nombre = "postgres";
-        PWD = "postgres";
-        
-        try{
-            conexion = DriverManager.getConnection(URL, Nombre, PWD);
-            if(conexion != null)
-            {
-                //javax.swing.JOptionPane.showMessageDialog(this, "Conexión exitosa");
-            }
-        }
-        catch(Exception w){
-            javax.swing.JOptionPane.showMessageDialog(this, "Error en la conexion: " + w.getMessage());
-        }
-    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

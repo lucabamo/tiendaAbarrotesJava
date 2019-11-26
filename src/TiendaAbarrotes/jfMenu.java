@@ -212,11 +212,15 @@ public class jfMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btProductoActionPerformed
 
     private void btCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCompraActionPerformed
-        // TODO add your handling code here:
+        JFCompra compra = new JFCompra();
+        compra.AsignaConexion(conexion);
+        compra.setVisible(true);
     }//GEN-LAST:event_btCompraActionPerformed
 
     private void btDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDetalleCompraActionPerformed
-        // TODO add your handling code here:
+        JFDetalleCompra detalleCompra = new JFDetalleCompra();
+        detalleCompra.AsignaConexion(conexion);
+        detalleCompra.setVisible(true);
     }//GEN-LAST:event_btDetalleCompraActionPerformed
 
     public static void main(String args[]) {

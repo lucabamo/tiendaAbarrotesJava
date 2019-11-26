@@ -35,7 +35,7 @@ public class Empleado {
             pt.setString(1, nombre);
             pt.setString(2, domicilio);
             pt.setDate(3, fecha);
-            pt.setString(4, edad);
+            pt.setInt(4, Integer.parseInt(edad));
             pt.setString(5, usuario);
             pt.setString(6, contraseña);
             
@@ -57,7 +57,7 @@ public class Empleado {
             pt.setString(1, nombre);
             pt.setString(2, domicilio);
             pt.setDate(3, fecha);
-            pt.setString(4, edad);
+            pt.setInt(4, Integer.parseInt(edad));
             pt.setString(5, usuario);
             pt.setString(6, contraseña);
             pt.setInt(7, Integer.parseInt(IdEmpleado));

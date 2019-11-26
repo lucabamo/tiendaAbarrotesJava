@@ -5,17 +5,35 @@
  */
 package TiendaAbarrotes;
 
+import java.sql.Connection;
+import java.util.List;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sonia Hernandez
  */
 public class JFDetalleCompra extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JFDetalleCompra
-     */
+    private Connection conexion = null;
+    private DetalleCompra detalleCompra;
+    private DefaultTableModel modelo;
+    private Statement st;
+    private PreparedStatement pt;
+    private ResultSet rs;
+    private String Qry;
+    private String idRow;
+    private List<String> compras;
+    private List<String[]> productos;
+    
     public JFDetalleCompra() {
         initComponents();
+        LlenaComboBox();
+        detalleCompra = new DetalleCompra(conexion);
     }
 
     /**
@@ -56,10 +74,25 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         lbSubtotalDetalleCompra.setText("Subtotal:");
 
         btInsertarDetalleCompra.setText("Insertar");
+        btInsertarDetalleCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInsertarDetalleCompraActionPerformed(evt);
+            }
+        });
 
         btModificarDetalleCompra.setText("Modificar");
+        btModificarDetalleCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarDetalleCompraActionPerformed(evt);
+            }
+        });
 
         btEliminarDetalleCompra.setText("Eliminar");
+        btEliminarDetalleCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarDetalleCompraActionPerformed(evt);
+            }
+        });
 
         tableDetalleCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,6 +105,11 @@ public class JFDetalleCompra extends javax.swing.JFrame {
 
             }
         ));
+        tableDetalleCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDetalleCompraMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableDetalleCompra);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -137,6 +175,124 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btInsertarDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarDetalleCompraActionPerformed
+        String idProducto = "";
+        
+        for(int i = 0; i < productos.size(); i++)
+        {
+            if(productos.get(i)[1] == (String)cbProductoDetalleCompra.getSelectedItem())
+            {
+                idProducto = productos.get(i)[0];
+            }
+        }
+        detalleCompra.InsertaDetalleCompra((String)cbCompraDetalleCompra.getSelectedItem(), idProducto, tfCantidadDetalleCompra.getText(), tfSubtotalDetalleCompra.getText());
+        ActualizaTablaDetalleCompra();
+    }//GEN-LAST:event_btInsertarDetalleCompraActionPerformed
+
+    private void btModificarDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarDetalleCompraActionPerformed
+        String idProducto = "";
+        
+        for(int i = 0; i < productos.size(); i++)
+        {
+            if(productos.get(i)[1] == (String)cbProductoDetalleCompra.getSelectedItem())
+            {
+                idProducto = productos.get(i)[0];
+            }
+        }
+        detalleCompra.ModificaDetalleCompra((String)cbCompraDetalleCompra.getSelectedItem(), idProducto, tfCantidadDetalleCompra.getText(), tfSubtotalDetalleCompra.getText(), idRow);
+        ActualizaTablaDetalleCompra();
+    }//GEN-LAST:event_btModificarDetalleCompraActionPerformed
+
+    private void btEliminarDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarDetalleCompraActionPerformed
+        detalleCompra.EliminaDetalleCompra(idRow);
+        ActualizaTablaDetalleCompra();
+    }//GEN-LAST:event_btEliminarDetalleCompraActionPerformed
+
+    private void tableDetalleCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDetalleCompraMouseClicked
+        String i = (String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 0);
+        //javax.swing.JOptionPane.showMessageDialog(this, i);
+        idRow = i;
+        cbCompraDetalleCompra.setSelectedItem((Item)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 1));
+        cbProductoDetalleCompra.setSelectedItem((Item)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 2));
+        tfCantidadDetalleCompra.setText((String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 3));
+        tfSubtotalDetalleCompra.setText((String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 4));
+    }//GEN-LAST:event_tableDetalleCompraMouseClicked
+
+    public void LlenaComboBox()
+    {
+        try {
+            Qry = "SELECT IdCompra FROM Transaccion.Compra";
+            st = conexion.createStatement();
+            rs = st.executeQuery(Qry);
+            String Aux;
+            while(rs.next()) {
+                Aux = rs.getString(1);
+                compras.add(Aux);
+            }
+        }
+        catch(Exception e) {
+            
+        }
+        
+        try {
+            Qry = "SELECT IdProducto, Nombre FROM Inventario.Producto";
+            st = conexion.createStatement();
+            rs = st.executeQuery(Qry);
+            String Aux[] = new String[2];
+            while(rs.next()) {
+                Aux[0] = rs.getString(1);
+                Aux[1] = rs.getString(2);
+                productos.add(Aux);
+            }
+        }
+        catch(Exception e) {
+            
+        }
+        
+        for(int i = 0; i < compras.size(); i++)
+        {
+            cbCompraDetalleCompra.addItem(compras.get(i));
+        }
+        for(int i = 0; i < productos.size(); i++)
+        {
+            cbProductoDetalleCompra.addItem(productos.get(i)[1]);
+        }
+        
+    }
+    
+    public void AsignaConexion(Connection con)
+    {
+        conexion = con;
+    }
+    
+    public void ActualizaTablaDetalleCompra()
+    {
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Id Compra");
+        modelo.addColumn("Id Producto");
+        modelo.addColumn("Cantidad");
+        modelo.addColumn("Subtotal");
+        
+        try {
+            Qry = "SELECT * FROM Transaccion.DetalleCompra";
+            st = conexion.createStatement();
+            rs = st.executeQuery(Qry);
+            String Aux[] = new String[4];
+            while(rs.next()) {
+                Aux[0] = rs.getString(2);
+                Aux[1] = rs.getString(3);
+                Aux[2] = rs.getString(4);
+                Aux[3] = rs.getString(5);
+                modelo.addRow(Aux);
+            }
+            tableDetalleCompra.setModel(modelo);
+        }
+        catch(Exception e) {
+            
+        }
+        
+    }
+    
     /**
      * @param args the command line arguments
      */

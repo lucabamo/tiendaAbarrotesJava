@@ -6,6 +6,7 @@
 package TiendaAbarrotes;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -28,6 +29,7 @@ public class JFProducto extends javax.swing.JFrame {
     
     public JFProducto() {
         initComponents();
+        producto = new Producto(conexion);
     }
 
     /**
@@ -49,7 +51,7 @@ public class JFProducto extends javax.swing.JFrame {
         tfCostoVentaProducto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableProducto = new javax.swing.JTable();
-        btInsertarrProducto = new javax.swing.JButton();
+        btInsertarProducto = new javax.swing.JButton();
         btModificarProducto = new javax.swing.JButton();
         btEliminarProducto = new javax.swing.JButton();
 
@@ -74,13 +76,33 @@ public class JFProducto extends javax.swing.JFrame {
 
             }
         ));
+        tableProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableProductoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableProducto);
 
-        btInsertarrProducto.setText("Insertar");
+        btInsertarProducto.setText("Insertar");
+        btInsertarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInsertarProductoActionPerformed(evt);
+            }
+        });
 
         btModificarProducto.setText("Modificar");
+        btModificarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarProductoActionPerformed(evt);
+            }
+        });
 
         btEliminarProducto.setText("Eliminar");
+        btEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarProductoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,10 +134,10 @@ public class JFProducto extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
-                        .addComponent(btInsertarrProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btInsertarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(85, 85, 85)
-                        .addComponent(btModificarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
+                        .addComponent(btModificarProducto)
+                        .addGap(76, 76, 76)
                         .addComponent(btEliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
@@ -136,9 +158,9 @@ public class JFProducto extends javax.swing.JFrame {
                     .addComponent(tfCostoVentaProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btInsertarrProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btModificarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btEliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btInsertarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btModificarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btEliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))
@@ -146,6 +168,31 @@ public class JFProducto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btInsertarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarProductoActionPerformed
+        producto.InsertaProducto(tfNombreProducto.getText(), tfExistenciaProducto.getText(), tfCostoProvProducto.getText(), tfCostoVentaProducto.getText());
+        ActualizaTablaProducto();
+    }//GEN-LAST:event_btInsertarProductoActionPerformed
+
+    private void btModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarProductoActionPerformed
+        producto.ModificaProducto(tfNombreProducto.getText(), tfExistenciaProducto.getText(), tfCostoProvProducto.getText(), tfCostoVentaProducto.getText(), idRow);
+        ActualizaTablaProducto();
+    }//GEN-LAST:event_btModificarProductoActionPerformed
+
+    private void btEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarProductoActionPerformed
+        producto.EliminaProducto(idRow);
+        ActualizaTablaProducto();
+    }//GEN-LAST:event_btEliminarProductoActionPerformed
+
+    private void tableProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProductoMouseClicked
+        String i = (String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 0);
+        //javax.swing.JOptionPane.showMessageDialog(this, i);
+        idRow = i;
+        tfNombreProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 1));
+        tfExistenciaProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 2));
+        tfCostoProvProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 3));
+        tfCostoVentaProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 4));
+    }//GEN-LAST:event_tableProductoMouseClicked
 
     public void AsignaConexion(Connection con)
     {
@@ -219,7 +266,7 @@ public class JFProducto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEliminarProducto;
-    private javax.swing.JButton btInsertarrProducto;
+    private javax.swing.JButton btInsertarProducto;
     private javax.swing.JButton btModificarProducto;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCostoProvProducto;

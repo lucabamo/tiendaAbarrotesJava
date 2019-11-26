@@ -5,17 +5,37 @@
  */
 package TiendaAbarrotes;
 
+//import java.awt.List;
+import java.util.List;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sonia Hernandez
  */
 public class JFCompra extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JFCompra
-     */
+    private Connection conexion = null;
+    private Compra compra;
+    private DefaultTableModel modelo;
+    private Statement st;
+    private PreparedStatement pt;
+    private ResultSet rs;
+    private String Qry;
+    private String idRow;
+    private List<String[]> proveedores;
+    private List<String[]> empleados;
+    
+    
     public JFCompra() {
         initComponents();
+        LlenaComboBox();
+        compra = new Compra(conexion);
     }
 
     /**
@@ -39,7 +59,7 @@ public class JFCompra extends javax.swing.JFrame {
         tableCompra = new javax.swing.JTable();
         cbProveedorCompra = new javax.swing.JComboBox<>();
         cbEmpleadoCompra = new javax.swing.JComboBox<>();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        dpFechaCompra = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,10 +72,25 @@ public class JFCompra extends javax.swing.JFrame {
         lbTotalCompra.setText("Total:");
 
         btInsertarCompra.setText("Insertar");
+        btInsertarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInsertarCompraActionPerformed(evt);
+            }
+        });
 
         btModificarCompra.setText("Modificar");
+        btModificarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModificarCompraActionPerformed(evt);
+            }
+        });
 
         btEliminarCompra.setText("Eliminar");
+        btEliminarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarCompraActionPerformed(evt);
+            }
+        });
 
         tableCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -68,11 +103,18 @@ public class JFCompra extends javax.swing.JFrame {
 
             }
         ));
+        tableCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCompraMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableCompra);
 
         cbProveedorCompra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cbEmpleadoCompra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        dpFechaCompra.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,7 +132,7 @@ public class JFCompra extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(cbProveedorCompra, 0, 170, Short.MAX_VALUE)
-                                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(dpFechaCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(37, 37, 37)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lbEmpleadoCompra)
@@ -123,7 +165,7 @@ public class JFCompra extends javax.swing.JFrame {
                     .addComponent(lbFechaCompra)
                     .addComponent(lbTotalCompra)
                     .addComponent(tfTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dpFechaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btInsertarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -137,6 +179,142 @@ public class JFCompra extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btInsertarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarCompraActionPerformed
+        String idProveedor = "", idEmpleado = "";
+        
+        for(int i = 0; i < proveedores.size(); i++)
+        {
+            if(proveedores.get(i)[1] == (String)cbProveedorCompra.getSelectedItem())
+            {
+                idProveedor = proveedores.get(i)[0];
+            }
+        }
+        
+        for(int i = 0; i < empleados.size(); i++)
+        {
+            if(empleados.get(i)[1] == (String)cbEmpleadoCompra.getSelectedItem())
+            {
+                idEmpleado = empleados.get(i)[0];
+            }
+        }
+        compra.InsertaCompra(idProveedor, idEmpleado, (Date)dpFechaCompra.getDate(), tfTotalCompra.getText());
+        ActualizaTablaCompra();
+    }//GEN-LAST:event_btInsertarCompraActionPerformed
+
+    private void btModificarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarCompraActionPerformed
+        String idProveedor = "", idEmpleado = "";
+        
+        for(int i = 0; i < proveedores.size(); i++)
+        {
+            if(proveedores.get(i)[1] == (String)cbProveedorCompra.getSelectedItem())
+            {
+                idProveedor = proveedores.get(i)[0];
+            }
+        }
+        
+        for(int i = 0; i < empleados.size(); i++)
+        {
+            if(empleados.get(i)[1] == (String)cbEmpleadoCompra.getSelectedItem())
+            {
+                idEmpleado = empleados.get(i)[0];
+            }
+        }
+        compra.ModificaCompra(idProveedor, idEmpleado, (Date)dpFechaCompra.getDate(), tfTotalCompra.getText(), idRow);
+        ActualizaTablaCompra();
+    }//GEN-LAST:event_btModificarCompraActionPerformed
+
+    private void btEliminarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarCompraActionPerformed
+        compra.EliminarCompra(idRow);
+        ActualizaTablaCompra();
+    }//GEN-LAST:event_btEliminarCompraActionPerformed
+
+    private void tableCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCompraMouseClicked
+        String i = (String)tableCompra.getValueAt(tableCompra.getSelectedRow(), 0);
+        //javax.swing.JOptionPane.showMessageDialog(this, i);
+        idRow = i;
+        cbProveedorCompra.setSelectedItem((String)tableCompra.getValueAt(tableCompra.getSelectedRow(), 1));
+        cbEmpleadoCompra.setSelectedItem((String)tableCompra.getValueAt(tableCompra.getSelectedRow(), 2));
+        dpFechaCompra.setDate((Date)tableCompra.getValueAt(tableCompra.getSelectedRow(), 3));
+        tfTotalCompra.setText((String)tableCompra.getValueAt(tableCompra.getSelectedRow(), 4));
+    }//GEN-LAST:event_tableCompraMouseClicked
+
+    public void LlenaComboBox()
+    {
+        try {
+            Qry = "SELECT IdProveedor, Nombre FROM Empresa.Proveedor";
+            st = conexion.createStatement();
+            rs = st.executeQuery(Qry);
+            String Aux[] = new String[2];
+            while(rs.next()) {
+                Aux[0] = rs.getString(1);
+                Aux[1] = rs.getString(2);
+                proveedores.add(Aux);
+            }
+        }
+        catch(Exception e) {
+            
+        }
+        
+        try {
+            Qry = "SELECT IdEmpleado, Nombre FROM Empresa.Empleado";
+            st = conexion.createStatement();
+            rs = st.executeQuery(Qry);
+            String Aux[] = new String[2];
+            while(rs.next()) {
+                Aux[0] = rs.getString(1);
+                Aux[1] = rs.getString(2);
+                empleados.add(Aux);
+            }
+        }
+        catch(Exception e) {
+            
+        }
+        
+        for(int i = 0; i < proveedores.size(); i++)
+        {
+            cbProveedorCompra.addItem(proveedores.get(i)[1]);
+        }
+        for(int i = 0; i < empleados.size(); i++)
+        {
+            cbEmpleadoCompra.addItem(empleados.get(i)[1]);
+        }
+        
+    }
+    
+    public void AsignaConexion(Connection con)
+    {
+        conexion = con;
+    }
+    
+    public void ActualizaTablaCompra()
+    {
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Id Compra");
+        modelo.addColumn("Proveedor");
+        modelo.addColumn("Empleado");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Total");
+        
+        try {
+            Qry = "SELECT * FROM Transaccion.Compra";
+            st = conexion.createStatement();
+            rs = st.executeQuery(Qry);
+            String Aux[] = new String[5];
+            while(rs.next()) {
+                Aux[0] = rs.getString(1);
+                Aux[1] = rs.getString(2);
+                Aux[2] = rs.getString(3);
+                Aux[3] = rs.getString(4);
+                Aux[4] = rs.getString(5);
+                modelo.addRow(Aux);
+            }
+            tableCompra.setModel(modelo);
+        }
+        catch(Exception e) {
+            
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -178,8 +356,8 @@ public class JFCompra extends javax.swing.JFrame {
     private javax.swing.JButton btModificarCompra;
     private javax.swing.JComboBox<String> cbEmpleadoCompra;
     private javax.swing.JComboBox<String> cbProveedorCompra;
+    private org.jdesktop.swingx.JXDatePicker dpFechaCompra;
     private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     private javax.swing.JLabel lbEmpleadoCompra;
     private javax.swing.JLabel lbFechaCompra;
     private javax.swing.JLabel lbProveedorCompra;
