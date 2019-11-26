@@ -34,11 +34,19 @@ public class jfEntrega extends javax.swing.JFrame {
     /**
      * Creates new form jfEntrega
      */
-    public jfEntrega() {
+    public jfEntrega(Connection conexion) {
         initComponents();
         entrega = new Entrega();
+        this.conexion = conexion;
     }
 
+    
+    public void limpiaFormulario(){
+        jcEmpleadoEntrega.setSelectedItem(null);
+        jcProveedorEntrega.setSelectedItem(null);
+        jcMotivoDevEntrega.setSelectedItem(null);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +67,7 @@ public class jfEntrega extends javax.swing.JFrame {
         jBEliminarEntrega = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTEntregas = new javax.swing.JTable();
+        jDtFechaEntrega = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -67,35 +76,38 @@ public class jfEntrega extends javax.swing.JFrame {
             }
         });
 
-        jcEmpleadoEntrega.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jcProveedorEntrega.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLEmpleadoEntrega.setText("Empleado");
 
         jLProveedorEntrega.setText("Proveedor");
 
         jLMotivoEntrega.setText("Motivo devolución");
 
-        jcMotivoDevEntrega.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jBAgregarEntrega.setText("Agregar");
+        jBAgregarEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAgregarEntregaActionPerformed(evt);
+            }
+        });
 
         jBEditarEntrega.setText("Editar");
+        jBEditarEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEditarEntregaActionPerformed(evt);
+            }
+        });
 
         jBEliminarEntrega.setText("Eliminar");
-
-        jTEntregas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        jBEliminarEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarEntregaActionPerformed(evt);
             }
-        ));
+        });
+
+        jTEntregas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTEntregasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTEntregas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -114,7 +126,10 @@ public class jfEntrega extends javax.swing.JFrame {
                                     .addComponent(jcEmpleadoEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(89, 89, 89)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLProveedorEntrega)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLProveedorEntrega)
+                                        .addGap(156, 156, 156)
+                                        .addComponent(jDtFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jcProveedorEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jcMotivoDevEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -133,10 +148,12 @@ public class jfEntrega extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLEmpleadoEntrega)
-                    .addComponent(jLProveedorEntrega))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLEmpleadoEntrega)
+                        .addComponent(jLProveedorEntrega))
+                    .addComponent(jDtFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcEmpleadoEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcProveedorEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -150,7 +167,7 @@ public class jfEntrega extends javax.swing.JFrame {
                     .addComponent(jBEliminarEntrega))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,8 +177,69 @@ public class jfEntrega extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         entrega.consultaEntregas(conexion, jTEntregas);
+        entrega.cargaNombreEmpleados(conexion, jcEmpleadoEntrega);
+        entrega.cargaNombreProveedores(conexion, jcProveedorEntrega);
+        entrega.cargaMotivoDevoluciones(conexion, jcMotivoDevEntrega);
+        resetControles();
     }//GEN-LAST:event_formWindowOpened
 
+    private void jBEliminarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarEntregaActionPerformed
+        // TODO add your handling code here:
+        entrega.eliminaEntrega(conexion);
+        entrega.consultaEntregas(conexion, jTEntregas);
+        resetControles();
+
+    }//GEN-LAST:event_jBEliminarEntregaActionPerformed
+
+    private void jBAgregarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarEntregaActionPerformed
+        // TODO add your handling code here:
+        int idProveedor = ((Item) jcProveedorEntrega.getSelectedItem()).getId();
+        int idDevolucion = ((Item) jcMotivoDevEntrega.getSelectedItem()).getId();
+        int idEmpleado = ((Item) jcEmpleadoEntrega.getSelectedItem()).getId();
+        LocalDate fecha = jDtFechaEntrega.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        entrega.insertaEntrega(conexion, idProveedor, idDevolucion, idEmpleado, fecha);
+        entrega.consultaEntregas(conexion, jTEntregas);
+        resetControles();
+    }//GEN-LAST:event_jBAgregarEntregaActionPerformed
+
+    private void jBEditarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarEntregaActionPerformed
+        // TODO add your handling code here:
+        int idProveedor = ((Item) jcProveedorEntrega.getSelectedItem()).getId();
+        int idDevolucion = ((Item) jcMotivoDevEntrega.getSelectedItem()).getId();
+        int idEmpleado = ((Item) jcEmpleadoEntrega.getSelectedItem()).getId();
+        LocalDate fecha = jDtFechaEntrega.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        entrega.modificaEntrega(conexion, idProveedor, idDevolucion, idEmpleado, fecha);
+        entrega.consultaEntregas(conexion, jTEntregas);
+        resetControles();
+
+    }//GEN-LAST:event_jBEditarEntregaActionPerformed
+
+    
+    public void resetControles(){
+        jcProveedorEntrega.setSelectedItem(null);
+        jcMotivoDevEntrega.setSelectedItem(null);
+        jcEmpleadoEntrega.setSelectedItem(null);
+        jDtFechaEntrega.setDate(null);
+    }
+    
+    private void jTEntregasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTEntregasMouseClicked
+        // TODO add your handling code here:
+        JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+
+        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        entrega.setIdEntrega(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
+        jcProveedorEntrega.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 1).toString())));
+        jcEmpleadoEntrega.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 2).toString())));
+        jcMotivoDevEntrega.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 3).toString())));
+
+        try {
+            jDtFechaEntrega.setDate((java.util.Date) simpleDateFormat.parse(source.getModel().getValueAt(row, 4).toString()));
+        } catch (ParseException ex) {
+            Logger.getLogger(jfVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jTEntregasMouseClicked
+    
     /**
      * @param args the command line arguments
      */
@@ -192,15 +270,18 @@ public class jfEntrega extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new jfEntrega().setVisible(true);
+                //new jfEntrega().setVisible(true);
             }
         });
     }
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAgregarEntrega;
     private javax.swing.JButton jBEditarEntrega;
     private javax.swing.JButton jBEliminarEntrega;
+    private org.jdesktop.swingx.JXDatePicker jDtFechaEntrega;
     private javax.swing.JLabel jLEmpleadoEntrega;
     private javax.swing.JLabel jLMotivoEntrega;
     private javax.swing.JLabel jLProveedorEntrega;

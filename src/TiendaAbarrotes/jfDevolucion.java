@@ -5,6 +5,16 @@
  */
 package TiendaAbarrotes;
 
+import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
+
 /**
  *
  * @author Luis Bacasehua
@@ -14,10 +24,20 @@ public class jfDevolucion extends javax.swing.JFrame {
     /**
      * Creates new form jfDevolucion
      */
+     private Connection conexion = null;
+     private float monto = 0.0f;
+    Devolucion devolucion;
+
+
+    
     public jfDevolucion() {
         initComponents();
+        devolucion = new Devolucion();
     }
 
+    public void asignaConexion(Connection connection){
+        this.conexion = connection;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,12 +59,14 @@ public class jfDevolucion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTDevoluciones = new javax.swing.JTable();
+        jDtFechaDevolucionDev = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jCEmpleadoDevolucion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jCVentaDevolucion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("Empleado");
 
@@ -53,24 +75,33 @@ public class jfDevolucion extends javax.swing.JFrame {
         jLabel3.setText("Motivo Devolución");
 
         jBAgregarDevolucion.setText("Agregar");
+        jBAgregarDevolucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAgregarDevolucionActionPerformed(evt);
+            }
+        });
 
         jBEditarDevolucion.setText("Editar");
+        jBEditarDevolucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEditarDevolucionActionPerformed(evt);
+            }
+        });
 
         jBEliminarDevolucion.setText("Eliminar");
+        jBEliminarDevolucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarDevolucionActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Fecha devolución");
 
-        jTDevoluciones.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        jTDevoluciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTDevolucionesMouseClicked(evt);
             }
-        ));
+        });
         jScrollPane1.setViewportView(jTDevoluciones);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -91,15 +122,16 @@ public class jfDevolucion extends javax.swing.JFrame {
                         .addComponent(jBEliminarDevolucion))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCEmpleadoDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(155, 155, 155)
+                            .addComponent(jLabel1)
+                            .addComponent(jCEmpleadoDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(119, 119, 119)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(124, 124, 124)
-                                .addComponent(jLabel4))
-                            .addComponent(jCVentaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel2)
+                            .addComponent(jCVentaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jDtFechaDevolucionDev, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(40, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -117,8 +149,9 @@ public class jfDevolucion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCEmpleadoDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCVentaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(jCVentaDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDtFechaDevolucionDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -133,6 +166,73 @@ public class jfDevolucion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    //Evento cuando se abre la ventana
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        
+        devolucion.consultaDevoluciones(conexion, jTDevoluciones);
+        devolucion.cargaNombreEmpleados(conexion, jCEmpleadoDevolucion);
+        devolucion.cargaIdVentasVentas(conexion, jCVentaDevolucion);
+        resetControles();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jBAgregarDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarDevolucionActionPerformed
+        // TODO add your handling code here:
+        int idVenta = Integer.parseInt(jCVentaDevolucion.getSelectedItem().toString());
+        int idEmpleado = ((Item) jCEmpleadoDevolucion.getSelectedItem()).getId();
+        LocalDate fecha = jDtFechaDevolucionDev.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        float monto = 0.0f;
+        devolucion.agregaDevolucion(conexion, idEmpleado, idVenta, fecha, jtfMotivoDevolucionDev.getText(), monto);
+        devolucion.consultaDevoluciones(conexion, jTDevoluciones);
+        resetControles();
+        //resetControles();
+    }//GEN-LAST:event_jBAgregarDevolucionActionPerformed
+
+    private void jTDevolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDevolucionesMouseClicked
+        // TODO add your handling code here:
+        JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        devolucion.setIdDevolucion(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
+
+        jCEmpleadoDevolucion.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 1).toString())));
+        jCVentaDevolucion.setSelectedItem(source.getModel().getValueAt(row, 2).toString());
+        try {
+            jDtFechaDevolucionDev.setDate((java.util.Date) simpleDateFormat.parse(source.getModel().getValueAt(row, 3).toString()));
+        } 
+        catch (ParseException ex) {
+            Logger.getLogger(jfVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jtfMotivoDevolucionDev.setText(source.getModel().getValueAt(row, 4).toString());
+        monto = Float.parseFloat(source.getModel().getValueAt(row, 5).toString());
+    }//GEN-LAST:event_jTDevolucionesMouseClicked
+
+    //Eliminar una devolución
+    private void jBEliminarDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarDevolucionActionPerformed
+        // TODO add your handling code here:
+        devolucion.eliminaDevolucion(conexion);
+        devolucion.consultaDevoluciones(conexion, jTDevoluciones);
+    }//GEN-LAST:event_jBEliminarDevolucionActionPerformed
+
+    private void jBEditarDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarDevolucionActionPerformed
+        // TODO add your handling code here:
+        int idVenta = Integer.parseInt(jCVentaDevolucion.getSelectedItem().toString());
+        int idEmpleado = ((Item) jCEmpleadoDevolucion.getSelectedItem()).getId();
+        LocalDate fecha = jDtFechaDevolucionDev.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        devolucion.modificaDevolucion(conexion, idEmpleado, idVenta, fecha, jtfMotivoDevolucionDev.getText(), monto);
+        devolucion.consultaDevoluciones(conexion, jTDevoluciones);
+        resetControles();
+    }//GEN-LAST:event_jBEditarDevolucionActionPerformed
+
+    
+    
+    public void resetControles() {
+        jCEmpleadoDevolucion.setSelectedItem(null);
+        jCVentaDevolucion.setSelectedItem(null);
+        jDtFechaDevolucionDev.setDate(null);
+        jtfMotivoDevolucionDev.setText("");
+    }
 
     /**
      * @param args the command line arguments
@@ -175,6 +275,7 @@ public class jfDevolucion extends javax.swing.JFrame {
     private javax.swing.JButton jBEliminarDevolucion;
     private javax.swing.JComboBox<String> jCEmpleadoDevolucion;
     private javax.swing.JComboBox<String> jCVentaDevolucion;
+    private org.jdesktop.swingx.JXDatePicker jDtFechaDevolucionDev;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

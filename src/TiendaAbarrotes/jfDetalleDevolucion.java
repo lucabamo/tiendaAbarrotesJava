@@ -5,12 +5,17 @@
  */
 package TiendaAbarrotes;
 
+import java.sql.Connection;
+import javax.swing.JTable;
 /**
  *
  * @author Luis Bacasehua
  */
 public class jfDetalleDevolucion extends javax.swing.JFrame {
 
+    private Connection conexion;
+
+    private DetalleDevolucion detalleDevolucion;
     /**
      * Creates new form jfDetalleDevolucion
      */
@@ -18,6 +23,10 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         initComponents();
     }
 
+    
+        public void asignaConexion(Connection connection) {
+        this.conexion = connection;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,12 +36,12 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jMotivoDevEntrega = new javax.swing.JLabel();
+        jLProductoDetalleDev = new javax.swing.JLabel();
         jCMotivoDevolucionDetalle = new javax.swing.JComboBox<>();
         jCProductoDetalle = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTDetallesDevoluciones = new javax.swing.JTable();
         jBAgregarDetalleDev = new javax.swing.JButton();
         jBEditarDetalleDev = new javax.swing.JButton();
         jBEliminarDetalleDev = new javax.swing.JButton();
@@ -40,27 +49,17 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         jTCantidadDetalleDev = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Motivo devolución");
-
-        jLabel2.setText("Producto");
-
-        jCMotivoDevolucionDetalle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jCProductoDetalle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        });
+
+        jMotivoDevEntrega.setText("Motivo devolución");
+
+        jLProductoDetalleDev.setText("Producto");
+
+        jScrollPane1.setViewportView(jTDetallesDevoluciones);
 
         jBAgregarDetalleDev.setText("Agregar");
 
@@ -83,7 +82,7 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(jLProductoDetalleDev)
                             .addComponent(jCProductoDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBAgregarDetalleDev)
@@ -93,7 +92,7 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
                         .addComponent(jBEliminarDetalleDev)
                         .addGap(35, 35, 35))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jMotivoDevEntrega)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLCantidad)
                         .addGap(261, 261, 261))
@@ -107,9 +106,9 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLCantidad))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLCantidad, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jMotivoDevEntrega))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCMotivoDevolucionDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -117,7 +116,7 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
+                        .addComponent(jLProductoDetalleDev)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCProductoDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
@@ -133,6 +132,14 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        detalleDevolucion = new DetalleDevolucion();
+        detalleDevolucion.consultaDetallesDevolucion(conexion, jTDetallesDevoluciones);
+        detalleDevolucion.cargaMotivoDevoluciones(conexion, jCMotivoDevolucionDetalle);
+        detalleDevolucion.cargaProductos(conexion, jCProductoDetalle);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -176,10 +183,10 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jCMotivoDevolucionDetalle;
     private javax.swing.JComboBox<String> jCProductoDetalle;
     private javax.swing.JLabel jLCantidad;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLProductoDetalleDev;
+    private javax.swing.JLabel jMotivoDevEntrega;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTCantidadDetalleDev;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTDetallesDevoluciones;
     // End of variables declaration//GEN-END:variables
 }

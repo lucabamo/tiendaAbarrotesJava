@@ -24,7 +24,8 @@ public class jfMenu extends javax.swing.JFrame {
 
     public void conectaBD() {
         String url, nombre, password;
-        url = "jdbc:postgresql://localhost:5432/TiendaAbarrotes";
+        //jdbc::postgres://localhost:5432/
+        url = "jdbc:postgresql://localhost:5432/tiendaDeAbarratos";
         nombre = "postgres";
         password = "postgres";
 
@@ -48,6 +49,9 @@ public class jfMenu extends javax.swing.JFrame {
         btDetalleVenta = new javax.swing.JButton();
         btPromocion = new javax.swing.JButton();
         btProveedor = new javax.swing.JButton();
+        jBEntrega = new javax.swing.JButton();
+        jBDevoluciones = new javax.swing.JButton();
+        jBDetalleDevolucion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -84,18 +88,50 @@ public class jfMenu extends javax.swing.JFrame {
             }
         });
 
+        jBEntrega.setText("Entregas");
+        jBEntrega.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEntregaActionPerformed(evt);
+            }
+        });
+
+        jBDevoluciones.setText("Devoluciones");
+        jBDevoluciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBDevolucionesActionPerformed(evt);
+            }
+        });
+
+        jBDetalleDevolucion.setText("Detalle Devolucion");
+        jBDetalleDevolucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBDetalleDevolucionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btVenta)
-                    .addComponent(btProveedor)
-                    .addComponent(btPromocion)
-                    .addComponent(btDetalleVenta))
-                .addContainerGap(408, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btVenta)
+                            .addComponent(btProveedor)
+                            .addComponent(btPromocion)
+                            .addComponent(btDetalleVenta)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(279, 279, 279)
+                        .addComponent(jBEntrega)
+                        .addGap(99, 99, 99)
+                        .addComponent(jBDevoluciones)))
+                .addContainerGap(204, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jBDetalleDevolucion)
+                .addGap(288, 288, 288))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +144,13 @@ public class jfMenu extends javax.swing.JFrame {
                 .addComponent(btDetalleVenta)
                 .addGap(28, 28, 28)
                 .addComponent(btProveedor)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(84, 84, 84)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBEntrega)
+                    .addComponent(jBDevoluciones))
+                .addGap(37, 37, 37)
+                .addComponent(jBDetalleDevolucion)
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         pack();
@@ -142,6 +184,26 @@ public class jfMenu extends javax.swing.JFrame {
         proveedorFrame.asignaConexion(conexion);
         proveedorFrame.setVisible(true);
     }//GEN-LAST:event_btProveedorActionPerformed
+
+    private void jBEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEntregaActionPerformed
+        // TODO add your handling code here:
+        jfEntrega entregaFrame = new jfEntrega(conexion);
+        entregaFrame.setVisible(true);
+    }//GEN-LAST:event_jBEntregaActionPerformed
+
+    private void jBDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDevolucionesActionPerformed
+        // TODO add your handling code here:
+        jfDevolucion devolucionFrame = new jfDevolucion();
+        devolucionFrame.asignaConexion(conexion);
+        devolucionFrame.setVisible(true);
+    }//GEN-LAST:event_jBDevolucionesActionPerformed
+
+    private void jBDetalleDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDetalleDevolucionActionPerformed
+        // TODO add your handling code here:
+        jfDetalleDevolucion detalleDevolucionFrame = new jfDetalleDevolucion();
+        detalleDevolucionFrame.asignaConexion(conexion);
+        detalleDevolucionFrame.setVisible(true);
+    }//GEN-LAST:event_jBDetalleDevolucionActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -179,5 +241,8 @@ public class jfMenu extends javax.swing.JFrame {
     private javax.swing.JButton btPromocion;
     private javax.swing.JButton btProveedor;
     private javax.swing.JButton btVenta;
+    private javax.swing.JButton jBDetalleDevolucion;
+    private javax.swing.JButton jBDevoluciones;
+    private javax.swing.JButton jBEntrega;
     // End of variables declaration//GEN-END:variables
 }
