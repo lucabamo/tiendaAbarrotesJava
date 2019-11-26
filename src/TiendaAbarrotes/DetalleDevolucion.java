@@ -87,7 +87,7 @@ public class DetalleDevolucion {
             javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
-    
+   
     
     public void cargaProductos(Connection conexion, JComboBox productos) {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
@@ -106,5 +106,59 @@ public class DetalleDevolucion {
             javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
-
+    
+       public void agregaDetalleDevolucion(Connection conexion, int idDevolucion , int idProducto, int cantidad) {
+        String query = "INSERT INTO Transaccion.DetalleDevolucion (IdDevolucion, IdProducto,Cantidad) VALUES (?,?,?)";
+        try {
+            preparedStatement = conexion.prepareCall(query);
+            preparedStatement.setInt(1, idDevolucion);
+            preparedStatement.setInt(2, idProducto);
+            preparedStatement.setInt(3, cantidad);
+            int register = preparedStatement.executeUpdate();
+            if (register > 0) {
+                JOptionPane.showMessageDialog(null, "Se ingresó correctamente");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+       
+        public void modificaDetalleDevolucion(Connection conexion, int idDevolucion , int idProducto, int cantidad){
+        String query = "INSERT INTO Transaccion.DetalleDevolucion (IdDevolucion, IdProducto,Cantidad) VALUES (?,?,?)";
+            try {
+            preparedStatement = conexion.prepareCall(query);
+            preparedStatement.setInt(1, idDevolucion);
+            preparedStatement.setInt(2, idProducto);
+            preparedStatement.setInt(3, cantidad);
+            preparedStatement.setInt(4, getIdDetalleDevolucion());
+            int register = preparedStatement.executeUpdate();
+            if(register > 0){
+                JOptionPane.showMessageDialog(null, "Se modificó correctamente");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Hubo un error al modificar");            
+            }
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+            public void eliminaEntrega(Connection conexion)
+    {
+        String query ="DELETE FROM Transaccion.DetalleDevolucion WHERE IdDevolucion = ?";    
+        try{
+            preparedStatement = conexion.prepareCall(query);
+            preparedStatement.setInt(1, getIdDetalleDevolucion());
+            int register = preparedStatement.executeUpdate();
+            if(register > 0){
+                JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Hubo un error al eliminar");            
+            }
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }    
+    }
 }
