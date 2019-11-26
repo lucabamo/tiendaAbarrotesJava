@@ -59,6 +59,11 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
 
         jLProductoDetalleDev.setText("Producto");
 
+        jTDetallesDevoluciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTDetallesDevolucionesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTDetallesDevoluciones);
 
         jBAgregarDetalleDev.setText("Agregar");
@@ -140,6 +145,17 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         detalleDevolucion.cargaMotivoDevoluciones(conexion, jCMotivoDevolucionDetalle);
         detalleDevolucion.cargaProductos(conexion, jCProductoDetalle);
     }//GEN-LAST:event_formWindowOpened
+
+    private void jTDetallesDevolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDetallesDevolucionesMouseClicked
+        // TODO add your handling code here:
+        JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+        detalleDevolucion.setIdDetalleDevolucion(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
+        jCMotivoDevolucionDetalle.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 1).toString())));
+        jCProductoDetalle.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 2).toString())));
+        jTCantidadDetalleDev.setText(source.getModel().getValueAt(row, 3).toString());
+     
+    }//GEN-LAST:event_jTDetallesDevolucionesMouseClicked
 
     /**
      * @param args the command line arguments
