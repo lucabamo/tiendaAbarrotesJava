@@ -74,8 +74,18 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         });
 
         jBEditarDetalleDev.setText("Editar");
+        jBEditarDetalleDev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEditarDetalleDevActionPerformed(evt);
+            }
+        });
 
         jBEliminarDetalleDev.setText("Eliminar");
+        jBEliminarDetalleDev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarDetalleDevActionPerformed(evt);
+            }
+        });
 
         jLCantidad.setText("Cantidad");
 
@@ -164,7 +174,36 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
 
     private void jBAgregarDetalleDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarDetalleDevActionPerformed
         // TODO add your handling code here:
+        int idMotivo = ((Item) jCMotivoDevolucionDetalle.getSelectedItem()).getId();
+        int idProducto = ((Item) jCProductoDetalle.getSelectedItem()).getId();
+        int cantidad = Integer.parseInt(jTCantidadDetalleDev.getText());
+        detalleDevolucion.agregaDetalleDevolucion(conexion, idMotivo, idProducto, cantidad);
+        detalleDevolucion.consultaDetallesDevolucion(conexion, jTDetallesDevoluciones);
+        resetControles();
     }//GEN-LAST:event_jBAgregarDetalleDevActionPerformed
+
+    private void jBEditarDetalleDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarDetalleDevActionPerformed
+        // TODO add your handling code here:
+        int idMotivo = ((Item) jCMotivoDevolucionDetalle.getSelectedItem()).getId();
+        int idProducto = ((Item) jCProductoDetalle.getSelectedItem()).getId();
+        int cantidad = Integer.parseInt(jTCantidadDetalleDev.getText());
+        detalleDevolucion.modificaDetalleDevolucion(conexion, idMotivo, idProducto, cantidad);
+        detalleDevolucion.consultaDetallesDevolucion(conexion, jTDetallesDevoluciones);
+        resetControles();
+    }//GEN-LAST:event_jBEditarDetalleDevActionPerformed
+
+    private void jBEliminarDetalleDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarDetalleDevActionPerformed
+        // TODO add your handling code here:
+        detalleDevolucion.eliminaEntrega(conexion);
+        detalleDevolucion.consultaDetallesDevolucion(conexion, jTDetallesDevoluciones);        
+        resetControles();
+    }//GEN-LAST:event_jBEliminarDetalleDevActionPerformed
+    
+    public void resetControles() {
+        jCMotivoDevolucionDetalle.setSelectedItem(null);
+        jCProductoDetalle.setSelectedItem(null);
+        jTCantidadDetalleDev.setText("");
+    }
 
     /**
      * @param args the command line arguments

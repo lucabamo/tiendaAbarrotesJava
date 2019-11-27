@@ -124,7 +124,8 @@ public class DetalleDevolucion {
     }
        
         public void modificaDetalleDevolucion(Connection conexion, int idDevolucion , int idProducto, int cantidad){
-        String query = "INSERT INTO Transaccion.DetalleDevolucion (IdDevolucion, IdProducto,Cantidad) VALUES (?,?,?)";
+        String query = "UPDATE Transaccion.DetalleDevolucion SET idDevolucion = ?, idProducto = ?, cantidad = ? WHERE IdDetalleDevolucion = ?";
+
             try {
             preparedStatement = conexion.prepareCall(query);
             preparedStatement.setInt(1, idDevolucion);
