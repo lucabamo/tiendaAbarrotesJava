@@ -10,6 +10,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -55,7 +61,12 @@ public class JFProducto extends javax.swing.JFrame {
         btModificarProducto = new javax.swing.JButton();
         btEliminarProducto = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lbNombreProducto.setText("Nombre:");
 
@@ -170,29 +181,45 @@ public class JFProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btInsertarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarProductoActionPerformed
-        producto.InsertaProducto(tfNombreProducto.getText(), tfExistenciaProducto.getText(), tfCostoProvProducto.getText(), tfCostoVentaProducto.getText());
+        producto.InsertaProducto(conexion, tfNombreProducto.getText(), tfExistenciaProducto.getText(), tfCostoProvProducto.getText(), tfCostoVentaProducto.getText());
+        resetControles();
         ActualizaTablaProducto();
     }//GEN-LAST:event_btInsertarProductoActionPerformed
 
     private void btModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarProductoActionPerformed
-        producto.ModificaProducto(tfNombreProducto.getText(), tfExistenciaProducto.getText(), tfCostoProvProducto.getText(), tfCostoVentaProducto.getText(), idRow);
+        producto.ModificaProducto(conexion, tfNombreProducto.getText(), tfExistenciaProducto.getText(), tfCostoProvProducto.getText(), tfCostoVentaProducto.getText(), idRow);
+        resetControles();
         ActualizaTablaProducto();
     }//GEN-LAST:event_btModificarProductoActionPerformed
 
     private void btEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarProductoActionPerformed
-        producto.EliminaProducto(idRow);
+        producto.EliminaProducto(conexion,idRow);
+        resetControles();       
         ActualizaTablaProducto();
     }//GEN-LAST:event_btEliminarProductoActionPerformed
 
     private void tableProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProductoMouseClicked
-        String i = (String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 0);
-        //javax.swing.JOptionPane.showMessageDialog(this, i);
-        idRow = i;
+        
+                JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+        producto.setIdProducto(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
         tfNombreProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 1));
         tfExistenciaProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 2));
         tfCostoProvProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 3));
         tfCostoVentaProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 4));
     }//GEN-LAST:event_tableProductoMouseClicked
+
+    private void resetControles(){
+        tfNombreProducto.setText("");
+        tfExistenciaProducto.setText("");
+        tfCostoProvProducto.setText("");
+        tfCostoVentaProducto.setText("");
+    }
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        // TODO add your handling code here:
+        ActualizaTablaProducto();
+    }//GEN-LAST:event_formWindowOpened
 
     public void AsignaConexion(Connection con)
     {

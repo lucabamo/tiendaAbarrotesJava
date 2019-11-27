@@ -48,7 +48,7 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         jLCantidad = new javax.swing.JLabel();
         jTCantidadDetalleDev = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -67,6 +67,11 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTDetallesDevoluciones);
 
         jBAgregarDetalleDev.setText("Agregar");
+        jBAgregarDetalleDev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAgregarDetalleDevActionPerformed(evt);
+            }
+        });
 
         jBEditarDetalleDev.setText("Editar");
 
@@ -156,6 +161,10 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         jTCantidadDetalleDev.setText(source.getModel().getValueAt(row, 3).toString());
      
     }//GEN-LAST:event_jTDetallesDevolucionesMouseClicked
+
+    private void jBAgregarDetalleDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarDetalleDevActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBAgregarDetalleDevActionPerformed
 
     /**
      * @param args the command line arguments

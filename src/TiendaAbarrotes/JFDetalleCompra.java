@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,7 +33,6 @@ public class JFDetalleCompra extends javax.swing.JFrame {
     
     public JFDetalleCompra() {
         initComponents();
-        LlenaComboBox();
         detalleCompra = new DetalleCompra(conexion);
     }
 
@@ -59,15 +59,16 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableDetalleCompra = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lbCompraDetalleCompra.setText("Compra:");
 
-        cbCompraDetalleCompra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lbProductoDetalleCompra.setText("Producto:");
-
-        cbProductoDetalleCompra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lbCantidadDetalleCompra.setText("Cantidad:");
 
@@ -176,89 +177,46 @@ public class JFDetalleCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btInsertarDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarDetalleCompraActionPerformed
-        String idProducto = "";
-        
-        for(int i = 0; i < productos.size(); i++)
-        {
-            if(productos.get(i)[1] == (String)cbProductoDetalleCompra.getSelectedItem())
-            {
-                idProducto = productos.get(i)[0];
-            }
-        }
-        detalleCompra.InsertaDetalleCompra((String)cbCompraDetalleCompra.getSelectedItem(), idProducto, tfCantidadDetalleCompra.getText(), tfSubtotalDetalleCompra.getText());
+        int idCompra = Integer.parseInt(cbCompraDetalleCompra.getSelectedItem().toString());
+        int idProducto = ((Item) cbProductoDetalleCompra.getSelectedItem()).getId();
+        int cantidad = Integer.parseInt(tfCantidadDetalleCompra.getText());
+        float subtotal = Float.parseFloat(tfSubtotalDetalleCompra.getText());
+        detalleCompra.InsertaDetalleCompra(conexion, idCompra, idProducto, cantidad, subtotal);
         ActualizaTablaDetalleCompra();
     }//GEN-LAST:event_btInsertarDetalleCompraActionPerformed
 
     private void btModificarDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarDetalleCompraActionPerformed
-        String idProducto = "";
-        
-        for(int i = 0; i < productos.size(); i++)
-        {
-            if(productos.get(i)[1] == (String)cbProductoDetalleCompra.getSelectedItem())
-            {
-                idProducto = productos.get(i)[0];
-            }
-        }
-        detalleCompra.ModificaDetalleCompra((String)cbCompraDetalleCompra.getSelectedItem(), idProducto, tfCantidadDetalleCompra.getText(), tfSubtotalDetalleCompra.getText(), idRow);
+        int idCompra = Integer.parseInt(cbCompraDetalleCompra.getSelectedItem().toString());
+        int idProducto = ((Item) cbProductoDetalleCompra.getSelectedItem()).getId();
+        int cantidad = Integer.parseInt(tfCantidadDetalleCompra.getText());
+        float subtotal = Float.parseFloat(tfSubtotalDetalleCompra.getText());
+        detalleCompra.ModificaDetalleCompra(conexion, idCompra, idProducto, cantidad, subtotal);
         ActualizaTablaDetalleCompra();
     }//GEN-LAST:event_btModificarDetalleCompraActionPerformed
 
     private void btEliminarDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarDetalleCompraActionPerformed
-        detalleCompra.EliminaDetalleCompra(idRow);
+        detalleCompra.EliminaDetalleCompra(conexion);
         ActualizaTablaDetalleCompra();
     }//GEN-LAST:event_btEliminarDetalleCompraActionPerformed
 
     private void tableDetalleCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDetalleCompraMouseClicked
-        String i = (String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 0);
-        //javax.swing.JOptionPane.showMessageDialog(this, i);
-        idRow = i;
-        cbCompraDetalleCompra.setSelectedItem((Item)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 1));
-        cbProductoDetalleCompra.setSelectedItem((Item)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 2));
-        tfCantidadDetalleCompra.setText((String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 3));
-        tfSubtotalDetalleCompra.setText((String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 4));
+        
+             JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+        detalleCompra.setIdDetalleCompra(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
+        cbCompraDetalleCompra.setSelectedItem(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
+        cbProductoDetalleCompra.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 1).toString())));
+        tfCantidadDetalleCompra.setText((String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 2));
+        tfSubtotalDetalleCompra.setText((String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 3));
     }//GEN-LAST:event_tableDetalleCompraMouseClicked
 
-    public void LlenaComboBox()
-    {
-        try {
-            Qry = "SELECT IdCompra FROM Transaccion.Compra";
-            st = conexion.createStatement();
-            rs = st.executeQuery(Qry);
-            String Aux;
-            while(rs.next()) {
-                Aux = rs.getString(1);
-                compras.add(Aux);
-            }
-        }
-        catch(Exception e) {
-            
-        }
-        
-        try {
-            Qry = "SELECT IdProducto, Nombre FROM Inventario.Producto";
-            st = conexion.createStatement();
-            rs = st.executeQuery(Qry);
-            String Aux[] = new String[2];
-            while(rs.next()) {
-                Aux[0] = rs.getString(1);
-                Aux[1] = rs.getString(2);
-                productos.add(Aux);
-            }
-        }
-        catch(Exception e) {
-            
-        }
-        
-        for(int i = 0; i < compras.size(); i++)
-        {
-            cbCompraDetalleCompra.addItem(compras.get(i));
-        }
-        for(int i = 0; i < productos.size(); i++)
-        {
-            cbProductoDetalleCompra.addItem(productos.get(i)[1]);
-        }
-        
-    }
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ActualizaTablaDetalleCompra();
+        detalleCompra.seleccionaCompras(conexion, cbCompraDetalleCompra);
+        detalleCompra.seleccionaProductos(conexion, cbProductoDetalleCompra);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
     
     public void AsignaConexion(Connection con)
     {
@@ -279,10 +237,10 @@ public class JFDetalleCompra extends javax.swing.JFrame {
             rs = st.executeQuery(Qry);
             String Aux[] = new String[4];
             while(rs.next()) {
-                Aux[0] = rs.getString(2);
-                Aux[1] = rs.getString(3);
-                Aux[2] = rs.getString(4);
-                Aux[3] = rs.getString(5);
+                Aux[0] = rs.getString(1);
+                Aux[1] = rs.getString(2);
+                Aux[2] = rs.getString(3);
+                Aux[3] = rs.getString(4);
                 modelo.addRow(Aux);
             }
             tableDetalleCompra.setModel(modelo);

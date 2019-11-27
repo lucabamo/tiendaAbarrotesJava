@@ -12,6 +12,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
 
 /**
  *
@@ -23,7 +31,6 @@ public class JFEmpleado extends javax.swing.JFrame {
     private Empleado empleado;
     private DefaultTableModel modelo;
     private Statement st;
-    private PreparedStatement pt;
     private ResultSet rs;
     private String Qry;
     private String idRow;
@@ -55,7 +62,12 @@ public class JFEmpleado extends javax.swing.JFrame {
         tfContrasenaEmpleado = new javax.swing.JTextField();
         dpFechaNacEmpleado = new org.jdesktop.swingx.JXDatePicker();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lbNombreEmpleado.setText("Nombre:");
 
@@ -189,31 +201,64 @@ public class JFEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btInsertarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarEmpleadoActionPerformed
-        empleado.InsertaEmpleado(tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), (Date)dpFechaNacEmpleado.getDate(), tfEdadEmpleado.getText(), tfUsuarioEmpleado.getText(), tfContrasenaEmpleado.getText());
+        LocalDate fecha = dpFechaNacEmpleado.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        empleado.InsertaEmpleado(conexion, tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), fecha, tfUsuarioEmpleado.getText(), tfContrasenaEmpleado.getText());
         ActualizaTablaEmpleado();
+        resetControles();
     }//GEN-LAST:event_btInsertarEmpleadoActionPerformed
 
     private void btModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarEmpleadoActionPerformed
-        empleado.ModificaEmpleado(tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), (Date)dpFechaNacEmpleado.getDate(), tfEdadEmpleado.getText(), tfUsuarioEmpleado.getText(), tfContrasenaEmpleado.getText(), idRow);
+        LocalDate fecha = dpFechaNacEmpleado.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        empleado.ModificaEmpleado(conexion, tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), fecha, tfEdadEmpleado.getText(), tfUsuarioEmpleado.getText(), tfContrasenaEmpleado.getText(), idRow);
         ActualizaTablaEmpleado();
+        resetControles();
     }//GEN-LAST:event_btModificarEmpleadoActionPerformed
 
     private void btEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarEmpleadoActionPerformed
-        empleado.EliminaEmpleado(idRow);
+        empleado.EliminaEmpleado(conexion);
         ActualizaTablaEmpleado();
+        resetControles();
     }//GEN-LAST:event_btEliminarEmpleadoActionPerformed
 
+    
     private void tableEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEmpleadoMouseClicked
-        String i = (String)tableEmpleado.getValueAt(tableEmpleado.getSelectedRow(), 0);
-        //javax.swing.JOptionPane.showMessageDialog(this, i);
-        idRow = i;
-        tfNombreEmpleado.setText((String)tableEmpleado.getValueAt(tableEmpleado.getSelectedRow(), 1));
-        tfDomicilioEmpleado.setText((String)tableEmpleado.getValueAt(tableEmpleado.getSelectedRow(), 2));
-        dpFechaNacEmpleado.setDate((Date)tableEmpleado.getValueAt(tableEmpleado.getSelectedRow(), 3));
-        tfEdadEmpleado.setText((String)tableEmpleado.getValueAt(tableEmpleado.getSelectedRow(), 4));
-        tfUsuarioEmpleado.setText((String)tableEmpleado.getValueAt(tableEmpleado.getSelectedRow(), 5));
-        tfContrasenaEmpleado.setText((String)tableEmpleado.getValueAt(tableEmpleado.getSelectedRow(), 6));
+        
+        JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        empleado.setIdEmpleado(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
+        
+        tfNombreEmpleado.setText(source.getModel().getValueAt(row, 1).toString());
+        tfDomicilioEmpleado.setText(source.getModel().getValueAt(row, 2).toString());
+           try {
+            dpFechaNacEmpleado.setDate((java.util.Date) simpleDateFormat.parse(source.getModel().getValueAt(row, 3).toString()));
+        } 
+        catch (ParseException ex) {
+            Logger.getLogger(jfVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tfEdadEmpleado.setText(source.getModel().getValueAt(row, 4).toString());
+        tfUsuarioEmpleado.setText(source.getModel().getValueAt(row, 5).toString());
+        tfContrasenaEmpleado.setText(source.getModel().getValueAt(row, 6).toString()); 
     }//GEN-LAST:event_tableEmpleadoMouseClicked
+
+    
+    public void resetControles(){
+
+        tfNombreEmpleado.setText("");
+        tfDomicilioEmpleado.setText("");
+        tfEdadEmpleado.setText("");
+        tfUsuarioEmpleado.setText("");
+        tfContrasenaEmpleado.setText("");
+        dpFechaNacEmpleado.setDate(null);
+
+    }
+    
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        ActualizaTablaEmpleado();
+    }//GEN-LAST:event_formWindowOpened
 
     public void AsignaConexion(Connection con)
     {
@@ -253,6 +298,8 @@ public class JFEmpleado extends javax.swing.JFrame {
         }
         
     }
+    
+    
     /**
      * @param args the command line arguments
      */

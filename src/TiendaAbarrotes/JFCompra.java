@@ -6,13 +6,29 @@
 package TiendaAbarrotes;
 
 //import java.awt.List;
-import java.util.List;
+
+import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import org.jdesktop.swingx.JXDatePicker;
+import static org.postgresql.util.ByteConverter.float8;
 
 /**
  *
@@ -24,17 +40,14 @@ public class JFCompra extends javax.swing.JFrame {
     private Compra compra;
     private DefaultTableModel modelo;
     private Statement st;
-    private PreparedStatement pt;
     private ResultSet rs;
     private String Qry;
     private String idRow;
-    private List<String[]> proveedores;
-    private List<String[]> empleados;
+
     
     
     public JFCompra() {
         initComponents();
-        LlenaComboBox();
         compra = new Compra(conexion);
     }
 
@@ -61,7 +74,17 @@ public class JFCompra extends javax.swing.JFrame {
         cbEmpleadoCompra = new javax.swing.JComboBox<>();
         dpFechaCompra = new org.jdesktop.swingx.JXDatePicker();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lbProveedorCompra.setText("Proveedor:");
 
@@ -109,12 +132,6 @@ public class JFCompra extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tableCompra);
-
-        cbProveedorCompra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cbEmpleadoCompra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        dpFechaCompra.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,106 +197,69 @@ public class JFCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btInsertarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarCompraActionPerformed
-        String idProveedor = "", idEmpleado = "";
-        
-        for(int i = 0; i < proveedores.size(); i++)
-        {
-            if(proveedores.get(i)[1] == (String)cbProveedorCompra.getSelectedItem())
-            {
-                idProveedor = proveedores.get(i)[0];
-            }
-        }
-        
-        for(int i = 0; i < empleados.size(); i++)
-        {
-            if(empleados.get(i)[1] == (String)cbEmpleadoCompra.getSelectedItem())
-            {
-                idEmpleado = empleados.get(i)[0];
-            }
-        }
-        compra.InsertaCompra(idProveedor, idEmpleado, (Date)dpFechaCompra.getDate(), tfTotalCompra.getText());
+        int idProveedor = ((Item) cbProveedorCompra.getSelectedItem()).getId();
+        int idEmpleado = ((Item) cbEmpleadoCompra.getSelectedItem()).getId();
+        float total = Float.parseFloat(tfTotalCompra.getText());
+        LocalDate fecha = dpFechaCompra.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        compra.InsertaCompra(conexion, idProveedor, idEmpleado, fecha, total);
+        resetControles();
         ActualizaTablaCompra();
     }//GEN-LAST:event_btInsertarCompraActionPerformed
 
     private void btModificarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarCompraActionPerformed
-        String idProveedor = "", idEmpleado = "";
+        int idProveedor = ((Item) cbProveedorCompra.getSelectedItem()).getId();
+        int idEmpleado = ((Item) cbEmpleadoCompra.getSelectedItem()).getId();
+        float total = Float.parseFloat(tfTotalCompra.getText());
+        LocalDate fecha = dpFechaCompra.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        compra.ModificaCompra(conexion, idProveedor, idEmpleado, fecha, total, idRow);
         
-        for(int i = 0; i < proveedores.size(); i++)
-        {
-            if(proveedores.get(i)[1] == (String)cbProveedorCompra.getSelectedItem())
-            {
-                idProveedor = proveedores.get(i)[0];
-            }
-        }
-        
-        for(int i = 0; i < empleados.size(); i++)
-        {
-            if(empleados.get(i)[1] == (String)cbEmpleadoCompra.getSelectedItem())
-            {
-                idEmpleado = empleados.get(i)[0];
-            }
-        }
-        compra.ModificaCompra(idProveedor, idEmpleado, (Date)dpFechaCompra.getDate(), tfTotalCompra.getText(), idRow);
+        resetControles();
         ActualizaTablaCompra();
     }//GEN-LAST:event_btModificarCompraActionPerformed
 
     private void btEliminarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarCompraActionPerformed
-        compra.EliminarCompra(idRow);
+        compra.EliminarCompra(conexion,idRow);
+        resetControles();
         ActualizaTablaCompra();
     }//GEN-LAST:event_btEliminarCompraActionPerformed
 
     private void tableCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCompraMouseClicked
-        String i = (String)tableCompra.getValueAt(tableCompra.getSelectedRow(), 0);
-        //javax.swing.JOptionPane.showMessageDialog(this, i);
-        idRow = i;
-        cbProveedorCompra.setSelectedItem((String)tableCompra.getValueAt(tableCompra.getSelectedRow(), 1));
-        cbEmpleadoCompra.setSelectedItem((String)tableCompra.getValueAt(tableCompra.getSelectedRow(), 2));
-        dpFechaCompra.setDate((Date)tableCompra.getValueAt(tableCompra.getSelectedRow(), 3));
-        tfTotalCompra.setText((String)tableCompra.getValueAt(tableCompra.getSelectedRow(), 4));
+        JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+
+        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        compra.setIdCompra(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
+        cbProveedorCompra.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 1).toString())));
+
+        cbEmpleadoCompra.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 2).toString())));
+        try {
+            dpFechaCompra.setDate((java.util.Date) simpleDateFormat.parse(source.getModel().getValueAt(row, 3).toString()));
+        } catch (ParseException ex) {
+            Logger.getLogger(jfVenta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tfTotalCompra.setText(source.getModel().getValueAt(row, 4).toString());
     }//GEN-LAST:event_tableCompraMouseClicked
 
-    public void LlenaComboBox()
-    {
-        try {
-            Qry = "SELECT IdProveedor, Nombre FROM Empresa.Proveedor";
-            st = conexion.createStatement();
-            rs = st.executeQuery(Qry);
-            String Aux[] = new String[2];
-            while(rs.next()) {
-                Aux[0] = rs.getString(1);
-                Aux[1] = rs.getString(2);
-                proveedores.add(Aux);
-            }
-        }
-        catch(Exception e) {
-            
-        }
-        
-        try {
-            Qry = "SELECT IdEmpleado, Nombre FROM Empresa.Empleado";
-            st = conexion.createStatement();
-            rs = st.executeQuery(Qry);
-            String Aux[] = new String[2];
-            while(rs.next()) {
-                Aux[0] = rs.getString(1);
-                Aux[1] = rs.getString(2);
-                empleados.add(Aux);
-            }
-        }
-        catch(Exception e) {
-            
-        }
-        
-        for(int i = 0; i < proveedores.size(); i++)
-        {
-            cbProveedorCompra.addItem(proveedores.get(i)[1]);
-        }
-        for(int i = 0; i < empleados.size(); i++)
-        {
-            cbEmpleadoCompra.addItem(empleados.get(i)[1]);
-        }
-        
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        compra.cargaNombreEmpleados(conexion, cbEmpleadoCompra);
+        compra.cargaNombreProveedores(conexion, cbProveedorCompra);
+        ActualizaTablaCompra();
+    }//GEN-LAST:event_formWindowOpened
+
+      public void resetControles(){
+        cbProveedorCompra.setSelectedItem(null);
+        cbEmpleadoCompra.setSelectedItem(null);
+        tfTotalCompra.setText("");
+        dpFechaCompra.setDate(null);
     }
+    
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+
+    }//GEN-LAST:event_formMouseClicked
+
+        
+   
     
     public void AsignaConexion(Connection con)
     {

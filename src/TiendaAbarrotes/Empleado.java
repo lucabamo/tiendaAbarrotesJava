@@ -18,74 +18,87 @@ import java.sql.Date;
  */
 public class Empleado {
     
-    public Connection conexion = null;
+    private int idEmpleado;
     private String Qry;
     private PreparedStatement pt;
-    
+    private PreparedStatement preparedStatement;
+
     public Empleado(Connection con)
     {
-        conexion = con;
+        idEmpleado = -1;
     }
     
-    public void InsertaEmpleado(String nombre, String domicilio, Date fecha, String edad, String usuario, String contraseña)
+    public void InsertaEmpleado(Connection conexion, String nombre, String domicilio, LocalDate fecha,String usuario, String contraseña)
     {
-        Qry = "INSERT INTO Empresa.Empleado (Nombre, Domicilio, FechaNac, Edad, Usuario, Contrasenia) VALUES (?, ?, ?, ?, ?, ?)";
+        //INSERT INTO Empresa.Empleado (Nombre, Domicilio, FechaNac, Edad, Usuario, Contrasenia) VALUES ('Luis', 'calle', '10-09-2019',NULL, 'yes', 'pass')
+        String query = "INSERT INTO Empresa.Empleado (Nombre, Domicilio, FechaNac, Edad, Usuario, Contrasenia) VALUES (?, ?, ?,NULL, ?, ?)";
         try {
-            pt = conexion.prepareCall(Qry);
+            pt = conexion.prepareCall(query);
             pt.setString(1, nombre);
             pt.setString(2, domicilio);
-            pt.setDate(3, fecha);
+            pt.setDate(3, Date.valueOf(fecha));
+            pt.setString(4, usuario);
+            pt.setString(5, contraseña);   
+            int registro = pt.executeUpdate();
+            if(registro > 0) {
+                JOptionPane.showMessageDialog(null, "Se ingresó correctamente");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error en la inserción");
+            }
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error en la inserción" + ex.getLocalizedMessage());
+        }
+    }
+    
+    public void ModificaEmpleado(Connection conexion, String nombre, String domicilio, LocalDate fecha, String edad, String usuario, String contraseña, String IdEmpleado)
+    {
+        String query = "UPDATE Empresa.Empleado SET Nombre = ?, Domicilio = ?, FechaNac = ?, Edad = ?, Usuario = ?, Contrasenia = ? WHERE IdEmpleado = ?";
+        try {
+            pt = conexion.prepareCall(query);
+            pt.setString(1, nombre);
+            pt.setString(2, domicilio);
+            pt.setDate(3, Date.valueOf(fecha));
             pt.setInt(4, Integer.parseInt(edad));
             pt.setString(5, usuario);
             pt.setString(6, contraseña);
+            pt.setInt(7, getIdEmpleado());
             
             int registro = pt.executeUpdate();
             if(registro > 0) {
-                //JOptionPane.showMessageDialog(this, "Se ingreso correctamente.");
+                JOptionPane.showMessageDialog(null, "Se modifico correctamente.");
             }
         }
         catch(Exception e) {
-            
+            JOptionPane.showMessageDialog(null, e.getMessage());            
         }
     }
     
-    public void ModificaEmpleado(String nombre, String domicilio, Date fecha, String edad, String usuario, String contraseña, String IdEmpleado)
+    public void EliminaEmpleado(Connection conexion)
     {
-        Qry = "UPDATE Empresa.Empleado SET Nombre = ?, Domicilio = ?, FechaNac = ?, Edad = ?, Usuario = ?, Contrasenia = ? WHERE IdEmpleado = ?";
+        String query = "DELETE FROM Empresa.Empleado WHERE IdEmpleado = ?";
         try {
-            pt = conexion.prepareCall(Qry);
-            pt.setString(1, nombre);
-            pt.setString(2, domicilio);
-            pt.setDate(3, fecha);
-            pt.setInt(4, Integer.parseInt(edad));
-            pt.setString(5, usuario);
-            pt.setString(6, contraseña);
-            pt.setInt(7, Integer.parseInt(IdEmpleado));
-            
+            pt = conexion.prepareCall(query);
+            pt.setInt(1, getIdEmpleado());
             int registro = pt.executeUpdate();
             if(registro > 0) {
-                //JOptionPane.showMessageDialog(this, "Se ingreso correctamente.");
+                JOptionPane.showMessageDialog(null, "Se elimino correctamente.");
             }
         }
         catch(Exception e) {
-            
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+
     
-    public void EliminaEmpleado(String IdEmpleado)
-    {
-        Qry = "DELETE FROM Empresa.Empleado WHERE IdEmpleado = ?";
-        try {
-            pt = conexion.prepareCall(Qry);
-            pt.setInt(1, Integer.parseInt(IdEmpleado));
-            int registro = pt.executeUpdate();
-            if(registro > 0) {
-                //JOptionPane.showMessageDialog(this, "Se elimino correctamente.");
-            }
-        }
-        catch(Exception e) {
-            
-        }
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(int idEmpledo) {
+        this.idEmpleado = idEmpledo;
     }
     
 }
