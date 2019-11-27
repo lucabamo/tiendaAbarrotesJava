@@ -214,6 +214,9 @@ public class jfEntrega extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jBEditarEntregaActionPerformed
 
+    public void asignaConexion(Connection connection) {
+        this.conexion = connection;
+    }
     
     public void resetControles(){
         jcProveedorEntrega.setSelectedItem(null);
