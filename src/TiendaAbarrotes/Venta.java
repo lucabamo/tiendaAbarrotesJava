@@ -83,13 +83,13 @@ public class Venta {
         }
     }
     
-    public void agregaVenta(Connection conexion,int idEmpleado, LocalDate fechaVenta, float total){
+    public void agregaVenta(Connection conexion,int idEmpleado, LocalDate fechaVenta){
         String query ="INSERT INTO Transaccion.Venta (idEmpleado, FechaVenta, Total) VALUES (?,?,?)";
         try{
             preparedStatement = conexion.prepareCall(query);
             preparedStatement.setInt(1, idEmpleado);
             preparedStatement.setDate(2, Date.valueOf(fechaVenta));
-            preparedStatement.setFloat(3, total);
+            preparedStatement.setFloat(3, 0);
             int register = preparedStatement.executeUpdate();
             if(register > 0){
                 JOptionPane.showMessageDialog(null, "Se ingresó correctamente");
@@ -100,14 +100,13 @@ public class Venta {
         }
     }
     
-    public void modificaVenta(Connection conexion,int idEmpleado, LocalDate fechaVenta, float total){
-        String query = "UPDATE Transaccion.Venta SET idEmpleado = ?, FechaVenta = ?, Total = ? WHERE IdVenta = ?";
+    public void modificaVenta(Connection conexion,int idEmpleado, LocalDate fechaVenta){
+        String query = "UPDATE Transaccion.Venta SET idEmpleado = ?, FechaVenta = ? WHERE IdVenta = ?";
          try{
             preparedStatement = conexion.prepareCall(query);
             preparedStatement.setInt(1, idEmpleado);
             preparedStatement.setDate(2, Date.valueOf(fechaVenta));
-            preparedStatement.setFloat(3, total);
-            preparedStatement.setInt(4,getIdVenta());
+            preparedStatement.setInt(3,getIdVenta());
             int register = preparedStatement.executeUpdate();
             if(register > 0){
                 JOptionPane.showMessageDialog(null, "Se modificó correctamente");

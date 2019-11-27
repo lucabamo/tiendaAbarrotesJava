@@ -51,8 +51,6 @@ public class jfVenta extends javax.swing.JFrame {
         jtVentas = new javax.swing.JTable();
         cbEmpleadoVenta = new javax.swing.JComboBox<>();
         dpFechaVenta = new org.jdesktop.swingx.JXDatePicker();
-        tfTotalVenta = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -110,8 +108,6 @@ public class jfVenta extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Total");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,9 +125,7 @@ public class jfVenta extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfTotalVenta)
                             .addComponent(dpFechaVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbEmpleadoVenta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                         .addComponent(btAgregar)
@@ -152,11 +146,8 @@ public class jfVenta extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(11, 11, 11)
                 .addComponent(dpFechaVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(9, 9, 9)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfTotalVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAgregar)
                     .addComponent(btModificar)
                     .addComponent(btEliminar))
@@ -180,9 +171,8 @@ public class jfVenta extends javax.swing.JFrame {
 
     private void btAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarActionPerformed
         int idEmpleado = ((Item) cbEmpleadoVenta.getSelectedItem()).getId();
-        float total = Float.parseFloat(tfTotalVenta.getText());
         LocalDate fecha = dpFechaVenta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        venta.agregaVenta(conexion,idEmpleado, fecha, total);
+        venta.agregaVenta(conexion,idEmpleado, fecha);
         venta.seleccionaVentas(conexion, jtVentas);
         resetControles();
     }//GEN-LAST:event_btAgregarActionPerformed
@@ -200,14 +190,12 @@ public class jfVenta extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(jfVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tfTotalVenta.setText(source.getModel().getValueAt(row, 3).toString());
     }//GEN-LAST:event_jtVentasMouseClicked
 
     private void btModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarActionPerformed
         int idEmpleado = ((Item) cbEmpleadoVenta.getSelectedItem()).getId();
-        float total = Float.parseFloat(tfTotalVenta.getText());
         LocalDate fecha = dpFechaVenta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        venta.modificaVenta(conexion,idEmpleado, fecha, total);
+        venta.modificaVenta(conexion,idEmpleado, fecha);
         venta.seleccionaVentas(conexion, jtVentas);
         resetControles();
         
@@ -222,7 +210,7 @@ public class jfVenta extends javax.swing.JFrame {
     public void resetControles(){
         cbEmpleadoVenta.setSelectedItem(null);
         dpFechaVenta.setDate(null);
-        tfTotalVenta.setText("");
+
     }
     
     public void asignaConexion(Connection connection){
@@ -269,9 +257,7 @@ public class jfVenta extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker dpFechaVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtVentas;
-    private javax.swing.JTextField tfTotalVenta;
     // End of variables declaration//GEN-END:variables
 }

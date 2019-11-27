@@ -1,4 +1,7 @@
-﻿CREATE DATABASE "tiendaDeAbarratos"
+﻿DROP DATABASE  "TiendaAbarrotes"
+
+
+CREATE DATABASE  "TiendaAbarrotes"
   WITH OWNER = postgres
        ENCODING = 'UTF8'
        TABLESPACE = pg_default
@@ -76,11 +79,13 @@ CREATE TABLE Transaccion.DetalleVenta(
 	IdProducto BIGINT NOT NULL,
 	Cantidad INT NOT NULL,
 	Subtotal FLOAT8, --Usado para calcular subtotal--
-	CONSTRAINT PK_DETALLEVENTA PRIMARY KEY (IdDetalleVenta)
+	CONSTRAINT PK_DETALLEVENTA PRIMARY KEY (IdDetalleVenta),
 	CONSTRAINT FK_VENTA2 FOREIGN KEY(IdVenta) REFERENCES Transaccion.Venta(IdVenta),
 	CONSTRAINT FK_PROMOCION FOREIGN KEY(IdPromocion) REFERENCES Transaccion.Promocion(IdPromocion),
 	CONSTRAINT FK_PRODUCTO1 FOREIGN KEY(IdProducto) REFERENCES Inventario.Producto(IdProducto)
 )
+
+DROP TABLE Transaccion.DetalleVenta
 
 CREATE TABLE Transaccion.Compra(
 	IdCompra BIGSERIAL NOT NULL,
@@ -94,15 +99,17 @@ CREATE TABLE Transaccion.Compra(
 )
 
 CREATE TABLE Transaccion.DetalleCompra(
-	IdDetalleCompra BIGSERIAL NOT NULL
+	IdDetalleCompra BIGSERIAL NOT NULL,
 	IdCompra BIGINT NOT NULL,
 	IdProducto BIGINT NOT NULL,
 	Cantidad INT NOT NULL,
 	Subtotal FLOAT8,
-	CONSTRAINT PK_DETALLECOMPRA PRIMARY KEY (IdDetalleCompra)
+	CONSTRAINT PK_DETALLECOMPRA PRIMARY KEY (IdDetalleCompra),
 	CONSTRAINT FK_COMPRA1 FOREIGN KEY(IdCompra) REFERENCES Transaccion.Compra(IdCompra),
 	CONSTRAINT FK_PRODUCTO3 FOREIGN KEY(IdProducto) REFERENCES Inventario.Producto(IdProducto)
 )
+
+DROP TABLE Transaccion.DetalleCompra
 
 CREATE TABLE Transaccion.Devolucion(
 	IdDevolucion BIGSERIAL NOT NULL,
@@ -256,7 +263,7 @@ BEGIN
 	IF CURRENT_DATE NOT BETWEEN fecha_inicio AND fecha_final THEN
 		descuento_Promo = 0;
 	 END IF;
-	NEW.Subtotal := (cantidad*costoVenta - (descuento_Promo * costoVenta * cantidad)); 
+	NEW.Subtotal := (cantidad * costoVenta - (descuento_Promo * costoVenta * cantidad)); 
 	RETURN NEW;
 
 END;
@@ -304,10 +311,15 @@ SELECT * FROM Transaccion.Promocion
 
 INSERT INTO Transaccion.DetalleVenta (IdVenta, IdPromocion, IdProducto,Cantidad) VALUES (4,3,1,1)
 
+SELECT * FROM Empresa.Empleado
+INSERT INTO Empresa.Empleado(Nombre,Domicilio,FechaNac,Usuario,Contrasenia) VALUES ('Jung Hoseok','Seoul','1994-02-18', 'j-hope', '12345')
+
 SELECT * FROM Empresa.Proveedor
 SELECT * FROM  Transaccion.DetalleCompra
 SELECT * FROM Transaccion.Compra
 INSERT INTO Transaccion.Compra (IdProveedor,IdEmpleado,Fecha,Total) VALUES (1,1, '2019-11-20',0)
 INSERT INTO Transaccion.DetalleCompra(IdCompra, IdProducto,Cantidad) VALUES (1,1,1)
-
+INSERT INTO Inventario.Producto(Nombre,Existencia,CostoProveedor,CostoVenta) VALUES ('Jugo', 10, 2, 3)
 SELECT * FROM Inventario.Producto
+
+TRUNCATE TABLE Transaccion.DetalleVenta
