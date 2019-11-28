@@ -252,6 +252,8 @@ public class JFEmpleado extends javax.swing.JFrame {
     
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        Date fecha = new Date(2000, 01, 01);
+        dpFechaNacEmpleado.setDate(fecha);
         ActualizaTablaEmpleado();
     }//GEN-LAST:event_formWindowOpened
 

@@ -41,10 +41,10 @@ public class Login extends javax.swing.JFrame {
 
         cbUsuario = new javax.swing.JComboBox<>();
         btIniciarSesion = new javax.swing.JButton();
-        tfPassword = new javax.swing.JTextField();
         lbUsuario = new javax.swing.JLabel();
         lbPassword = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        tfPassword1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,8 +59,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        tfPassword.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
         lbUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbUsuario.setText("USUARIO");
 
@@ -68,6 +66,8 @@ public class Login extends javax.swing.JFrame {
         lbPassword.setText("CONTRASEÑA");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TiendaAbarrotes/IMG1.png"))); // NOI18N
+
+        tfPassword1.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,21 +77,22 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(162, 162, 162)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfPassword)
-                            .addComponent(cbUsuario, 0, 203, Short.MAX_VALUE)))
+                        .addComponent(cbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(240, 240, 240)
                         .addComponent(lbUsuario))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(228, 228, 228)
-                        .addComponent(lbPassword))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(200, 200, 200)
                         .addComponent(btIniciarSesion))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(193, 193, 193)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(228, 228, 228)
+                        .addComponent(lbPassword))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(175, 175, 175)
+                        .addComponent(tfPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(197, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -106,8 +107,8 @@ public class Login extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addComponent(lbPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(tfPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(btIniciarSesion)
                 .addGap(48, 48, 48))
         );
@@ -117,7 +118,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarSesionActionPerformed
         // TODO add your handling code here:
-        conectaBD(cbUsuario.getSelectedItem().toString(),tfPassword.getText());
+        conectaBD(cbUsuario.getSelectedItem().toString(),new String(tfPassword1.getPassword()));
     }//GEN-LAST:event_btIniciarSesionActionPerformed
 
     /**
@@ -183,6 +184,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbPassword;
     private javax.swing.JLabel lbUsuario;
-    private javax.swing.JTextField tfPassword;
+    private javax.swing.JPasswordField tfPassword1;
     // End of variables declaration//GEN-END:variables
 }

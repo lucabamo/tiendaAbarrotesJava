@@ -18,7 +18,7 @@ CREATE TABLE Empresa.Empleado(
 	IdEmpleado BIGSERIAL NOT NULL,
 	Nombre VARCHAR(200) NOT NULL,
 	Domicilio VARCHAR(200) NOT NULL,
-	FechaNac DATE NOT NULL,
+	FechaNac TIMESTAMP NOT NULL,
 	Edad INT, --Usado en trigger calcula edad--
 	Usuario VARCHAR(200) NOT NULL,
 	Contrasenia VARCHAR(100) NOT NULL,
@@ -39,6 +39,10 @@ CREATE TABLE Empresa.Proveedor(
 ALTER TABLE Empresa.Proveedor ADD CONSTRAINT UQ_EMAIL UNIQUE (Email);
 ALTER TABLE Empresa.Proveedor ADD CONSTRAINT UQ_RFC UNIQUE (RFC);
 
+ALTER TABLE Empresa.Proveedor ADD CONSTRAINT CH_Email CHECK(
+	Email LIKE '%_@__%.__%'
+);
+
 --Tabla Producto--
 CREATE TABLE Inventario.Producto(
 	IdProducto BIGSERIAL NOT NULL,
@@ -49,6 +53,10 @@ CREATE TABLE Inventario.Producto(
 	CONSTRAINT PK_PRODUCTO PRIMARY KEY(IdProducto)
 )
 
+ALTER TABLE Inventario.Producto ADD CONSTRAINT CH_Existencias CHECK(
+	Existencia >= 0 AND Existencia <=100
+	);
+	
 
 --Tabla Venta--
 CREATE TABLE Transaccion.Venta(
@@ -84,6 +92,10 @@ CREATE TABLE Transaccion.DetalleVenta(
 	CONSTRAINT FK_PROMOCION FOREIGN KEY(IdPromocion) REFERENCES Transaccion.Promocion(IdPromocion),
 	CONSTRAINT FK_PRODUCTO1 FOREIGN KEY(IdProducto) REFERENCES Inventario.Producto(IdProducto)
 )
+
+ALTER TABLE Transaccion.DetalleVenta ADD CONSTRAINT CH_CantidadDetalleVenta CHECK(
+	Cantidad >= 1 AND Cantidad <= 100
+);
 
 DROP TABLE Transaccion.DetalleVenta
 
@@ -196,6 +208,25 @@ EXECUTE PROCEDURE ActualizarExistencias();
 
 Select * from Transaccion.Venta
 
+--Trigger para actualizar el total de la devolución después de un detalle devolución--
+CREATE FUNCTION ActualizaTotalDevolucion() RETURNS TRIGGER
+AS $$
+DECLARE 
+	CostoProducto FLOAT8;
+BEGIN
+	SELECT Producto.CostoVenta INTO CostoProducto FROM Inventario.Producto WHERE IdProducto = NEW.IdProducto;
+	UPDATE Transaccion.Devolucion SET 
+	monto = monto + (NEW.Cantidad * CostoProducto)
+	WHERE IdDevolucion = NEW.IdDevolucion;
+	RETURN NEW;
+END;
+$$
+Language plpgsql;
+
+CREATE TRIGGER ActualizaTotalDevolucionTrigg AFTER INSERT 
+ON Transaccion.DetalleDevolucion FOR EACH ROW
+EXECUTE PROCEDURE ActualizaTotalDevolucion();
+
 --Trigger para actualizar total de la venta
 CREATE FUNCTION ActualizarTotalVenta() RETURNS TRIGGER
 AS $$
@@ -223,6 +254,7 @@ END;
 $$
 Language plpgsql;
 
+--Actulizar el total de la venta después de eliminar un detalle de venta
 CREATE TRIGGER ActualizarTotalVentaDelete AFTER DELETE
 ON Transaccion.DetalleVenta FOR EACH ROW
 EXECUTE PROCEDURE ActualizarTotalVentaDel();
@@ -258,6 +290,25 @@ CREATE TRIGGER ActualizarTotalCompraDelete AFTER DELETE
 ON Transaccion.DetalleCompra FOR EACH ROW
 EXECUTE PROCEDURE ActualizarTotalCompraDel();
 
+--Trigger para actualizar el inventario después de una entrega
+CREATE FUNCTION EntregaDevolcion() RETURNS TRIGGER
+AS $$
+DECLARE 
+	idEntrega BIGINT;
+	idDevolucionE BIGINT;
+BEGIN
+	idDevolucionE = NEW.idDevolucion;
+	UPDATE Transaccion.Devolucion SET Entregada = TRUE
+	WHERE idDevolucion = idDevolucionE;
+	RETURN NEW;
+END;
+$$
+Language plpgsql;
+
+CREATE TRIGGER ActualizaEstadoDevolucion BEFORE INSERT
+ON Transaccion.Entrega FOR EACH ROW
+EXECUTE PROCEDURE EntregaDevolcion();
+	
 --Trigger para calcular el subtotal de la venta tomando en consideracion el descuento
 CREATE FUNCTION CalcularSubtotalVenta() RETURNS TRIGGER
 AS $$
@@ -269,7 +320,6 @@ DECLARE
 	descuento_Promo REAL;
 	fecha_inicio TIMESTAMP;
 	fecha_final TIMESTAMP;
-
 BEGIN
 	cantidad = NEW.Cantidad;
 	id_Producto = NEW.IdProducto;
@@ -309,7 +359,9 @@ BEGIN
 
 END;
 $$
-Language plpgsql;	
+Language plpgsql;
+
+	
 
 CREATE TRIGGER ActualizarSubtotalDetalleCompra BEFORE INSERT
 ON Transaccion.DetalleCompra FOR EACH ROW
@@ -332,6 +384,8 @@ CREATE TRIGGER agregaPromocionDefault AFTER INSERT
 ON Inventario.Producto FOR EACH ROW
 EXECUTE PROCEDURE insertaPromocionDefault();
 
+
+
 --Usuarios--
 CREATE ROLE ADMINISTRADOR WITH LOGIN ENCRYPTED PASSWORD 'password';
 CREATE ROLE EMPLEADO WITH LOGIN ENCRYPTED PASSWORD 'password';
@@ -341,14 +395,22 @@ CREATE ROLE CLIENTE WITH LOGIN ENCRYPTED PASSWORD 'password';
 
 --ADMINISTRADOR--
 GRANT CONNECT ON DATABASE "tiendaAbarrotes" TO ADMINISTRADOR;
+
+GRANT USAGE ON SCHEMA empresa,inventario,transaccion TO ADMINISTRADOR
+
 GRANT ALL PRIVILEGES ON DATABASE "tiendaAbarrotes" to ADMINISTRADOR;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA "empresa" TO ADMINISTRADOR;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA "inventario" TO ADMINISTRADOR;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA "transaccion" TO ADMINISTRADOR;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA "public" TO ADMINISTRADOR;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA "empresa" TO ADMINISTRADOR;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA "inventario" TO ADMINISTRADOR;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA "transaccion" TO ADMINISTRADOR;
+
 
 --EMPLEADO--
 GRANT CONNECT ON DATABASE "tiendaAbarrotes" TO EMPLEADO;
+GRANT USAGE ON SCHEMA inventario,transaccion TO EMPLEADO
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA "inventario" TO EMPLEADO;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA "inventario" TO EMPLEADO;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA "transaccion" TO EMPLEADO;
@@ -369,3 +431,11 @@ SELECT * FROM Transaccion.Devolucion
 SELECT * FROM Transaccion.Entrega
 SELECT * FROM Transaccion.DetalleDevolucion
 SELECT * FROM Inventario.Producto
+
+SELECT * FROM Transaccion.Devolucion
+SELECT * FROM Transaccion.DetalleDevolucion
+
+SELECT producto.IdProducto, producto.Existencia, detalle.Cantidad, entrega.IdEntrega, entrega.IdDevolucion FROM Inventario.Producto AS producto 
+INNER JOIN Transaccion.DetalleDevolucion AS detalle ON detalle.IdProducto = producto.IdProducto
+INNER JOIN Transaccion.Entrega AS entrega ON entrega.IdDevolucion = detalle.IdDevolucion 
+AND entrega.IdEntrega = 10

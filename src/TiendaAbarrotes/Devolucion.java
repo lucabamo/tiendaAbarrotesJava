@@ -107,7 +107,7 @@ public class Devolucion {
     }
        
       public void agregaDevolucion(Connection conexion,int idEmpleado,int idVenta, LocalDate fechaDevolucion,String motivo, float monto){
-        String query ="INSERT INTO Transaccion.Devolucion (idEmpleado, idVenta, fecha, motivo,  monto) VALUES (?,?,?,?,?)";
+        String query ="INSERT INTO Transaccion.Devolucion (idEmpleado, idVenta, fecha, motivo,  monto, entregada) VALUES (?,?,?,?,?,false)";
         try{
             preparedStatement = conexion.prepareCall(query);
             preparedStatement.setInt(1, idEmpleado);

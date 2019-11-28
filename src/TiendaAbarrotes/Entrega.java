@@ -75,7 +75,7 @@ public class Entrega {
     public void cargaMotivoDevoluciones(Connection conexion, JComboBox devoluciones){
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         try{
-            String query = "SELECT Motivo, idDevolucion FROM Transaccion.Devolucion";
+            String query = "SELECT Motivo, idDevolucion FROM Transaccion.Devolucion WHERE entregada = false";
             Statement statement = conexion.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             String[] auxiliar = new String[2];
@@ -92,7 +92,7 @@ public class Entrega {
     }
         
     public void consultaEntregas(Connection conexion, JTable entregas){
-            
+        //obtenUltimaEntrega(conexion);
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("IdEntrega");
         modelo.addColumn("IdProveedor");
@@ -131,6 +131,7 @@ public class Entrega {
                 int register = preparedStatement.executeUpdate();
                 if(register > 0){
                     JOptionPane.showMessageDialog(null, "Se ingresó correctamente");
+                    modificaInventario(conexion,obtenUltimaEntrega(conexion));
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Hubo un error al insertar el registro");              
@@ -141,6 +142,79 @@ public class Entrega {
             }
     }
     
+    private int obtenUltimaEntrega(Connection conexion){
+    String SQL = "SELECT IdEntrega FROM Transaccion.Entrega ORDER BY IdEntrega DESC";
+    int idEntrega = 0;
+    try{
+        Statement stmt = conexion.createStatement();
+        ResultSet rs = stmt.executeQuery(SQL);
+        rs.next();
+        idEntrega = rs.getInt(1);
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());                             
+        }   
+    return idEntrega;
+}
+    
+    private void modificaInventario(Connection conexion, int idUltimaEntrega){
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("IdProducto");     
+        modelo.addColumn("Existencia");     
+        modelo.addColumn("Cantidad");     
+        modelo.addColumn("IdEntrega");     
+
+        try{
+            String query = "SELECT producto.IdProducto, producto.Existencia, detalle.Cantidad, entrega.IdEntrega FROM Inventario.Producto AS producto " +
+                   "INNER JOIN Transaccion.DetalleDevolucion AS detalle ON detalle.IdProducto = producto.IdProducto " +
+                   "INNER JOIN Transaccion.Entrega AS entrega ON entrega.IdDevolucion = detalle.IdDevolucion " +
+                   "AND entrega.IdEntrega = " + idUltimaEntrega;
+            Statement statement = conexion.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            Object auxiliar[] = new Object[4];
+            while(resultSet.next()){
+                auxiliar[0] = resultSet.getInt(1);
+                auxiliar[1] = resultSet.getInt(2);   
+                auxiliar[2] = resultSet.getInt(3);   
+                auxiliar[3] = resultSet.getInt(4);   
+                modelo.addRow(auxiliar);
+            }
+            int rows = modelo.getRowCount();
+            for(int i = 0; i<rows; i++){
+                int idProducto = (int)modelo.getValueAt(i,0);
+                int existencia = (int)modelo.getValueAt(i,1);
+                int cantidad = (int)modelo.getValueAt(i, 2);
+                int cantidadActual = existencia - cantidad;
+                actualizaProducto(conexion,idProducto, cantidadActual);
+            }
+           JOptionPane.showMessageDialog(null, rows);
+        }
+        catch(SQLException ex){
+            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+    
+    
+private void actualizaProducto(Connection conexion,int idProducto, int existencia) {
+
+        String query = "UPDATE Inventario.Producto SET Existencia = ? WHERE idProducto = ?";
+         try{
+            preparedStatement = conexion.prepareCall(query);
+                preparedStatement.setInt(1, existencia);
+                preparedStatement.setInt(2, idProducto);
+            int register = preparedStatement.executeUpdate();
+            if(register > 0){
+                JOptionPane.showMessageDialog(null, "Se modificó correctamente existencias en productos");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Hubo un error al modificar existencias en productos");            
+            }
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+}
+
     public void modificaEntrega(Connection conexion,int idProveedor, int idDevolucion, int idEmpleado, LocalDate fechaEntrega){
         String query = "UPDATE Transaccion.Entrega SET idProveedor = ?, idDevolucion = ?, idEmpleado = ?, fechaEntrega = ? WHERE idEntrega = ?";
          try{
