@@ -38,9 +38,9 @@
                                   <Component id="lbFechaCompra" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="cbProveedorCompra" pref="170" max="32767" attributes="0"/>
-                                  <Component id="dpFechaCompra" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbProveedorCompra" min="-2" pref="170" max="-2" attributes="0"/>
+                                  <Component id="dpFechaCompra" min="-2" pref="125" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -79,14 +79,14 @@
                   <Component id="cbProveedorCompra" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbEmpleadoCompra" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbFechaCompra" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbTotalCompra" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tfTotalCompra" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="dpFechaCompra" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btInsertarCompra" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                   <Component id="btModificarCompra" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
