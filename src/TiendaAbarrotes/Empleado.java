@@ -55,15 +55,15 @@ public class Empleado {
     
     public void ModificaEmpleado(Connection conexion, String nombre, String domicilio, LocalDate fecha,String usuario, String contraseña, String IdEmpleado)
     {
-        String query = "UPDATE Empresa.Empleado SET Nombre = ?, Domicilio = ?, FechaNac = ?, Edad = ?, Usuario = ?, Contrasenia = ? WHERE IdEmpleado = ?";
+        String query = "UPDATE Empresa.Empleado SET Nombre = ?, Domicilio = ?, FechaNac = ?, Usuario = ?, Contrasenia = ? WHERE IdEmpleado = ?";
         try {
             pt = conexion.prepareCall(query);
             pt.setString(1, nombre);
             pt.setString(2, domicilio);
             pt.setDate(3, Date.valueOf(fecha));
-            pt.setString(5, usuario);
-            pt.setString(6, contraseña);
-            pt.setInt(7, getIdEmpleado());
+            pt.setString(4, usuario);
+            pt.setString(5, contraseña);
+            pt.setInt(6, getIdEmpleado());
             
             int registro = pt.executeUpdate();
             if(registro > 0) {
