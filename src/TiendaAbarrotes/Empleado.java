@@ -53,7 +53,7 @@ public class Empleado {
         }
     }
     
-    public void ModificaEmpleado(Connection conexion, String nombre, String domicilio, LocalDate fecha, String edad, String usuario, String contraseña, String IdEmpleado)
+    public void ModificaEmpleado(Connection conexion, String nombre, String domicilio, LocalDate fecha,String usuario, String contraseña, String IdEmpleado)
     {
         String query = "UPDATE Empresa.Empleado SET Nombre = ?, Domicilio = ?, FechaNac = ?, Edad = ?, Usuario = ?, Contrasenia = ? WHERE IdEmpleado = ?";
         try {
@@ -61,7 +61,6 @@ public class Empleado {
             pt.setString(1, nombre);
             pt.setString(2, domicilio);
             pt.setDate(3, Date.valueOf(fecha));
-            pt.setInt(4, Integer.parseInt(edad));
             pt.setString(5, usuario);
             pt.setString(6, contraseña);
             pt.setInt(7, getIdEmpleado());

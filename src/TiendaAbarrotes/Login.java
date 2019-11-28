@@ -5,6 +5,10 @@
  */
 package TiendaAbarrotes;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author Sonia Hernandez
@@ -14,8 +18,16 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    
+    private Connection conexion;
+
     public Login() {
         initComponents();
+        cbUsuario.removeAllItems();
+        cbUsuario.addItem("postgres");
+        cbUsuario.addItem("administrador");
+        cbUsuario.addItem("empleado");
+        cbUsuario.addItem("cliente");
     }
 
     /**
@@ -105,6 +117,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarSesionActionPerformed
         // TODO add your handling code here:
+        conectaBD(cbUsuario.getSelectedItem().toString(),tfPassword.getText());
     }//GEN-LAST:event_btIniciarSesionActionPerformed
 
     /**
@@ -140,6 +153,28 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
             }
         });
+    }
+    
+      public void conectaBD(String usuario, String password) {
+        String url;
+        //jdbc::postgres://localhost:5432/
+        url = "jdbc:postgresql://localhost:5432/tiendaAbarrotes";
+      /*  nombre = "postgres";
+        password = "postgres";*/
+
+        try {
+            conexion = DriverManager.getConnection(url, usuario, password);
+            if (conexion != null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Conexión exitosa");
+                this.setVisible(false);
+                Menu2 menu = new Menu2(conexion);
+                menu.setVisible(true);
+
+            }
+        } catch (SQLException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
+
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -49,8 +49,6 @@ public class JFEmpleado extends javax.swing.JFrame {
         lbDomicilioEmpleado = new javax.swing.JLabel();
         tfDomicilioEmpleado = new javax.swing.JTextField();
         lbFechaNacEmpleado = new javax.swing.JLabel();
-        lbEdadEmpleado = new javax.swing.JLabel();
-        tfEdadEmpleado = new javax.swing.JTextField();
         btInsertarEmpleado = new javax.swing.JButton();
         btModificarEmpleado = new javax.swing.JButton();
         btEliminarEmpleado = new javax.swing.JButton();
@@ -74,8 +72,6 @@ public class JFEmpleado extends javax.swing.JFrame {
         lbDomicilioEmpleado.setText("Domicilio:");
 
         lbFechaNacEmpleado.setText("Fecha nacimiento:");
-
-        lbEdadEmpleado.setText("Edad:");
 
         btInsertarEmpleado.setText("Insertar");
         btInsertarEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +123,31 @@ public class JFEmpleado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbNombreEmpleado, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbFechaNacEmpleado))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfNombreEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dpFechaNacEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbDomicilioEmpleado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfDomicilioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbUsuarioEmpleado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfUsuarioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbContrasenaEmpleado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(100, 100, 100)
                         .addComponent(btInsertarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(85, 85, 85)
@@ -135,59 +156,35 @@ public class JFEmpleado extends javax.swing.JFrame {
                         .addComponent(btEliminarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(63, 63, 63)
-                                .addComponent(lbUsuarioEmpleado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfUsuarioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lbContrasenaEmpleado))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbNombreEmpleado, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbFechaNacEmpleado))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lbEdadEmpleado)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(tfNombreEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(52, 52, 52)
-                                            .addComponent(lbDomicilioEmpleado)))
-                                    .addComponent(dpFechaNacEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfEdadEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfDomicilioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNombreEmpleado)
-                    .addComponent(tfNombreEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbDomicilioEmpleado)
-                    .addComponent(tfDomicilioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbFechaNacEmpleado)
-                    .addComponent(lbEdadEmpleado)
-                    .addComponent(tfEdadEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dpFechaNacEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbNombreEmpleado)
+                            .addComponent(tfNombreEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbFechaNacEmpleado)
+                            .addComponent(dpFechaNacEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbUsuarioEmpleado)
+                            .addComponent(tfUsuarioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbContrasenaEmpleado))))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbUsuarioEmpleado)
-                    .addComponent(tfUsuarioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbContrasenaEmpleado)
-                    .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                    .addComponent(lbDomicilioEmpleado)
+                    .addComponent(tfDomicilioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btInsertarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(btModificarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -210,7 +207,7 @@ public class JFEmpleado extends javax.swing.JFrame {
 
     private void btModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarEmpleadoActionPerformed
         LocalDate fecha = dpFechaNacEmpleado.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        empleado.ModificaEmpleado(conexion, tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), fecha, tfEdadEmpleado.getText(), tfUsuarioEmpleado.getText(), tfContrasenaEmpleado.getText(), idRow);
+        empleado.ModificaEmpleado(conexion, tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), fecha, tfUsuarioEmpleado.getText(), tfContrasenaEmpleado.getText(), idRow);
         ActualizaTablaEmpleado();
         resetControles();
     }//GEN-LAST:event_btModificarEmpleadoActionPerformed
@@ -238,7 +235,6 @@ public class JFEmpleado extends javax.swing.JFrame {
         catch (ParseException ex) {
             Logger.getLogger(jfVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tfEdadEmpleado.setText(source.getModel().getValueAt(row, 4).toString());
         tfUsuarioEmpleado.setText(source.getModel().getValueAt(row, 5).toString());
         tfContrasenaEmpleado.setText(source.getModel().getValueAt(row, 6).toString()); 
     }//GEN-LAST:event_tableEmpleadoMouseClicked
@@ -248,7 +244,6 @@ public class JFEmpleado extends javax.swing.JFrame {
 
         tfNombreEmpleado.setText("");
         tfDomicilioEmpleado.setText("");
-        tfEdadEmpleado.setText("");
         tfUsuarioEmpleado.setText("");
         tfContrasenaEmpleado.setText("");
         dpFechaNacEmpleado.setDate(null);
@@ -343,14 +338,12 @@ public class JFEmpleado extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbContrasenaEmpleado;
     private javax.swing.JLabel lbDomicilioEmpleado;
-    private javax.swing.JLabel lbEdadEmpleado;
     private javax.swing.JLabel lbFechaNacEmpleado;
     private javax.swing.JLabel lbNombreEmpleado;
     private javax.swing.JLabel lbUsuarioEmpleado;
     private javax.swing.JTable tableEmpleado;
     private javax.swing.JTextField tfContrasenaEmpleado;
     private javax.swing.JTextField tfDomicilioEmpleado;
-    private javax.swing.JTextField tfEdadEmpleado;
     private javax.swing.JTextField tfNombreEmpleado;
     private javax.swing.JTextField tfUsuarioEmpleado;
     // End of variables declaration//GEN-END:variables

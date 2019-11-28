@@ -29,6 +29,40 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbNombreEmpleado" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbFechaNacEmpleado" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="tfNombreEmpleado" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
+                                  <Component id="dpFechaNacEmpleado" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="lbDomicilioEmpleado" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="tfDomicilioEmpleado" min="-2" pref="170" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lbUsuarioEmpleado" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="tfUsuarioEmpleado" min="-2" pref="172" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="lbContrasenaEmpleado" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="tfContrasenaEmpleado" min="-2" pref="170" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                       <Component id="btInsertarEmpleado" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
@@ -40,43 +74,6 @@
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="621" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                              <Component id="lbUsuarioEmpleado" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tfUsuarioEmpleado" min="-2" pref="172" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="lbContrasenaEmpleado" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbNombreEmpleado" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbFechaNacEmpleado" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="lbEdadEmpleado" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="tfNombreEmpleado" min="-2" pref="170" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                          <Component id="lbDomicilioEmpleado" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="dpFechaNacEmpleado" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfContrasenaEmpleado" min="-2" pref="170" max="-2" attributes="0"/>
-                          <Component id="tfEdadEmpleado" min="-2" pref="170" max="-2" attributes="0"/>
-                          <Component id="tfDomicilioEmpleado" min="-2" pref="170" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
               </Group>
               <EmptySpace pref="41" max="32767" attributes="0"/>
           </Group>
@@ -85,28 +82,37 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbNombreEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfNombreEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbDomicilioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfDomicilioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbFechaNacEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbEdadEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfEdadEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="dpFechaNacEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbNombreEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfNombreEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbFechaNacEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dpFechaNacEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbUsuarioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfUsuarioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="tfContrasenaEmpleado" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbContrasenaEmpleado" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbUsuarioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfUsuarioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbContrasenaEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfContrasenaEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbDomicilioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfDomicilioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="34" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="btInsertarEmpleado" pref="37" max="32767" attributes="0"/>
                   <Component id="btModificarEmpleado" max="32767" attributes="0"/>
@@ -138,13 +144,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Fecha nacimiento:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbEdadEmpleado">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Edad:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfEdadEmpleado">
     </Component>
     <Component class="javax.swing.JButton" name="btInsertarEmpleado">
       <Properties>

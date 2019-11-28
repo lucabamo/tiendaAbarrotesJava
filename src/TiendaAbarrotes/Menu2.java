@@ -20,29 +20,11 @@ public class Menu2 extends javax.swing.JFrame {
     /**
      * Creates new form Menu2
      */
-    public Menu2() {
+    public Menu2(Connection conexion) {
         initComponents();
+        this.conexion = conexion;
     }
 
-    
-    public void conectaBD() {
-        String url, nombre, password;
-        //jdbc::postgres://localhost:5432/
-        url = "jdbc:postgresql://localhost:5432/tiendaAbarrotes";
-        nombre = "postgres";
-        password = "postgres";
-
-        try {
-            conexion = DriverManager.getConnection(url, nombre, password);
-            if (conexion != null) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Conexión exitosa");
-
-            }
-        } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
-
-        }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -286,8 +268,8 @@ public class Menu2 extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        conexion = null;
-        conectaBD();
+        /*conexion = null;
+        conectaBD();*/
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -320,7 +302,7 @@ public class Menu2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu2().setVisible(true);
+                //new Menu2().setVisible(true);
             }
         });
     }
