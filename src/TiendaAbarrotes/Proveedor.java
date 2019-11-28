@@ -79,7 +79,7 @@ public class Proveedor {
                 JOptionPane.showMessageDialog(null, "Se ingresó correctamente");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error en la inserción");
         }
     }
 
@@ -98,7 +98,7 @@ public class Proveedor {
                 JOptionPane.showMessageDialog(null, "Se modificó correctamente");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error en la modificación");
         }
     }
 
@@ -112,7 +112,7 @@ public class Proveedor {
                 JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar");
         }
     }
 

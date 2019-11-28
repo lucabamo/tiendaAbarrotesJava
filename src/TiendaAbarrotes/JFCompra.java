@@ -245,13 +245,16 @@ public class JFCompra extends javax.swing.JFrame {
         compra.cargaNombreEmpleados(conexion, cbEmpleadoCompra);
         compra.cargaNombreProveedores(conexion, cbProveedorCompra);
         ActualizaTablaCompra();
+        java.util.Date date;
+        date = new java.util.Date();
+        dpFechaCompra.setDate(date);
+        dpFechaCompra.setEnabled(false);
     }//GEN-LAST:event_formWindowOpened
 
       public void resetControles(){
         cbProveedorCompra.setSelectedItem(null);
         cbEmpleadoCompra.setSelectedItem(null);
         tfTotalCompra.setText("");
-        dpFechaCompra.setDate(null);
     }
     
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked

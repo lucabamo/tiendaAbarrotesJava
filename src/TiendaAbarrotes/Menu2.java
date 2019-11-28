@@ -28,7 +28,7 @@ public class Menu2 extends javax.swing.JFrame {
     public void conectaBD() {
         String url, nombre, password;
         //jdbc::postgres://localhost:5432/
-        url = "jdbc:postgresql://localhost:5432/tiendaAbarrotes";
+        url = "jdbc:postgresql://localhost:5432/TiendaAbarrotes";
         nombre = "postgres";
         password = "postgres";
 

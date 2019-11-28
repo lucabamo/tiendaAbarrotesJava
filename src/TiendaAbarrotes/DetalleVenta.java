@@ -157,7 +157,40 @@ public class DetalleVenta {
                 JOptionPane.showMessageDialog(null, "Se ingresó correctamente");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error en la inserción");
+        }
+    }
+    
+    public void modificaDetalleVenta(Connection conexion, int idVenta, int idPromocion, int idProducto, int cantidad){
+        String query = "UPDATE Transaccion.DetalleVenta SET IdVenta = ?, IdPromocion = ?, IdProducto = ?, Cantidad = ?, SubTotal = ? WHERE IdDetalleVenta = ?";
+        try {
+            preparedStatement = conexion.prepareCall(query);
+            preparedStatement.setInt(1, idVenta);
+            preparedStatement.setInt(2, idPromocion);
+            preparedStatement.setInt(3, idProducto);
+            preparedStatement.setInt(4, cantidad);
+            preparedStatement.setFloat(5, 0);
+            preparedStatement.setInt(6, this.idDetalleVenta);
+            int register = preparedStatement.executeUpdate();
+            if (register > 0) {
+                JOptionPane.showMessageDialog(null, "Se modificó correctamente");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Hubo un error en la modificación");
+        }
+    }
+    
+    public void eliminaDetalleVenta(Connection conexion){
+        String query = "DELETE FROM Transaccion.DetalleVenta WHERE IdDetalleVenta = ?";
+        try {
+            preparedStatement = conexion.prepareCall(query);
+            preparedStatement.setInt(1, this.idDetalleVenta);
+            int register = preparedStatement.executeUpdate();
+            if (register > 0) {
+                JOptionPane.showMessageDialog(null, "Se eliminó correctamente");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar");
         }
     }
 

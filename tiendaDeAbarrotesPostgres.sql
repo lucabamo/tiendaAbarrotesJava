@@ -297,29 +297,20 @@ CREATE TRIGGER ActualizarSubtotalDetalleCompra BEFORE INSERT
 ON Transaccion.DetalleCompra FOR EACH ROW
 EXECUTE PROCEDURE CalcularSubtotalCompra();
 
+--Trigger para ingresar una promocion default despues de la insercion de un producto
+CREATE FUNCTION insertaPromocionDefault() RETURNS TRIGGER
+AS $$
+DECLARE BEGIN
+	
+	INSERT INTO Transaccion.Promocion(IdProducto, FechaInicio, FechaFinal,Descuento) VALUES (NEW.IdProducto, CURRENT_DATE,CURRENT_DATE,0);
+	RETURN NEW;
 
-DROP TRIGGER ActualizarSubtotalDetalleVenta ON Transaccion.DetalleVenta
-DROP FUNCTION CalcularSubtotalVenta()
+END;
+$$
+Language plpgsql;	
 
-SELECT * FROM Transaccion.Venta
 
-SELECT * FROM Transaccion.DetalleVenta
+CREATE TRIGGER agregaPromocionDefault AFTER INSERT
+ON Inventario.Producto FOR EACH ROW
+EXECUTE PROCEDURE insertaPromocionDefault();
 
-INSERT INTO Transaccion.DetalleVenta (IdVenta, IdPromocion, IdProducto,Cantidad) VALUES (4,1,1,10)
-
-SELECT * FROM Transaccion.Promocion
-
-INSERT INTO Transaccion.DetalleVenta (IdVenta, IdPromocion, IdProducto,Cantidad) VALUES (4,3,1,1)
-
-SELECT * FROM Empresa.Empleado
-INSERT INTO Empresa.Empleado(Nombre,Domicilio,FechaNac,Usuario,Contrasenia) VALUES ('Jung Hoseok','Seoul','1994-02-18', 'j-hope', '12345')
-
-SELECT * FROM Empresa.Proveedor
-SELECT * FROM  Transaccion.DetalleCompra
-SELECT * FROM Transaccion.Compra
-INSERT INTO Transaccion.Compra (IdProveedor,IdEmpleado,Fecha,Total) VALUES (1,1, '2019-11-20',0)
-INSERT INTO Transaccion.DetalleCompra(IdCompra, IdProducto,Cantidad) VALUES (1,1,1)
-INSERT INTO Inventario.Producto(Nombre,Existencia,CostoProveedor,CostoVenta) VALUES ('Jugo', 10, 2, 3)
-SELECT * FROM Inventario.Producto
-
-TRUNCATE TABLE Transaccion.DetalleVenta

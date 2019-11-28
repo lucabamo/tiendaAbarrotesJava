@@ -163,6 +163,10 @@ public class jfVenta extends javax.swing.JFrame {
         venta.seleccionaVentas(conexion, jtVentas);
         venta.seleccionaEmpleados(conexion, cbEmpleadoVenta);
         resetControles();
+        java.util.Date date;
+        date = new java.util.Date();
+        dpFechaVenta.setDate(date);
+        dpFechaVenta.setEnabled(false);
     }//GEN-LAST:event_formWindowOpened
 
     private void cbEmpleadoVentaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEmpleadoVentaItemStateChanged
@@ -209,8 +213,6 @@ public class jfVenta extends javax.swing.JFrame {
 
     public void resetControles(){
         cbEmpleadoVenta.setSelectedItem(null);
-        dpFechaVenta.setDate(null);
-
     }
     
     public void asignaConexion(Connection connection){

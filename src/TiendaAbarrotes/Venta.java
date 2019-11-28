@@ -96,7 +96,7 @@ public class Venta {
             }
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error en la inserción");
         }
     }
     
@@ -113,7 +113,7 @@ public class Venta {
             }
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error en la modificación");
         }
     }
     
@@ -129,7 +129,7 @@ public class Venta {
             }
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar");
         }    
     }
     
