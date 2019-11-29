@@ -64,7 +64,7 @@ public class DetalleDevolucion {
             }
             detallesDevolucion.setModel(modelo);
         } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
         
@@ -84,7 +84,7 @@ public class DetalleDevolucion {
            devoluciones.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
    
@@ -103,7 +103,7 @@ public class DetalleDevolucion {
             }
             productos.setModel(modelo);
         } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -119,7 +119,7 @@ public class DetalleDevolucion {
                 JOptionPane.showMessageDialog(null, "Se ingresó correctamente");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error en la inserción");
         }
     }
        
@@ -141,7 +141,7 @@ public class DetalleDevolucion {
             }
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Hubo un error al modificar");            
         }
     }
             public void eliminaEntrega(Connection conexion)
@@ -159,7 +159,7 @@ public class DetalleDevolucion {
             }
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Hubo un error al eliminar");            
         }    
     }
 }

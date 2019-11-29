@@ -51,7 +51,7 @@ public class jfPromocion extends javax.swing.JFrame {
         dpFechaInicio = new org.jdesktop.swingx.JXDatePicker();
         dpFechaFinal = new org.jdesktop.swingx.JXDatePicker();
         cbProductoPromocion = new javax.swing.JComboBox<>();
-        tfDescuento = new javax.swing.JTextField();
+        jCDescuento = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -112,6 +112,8 @@ public class jfPromocion extends javax.swing.JFrame {
 
         jLabel4.setText("Producto");
 
+        jCDescuento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,10 +134,12 @@ public class jfPromocion extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
-                                    .addComponent(dpFechaFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                                    .addComponent(tfDescuento))
+                                    .addComponent(dpFechaFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jCDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(61, 61, 61)
                                 .addComponent(btAgregar)
                                 .addGap(39, 39, 39)
@@ -162,10 +166,10 @@ public class jfPromocion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dpFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btAgregar)
                     .addComponent(btModificar)
-                    .addComponent(btEliminar))
+                    .addComponent(btEliminar)
+                    .addComponent(jCDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
@@ -191,8 +195,10 @@ public class jfPromocion extends javax.swing.JFrame {
         int idProducto = ((Item) cbProductoPromocion.getSelectedItem()).getId();
         LocalDate fechaInicio = dpFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate fechaFinal = dpFechaFinal.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        float descuento = Float.parseFloat(tfDescuento.getText());
-        promocion.agregaPromocion(conexion, idProducto, fechaInicio, fechaFinal, descuento);
+        //float descuento = Float.parseFloat(tfDescuento.getText());
+        String des = jCDescuento.getSelectedItem().toString();
+        float descuento2 = Float.parseFloat(des);
+        promocion.agregaPromocion(conexion, idProducto, fechaInicio, fechaFinal, descuento2);
         promocion.seleccionaPromociones(conexion, jtPromociones);
         resetControles();
     }//GEN-LAST:event_btAgregarActionPerformed
@@ -201,8 +207,9 @@ public class jfPromocion extends javax.swing.JFrame {
         int idProducto = ((Item) cbProductoPromocion.getSelectedItem()).getId();
         LocalDate fechaInicio = dpFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate fechaFinal = dpFechaFinal.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        float descuento = Float.parseFloat(tfDescuento.getText());
-        promocion.modificaPromocion(conexion, idProducto, fechaInicio, fechaFinal, descuento);
+        String des = jCDescuento.getSelectedItem().toString();
+        float descuento2 = Float.parseFloat(des);
+        promocion.modificaPromocion(conexion, idProducto, fechaInicio, fechaFinal, descuento2);
         promocion.seleccionaPromociones(conexion, jtPromociones);
         resetControles();
     }//GEN-LAST:event_btModificarActionPerformed
@@ -226,15 +233,15 @@ public class jfPromocion extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(jfPromocion.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        tfDescuento.setText(source.getModel().getValueAt(row, 4).toString());
+        jCDescuento.setSelectedItem(source.getModel().getValueAt(row, 4).toString());
+       // jCDescuento.setText(source.getModel().getValueAt(row, 4).toString());
     }//GEN-LAST:event_jtPromocionesMouseClicked
 
      public void resetControles(){
         cbProductoPromocion.setSelectedItem(null);
         dpFechaInicio.setDate(null);
         dpFechaFinal.setDate(null);
-        tfDescuento.setText("");
+        jCDescuento.setSelectedItem(0);
     }
     /**
      * @param args the command line arguments
@@ -278,12 +285,12 @@ public class jfPromocion extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbProductoPromocion;
     private org.jdesktop.swingx.JXDatePicker dpFechaFinal;
     private org.jdesktop.swingx.JXDatePicker dpFechaInicio;
+    private javax.swing.JComboBox<String> jCDescuento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtPromociones;
-    private javax.swing.JTextField tfDescuento;
     // End of variables declaration//GEN-END:variables
 }

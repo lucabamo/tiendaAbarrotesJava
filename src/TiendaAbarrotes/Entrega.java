@@ -48,7 +48,7 @@ public class Entrega {
            empleados.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -67,7 +67,7 @@ public class Entrega {
            proveedores.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -87,7 +87,7 @@ public class Entrega {
            devoluciones.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
         
@@ -116,7 +116,7 @@ public class Entrega {
            entregas.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -138,7 +138,7 @@ public class Entrega {
                 }
             }
             catch(Exception ex){
-                JOptionPane.showMessageDialog(null, ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "Hubo un error al insertar el registro");              
             }
     }
     
@@ -152,7 +152,7 @@ public class Entrega {
         idEntrega = rs.getInt(1);
         }
         catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());                             
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }   
     return idEntrega;
 }
@@ -187,10 +187,9 @@ public class Entrega {
                 int cantidadActual = existencia - cantidad;
                 actualizaProducto(conexion,idProducto, cantidadActual);
             }
-           JOptionPane.showMessageDialog(null, rows);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -211,7 +210,7 @@ private void actualizaProducto(Connection conexion,int idProducto, int existenci
             }
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
 }
 
@@ -233,7 +232,7 @@ private void actualizaProducto(Connection conexion,int idProducto, int existenci
             }
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Hubo un error al modificar");            
         }
     }
     
@@ -252,7 +251,7 @@ private void actualizaProducto(Connection conexion,int idProducto, int existenci
             }
         }
         catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Hubo un error al eliminar");            
         }    
     }
     

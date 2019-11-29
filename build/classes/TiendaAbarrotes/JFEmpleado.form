@@ -49,17 +49,19 @@
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="lbUsuarioEmpleado" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tfUsuarioEmpleado" min="-2" pref="172" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="lbContrasenaEmpleado" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tfContrasenaEmpleado" min="-2" pref="170" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="tfUsuarioEmpleado" pref="172" max="32767" attributes="0"/>
+                          <Component id="tfContrasenaEmpleado" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -100,14 +102,14 @@
                           <Component id="lbUsuarioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfUsuarioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="tfContrasenaEmpleado" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbContrasenaEmpleado" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbContrasenaEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfContrasenaEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbDomicilioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tfDomicilioEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -203,9 +205,9 @@
         <Property name="text" type="java.lang.String" value="Contrase&#xf1;a:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfContrasenaEmpleado">
-    </Component>
     <Component class="org.jdesktop.swingx.JXDatePicker" name="dpFechaNacEmpleado">
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="tfContrasenaEmpleado">
     </Component>
   </SubComponents>
 </Form>

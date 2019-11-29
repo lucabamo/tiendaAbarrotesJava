@@ -29,34 +29,35 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jBEntregaMenu" min="-2" pref="93" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="JbEmpleadoMenu" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="jBProveedorMenu" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jBProductoMenu" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="jBPromocionMenu" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jBProductoMenu" alignment="0" max="32767" attributes="0"/>
+                          <Component id="JbEmpleadoMenu" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jBProveedorMenu" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBPromocionMenu" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBVentaMenu" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jBCompraMenu" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jBVentaMenu" max="32767" attributes="0"/>
+                              <Component id="jBCompraMenu" pref="89" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="jBDevolucion" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBDetalleCompraMEnu" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                           <Component id="jBDetalleVentaMenu" min="-2" max="-2" attributes="0"/>
+                          <Component id="jBDetalleCompraMEnu" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jBDevolucion" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jBEntregaMenu" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="106" max="32767" attributes="0"/>
+              <EmptySpace pref="40" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -67,27 +68,30 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="JbEmpleadoMenu" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jBProveedorMenu" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBProductoMenu" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBPromocionMenu" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jBVentaMenu" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBDetalleVentaMenu" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBProductoMenu" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="jBPromocionMenu" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jBCompraMenu" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBDetalleCompraMEnu" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBVentaMenu" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jBDetalleVentaMenu" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jBDevolucion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBCompraMenu" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="jBDetalleCompraMEnu" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButton1" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="jBDevolucion" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jBEntregaMenu" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="148" max="32767" attributes="0"/>
+              <Component id="jBEntregaMenu" min="-2" pref="37" max="-2" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

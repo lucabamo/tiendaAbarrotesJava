@@ -55,7 +55,7 @@ public class Producto {
             }
         }
         catch(Exception e) {
-            
+                JOptionPane.showMessageDialog(null, "Hubo un error en la inserción.");            
         }
     }
     

@@ -48,7 +48,6 @@ public class Empleado {
             }
         }
         catch(Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
             JOptionPane.showMessageDialog(null, "Error en la inserción" + ex.getLocalizedMessage());
         }
     }
@@ -71,7 +70,7 @@ public class Empleado {
             }
         }
         catch(Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());            
+            javax.swing.JOptionPane.showMessageDialog(null, "Hubo un error en la modificación");
         }
     }
     
@@ -87,7 +86,7 @@ public class Empleado {
             }
         }
         catch(Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Hubo un error en la eliminación");
         }
     }
 

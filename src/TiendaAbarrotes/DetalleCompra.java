@@ -56,7 +56,7 @@ public class DetalleCompra {
             }
             compras.setModel(modelo);
         } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -74,7 +74,7 @@ public class DetalleCompra {
             }
             productos.setModel(modelo);
         } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -94,7 +94,8 @@ public class DetalleCompra {
             }
         }
         catch(Exception e) {
-            
+                JOptionPane.showMessageDialog(null, "Hubo un error en la inserción");
+ 
         }
     }
     
@@ -111,11 +112,11 @@ public class DetalleCompra {
             
             int registro = pt.executeUpdate();
             if(registro > 0) {
-                JOptionPane.showMessageDialog(null, "Se ingreso correctamente.");
+                JOptionPane.showMessageDialog(null, "Se edito correctamente.");
             }
         }
         catch(Exception e) {
-            
+                JOptionPane.showMessageDialog(null, "Hubo un error al editar");            
         }
     }
     
@@ -131,7 +132,7 @@ public class DetalleCompra {
             }
         }
         catch(Exception e) {
-            
+                JOptionPane.showMessageDialog(null, "Hubo un error en la eliminación");            
         }
     }
 }

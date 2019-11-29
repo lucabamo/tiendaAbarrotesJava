@@ -68,7 +68,7 @@ public class DetalleVenta {
             }
             detallesVenta.setModel(modelo);
         } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
 
@@ -85,7 +85,7 @@ public class DetalleVenta {
             }
             ventas.setModel(modelo);
         } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
 
@@ -103,7 +103,7 @@ public class DetalleVenta {
             }
             productos.setModel(modelo);
         } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
 
@@ -121,7 +121,7 @@ public class DetalleVenta {
             }
             empleados.setModel(modelo);
         } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -138,7 +138,7 @@ public class DetalleVenta {
             return id; 
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
             return -1;
         }        
     }

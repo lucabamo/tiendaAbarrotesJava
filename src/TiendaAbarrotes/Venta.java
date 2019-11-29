@@ -60,7 +60,7 @@ public class Venta {
            ventas.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -79,7 +79,7 @@ public class Venta {
            empleados.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     

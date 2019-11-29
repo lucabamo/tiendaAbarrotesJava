@@ -19,6 +19,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 
 /**
@@ -57,8 +59,8 @@ public class JFEmpleado extends javax.swing.JFrame {
         lbUsuarioEmpleado = new javax.swing.JLabel();
         tfUsuarioEmpleado = new javax.swing.JTextField();
         lbContrasenaEmpleado = new javax.swing.JLabel();
-        tfContrasenaEmpleado = new javax.swing.JTextField();
         dpFechaNacEmpleado = new org.jdesktop.swingx.JXDatePicker();
+        tfContrasenaEmpleado = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -138,15 +140,16 @@ public class JFEmpleado extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tfDomicilioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(lbUsuarioEmpleado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfUsuarioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(lbContrasenaEmpleado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(3, 3, 3)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfUsuarioEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(tfContrasenaEmpleado)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(100, 100, 100)
                         .addComponent(btInsertarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -176,11 +179,11 @@ public class JFEmpleado extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbUsuarioEmpleado)
                             .addComponent(tfUsuarioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbContrasenaEmpleado))))
-                .addGap(30, 30, 30)
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbContrasenaEmpleado)
+                            .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDomicilioEmpleado)
                     .addComponent(tfDomicilioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -200,14 +203,14 @@ public class JFEmpleado extends javax.swing.JFrame {
     private void btInsertarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarEmpleadoActionPerformed
         LocalDate fecha = dpFechaNacEmpleado.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        empleado.InsertaEmpleado(conexion, tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), fecha, tfUsuarioEmpleado.getText(), tfContrasenaEmpleado.getText());
+        empleado.InsertaEmpleado(conexion, tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), fecha, tfUsuarioEmpleado.getText(), new String(tfContrasenaEmpleado.getPassword()));
         ActualizaTablaEmpleado();
         resetControles();
     }//GEN-LAST:event_btInsertarEmpleadoActionPerformed
 
     private void btModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarEmpleadoActionPerformed
         LocalDate fecha = dpFechaNacEmpleado.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        empleado.ModificaEmpleado(conexion, tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), fecha, tfUsuarioEmpleado.getText(), tfContrasenaEmpleado.getText(), idRow);
+        empleado.ModificaEmpleado(conexion, tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), fecha, tfUsuarioEmpleado.getText(), new String(tfContrasenaEmpleado.getPassword()), idRow);
         ActualizaTablaEmpleado();
         resetControles();
     }//GEN-LAST:event_btModificarEmpleadoActionPerformed
@@ -284,8 +287,8 @@ public class JFEmpleado extends javax.swing.JFrame {
                 Aux[2] = rs.getString(3);
                 Aux[3] = rs.getString(4);
                 Aux[4] = rs.getString(5);
-                Aux[5] = rs.getString(6);
-                Aux[6] = rs.getString(7);
+                Aux[5] = rs.getString(6);                
+                Aux[6] = rs.getString(7); 
                 modelo.addRow(Aux);
             }
             tableEmpleado.setModel(modelo);
@@ -344,7 +347,7 @@ public class JFEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel lbNombreEmpleado;
     private javax.swing.JLabel lbUsuarioEmpleado;
     private javax.swing.JTable tableEmpleado;
-    private javax.swing.JTextField tfContrasenaEmpleado;
+    private javax.swing.JPasswordField tfContrasenaEmpleado;
     private javax.swing.JTextField tfDomicilioEmpleado;
     private javax.swing.JTextField tfNombreEmpleado;
     private javax.swing.JTextField tfUsuarioEmpleado;

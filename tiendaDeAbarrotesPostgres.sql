@@ -186,7 +186,7 @@ END;
 $$
 Language plpgsql;
 
-CREATE TRIGGER ActualizarExistenciasCompra AFTER INSERT
+CREATE TRIGGER ActualizarExistenciasCompra AFTER INSERT OR UPDATE
 ON Transaccion.DetalleCompra FOR EACH ROW
 EXECUTE PROCEDURE ActualizarInventario();
 
@@ -202,7 +202,7 @@ END;
 $$
 Language plpgsql;
 
-CREATE TRIGGER ActualizarExistenciasVenta AFTER INSERT
+CREATE TRIGGER ActualizarExistenciasVenta AFTER INSERT OR UPDATE
 ON Transaccion.DetalleVenta FOR EACH ROW
 EXECUTE PROCEDURE ActualizarExistencias();
 
@@ -223,7 +223,9 @@ END;
 $$
 Language plpgsql;
 
-CREATE TRIGGER ActualizaTotalDevolucionTrigg AFTER INSERT 
+--DROP TRIGGER ActualizaTotalDevolucionTrigg ON Transaccion.DetalleDevolucion;
+
+CREATE TRIGGER ActualizaTotalDevolucionTrigg AFTER INSERT OR UPDATE
 ON Transaccion.DetalleDevolucion FOR EACH ROW
 EXECUTE PROCEDURE ActualizaTotalDevolucion();
 
@@ -239,10 +241,14 @@ END;
 $$
 Language plpgsql;
 
-CREATE TRIGGER ActualizarTotalVenta AFTER INSERT
+
+--DROP TRIGGER ActualizarTotalVenta ON Transaccion.DetalleVenta;
+
+CREATE TRIGGER ActualizarTotalVenta AFTER INSERT OR UPDATE
 ON Transaccion.DetalleVenta FOR EACH ROW
 EXECUTE PROCEDURE ActualizarTotalVenta();
 
+--Trigger para actualizar total de la venta después de eliminar un detalle de venta
 CREATE FUNCTION ActualizarTotalVentaDel() RETURNS TRIGGER
 AS $$
 DECLARE BEGIN
@@ -271,7 +277,7 @@ END;
 $$
 Language plpgsql;
 
-CREATE TRIGGER ActualizarTotalCompra AFTER INSERT
+CREATE TRIGGER ActualizarTotalCompra AFTER INSERT OR UPDATE
 ON Transaccion.DetalleCompra FOR EACH ROW
 EXECUTE PROCEDURE ActualizarTotalCompra();
 
@@ -305,7 +311,7 @@ END;
 $$
 Language plpgsql;
 
-CREATE TRIGGER ActualizaEstadoDevolucion BEFORE INSERT
+CREATE TRIGGER ActualizaEstadoDevolucion BEFORE INSERT OR UPDATE
 ON Transaccion.Entrega FOR EACH ROW
 EXECUTE PROCEDURE EntregaDevolcion();
 	
@@ -338,7 +344,9 @@ END;
 $$
 Language plpgsql;	
 
-CREATE TRIGGER ActualizarSubtotalDetalleVenta BEFORE INSERT
+DROP TRIGGER ActualizarSubtotalDetalleVenta ON Transaccion.DetalleVenta
+
+CREATE TRIGGER ActualizarSubtotalDetalleVenta BEFORE INSERT OR UPDATE
 ON Transaccion.DetalleVenta FOR EACH ROW
 EXECUTE PROCEDURE CalcularSubtotalVenta();
 
@@ -363,7 +371,7 @@ Language plpgsql;
 
 	
 
-CREATE TRIGGER ActualizarSubtotalDetalleCompra BEFORE INSERT
+CREATE TRIGGER ActualizarSubtotalDetalleCompra BEFORE INSERT OR UPDATE
 ON Transaccion.DetalleCompra FOR EACH ROW
 EXECUTE PROCEDURE CalcularSubtotalCompra();
 
@@ -380,7 +388,7 @@ $$
 Language plpgsql;	
 
 
-CREATE TRIGGER agregaPromocionDefault AFTER INSERT
+CREATE TRIGGER agregaPromocionDefault AFTER INSERT OR UPDATE
 ON Inventario.Producto FOR EACH ROW
 EXECUTE PROCEDURE insertaPromocionDefault();
 
@@ -418,6 +426,7 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA "transaccion" TO EMPLEADO;
 
 --CLIENTE--
 GRANT CONNECT ON DATABASE "tiendaAbarrotes" TO CLIENTE;
+GRANT USAGE ON SCHEMA transaccion,inventario TO EMPLEADO
 REVOKE INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA "inventario" FROM CLIENTE;
 GRANT SELECT ON ALL TABLES IN SCHEMA "inventario" TO CLIENTE;
 REVOKE INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA "transaccion" FROM CLIENTE;

@@ -45,7 +45,7 @@ public class Compra {
             }
         }
         catch(Exception e) {
-            
+                JOptionPane.showMessageDialog(null, "Hubo un error en la inserción");
         }
     }
     
@@ -103,7 +103,7 @@ public class Compra {
            empleados.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -122,7 +122,7 @@ public class Compra {
            proveedores.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     public int getIdCompra() {
