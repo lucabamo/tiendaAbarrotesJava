@@ -173,7 +173,7 @@ public class Login extends javax.swing.JFrame {
 
             }
         } catch (SQLException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "Error de conexión");
 
         }
     }
