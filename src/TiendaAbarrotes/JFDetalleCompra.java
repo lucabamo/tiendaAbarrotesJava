@@ -60,20 +60,39 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         tableDetalleCompra = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(675, 532));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
+        lbCompraDetalleCompra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbCompraDetalleCompra.setForeground(new java.awt.Color(0, 102, 153));
         lbCompraDetalleCompra.setText("Compra:");
 
+        cbCompraDetalleCompra.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        lbProductoDetalleCompra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbProductoDetalleCompra.setForeground(new java.awt.Color(0, 102, 153));
         lbProductoDetalleCompra.setText("Producto:");
 
+        cbProductoDetalleCompra.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        lbCantidadDetalleCompra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbCantidadDetalleCompra.setForeground(new java.awt.Color(0, 102, 153));
         lbCantidadDetalleCompra.setText("Cantidad:");
 
+        tfCantidadDetalleCompra.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        lbSubtotalDetalleCompra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbSubtotalDetalleCompra.setForeground(new java.awt.Color(0, 102, 153));
         lbSubtotalDetalleCompra.setText("Subtotal:");
 
+        tfSubtotalDetalleCompra.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        btInsertarDetalleCompra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btInsertarDetalleCompra.setForeground(new java.awt.Color(0, 153, 153));
         btInsertarDetalleCompra.setText("Insertar");
         btInsertarDetalleCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +100,8 @@ public class JFDetalleCompra extends javax.swing.JFrame {
             }
         });
 
+        btModificarDetalleCompra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btModificarDetalleCompra.setForeground(new java.awt.Color(0, 153, 153));
         btModificarDetalleCompra.setText("Modificar");
         btModificarDetalleCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +109,8 @@ public class JFDetalleCompra extends javax.swing.JFrame {
             }
         });
 
+        btEliminarDetalleCompra.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btEliminarDetalleCompra.setForeground(new java.awt.Color(0, 153, 153));
         btEliminarDetalleCompra.setText("Eliminar");
         btEliminarDetalleCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +118,7 @@ public class JFDetalleCompra extends javax.swing.JFrame {
             }
         });
 
+        tableDetalleCompra.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tableDetalleCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -121,7 +145,11 @@ public class JFDetalleCompra extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btInsertarDetalleCompra)
+                                .addGap(83, 83, 83)
+                                .addComponent(btModificarDetalleCompra))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lbCompraDetalleCompra)
@@ -133,20 +161,20 @@ public class JFDetalleCompra extends javax.swing.JFrame {
                                 .addGap(37, 37, 37)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lbProductoDetalleCompra)
-                                    .addComponent(lbSubtotalDetalleCompra))
+                                    .addComponent(lbSubtotalDetalleCompra))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tfSubtotalDetalleCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                                     .addComponent(cbProductoDetalleCompra, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(btEliminarDetalleCompra))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(btInsertarDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)
-                        .addComponent(btModificarDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75)
-                        .addComponent(btEliminarDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,14 +191,14 @@ public class JFDetalleCompra extends javax.swing.JFrame {
                     .addComponent(tfCantidadDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbSubtotalDetalleCompra)
                     .addComponent(tfSubtotalDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btInsertarDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btModificarDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btEliminarDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();

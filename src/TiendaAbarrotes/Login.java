@@ -48,10 +48,11 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cbUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        cbUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cbUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btIniciarSesion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btIniciarSesion.setForeground(new java.awt.Color(0, 153, 153));
         btIniciarSesion.setText("INICIAR SESIÓN");
         btIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,13 +61,16 @@ public class Login extends javax.swing.JFrame {
         });
 
         lbUsuario.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbUsuario.setForeground(new java.awt.Color(0, 102, 153));
         lbUsuario.setText("USUARIO");
 
         lbPassword.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbPassword.setForeground(new java.awt.Color(0, 102, 153));
         lbPassword.setText("CONTRASEÑA");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TiendaAbarrotes/IMG1.png"))); // NOI18N
 
+        tfPassword1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tfPassword1.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -75,9 +79,6 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(162, 162, 162)
-                        .addComponent(cbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(240, 240, 240)
                         .addComponent(lbUsuario))
@@ -91,8 +92,10 @@ public class Login extends javax.swing.JFrame {
                         .addGap(228, 228, 228)
                         .addComponent(lbPassword))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(tfPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(162, 162, 162)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbUsuario, 0, 203, Short.MAX_VALUE)
+                            .addComponent(tfPassword1))))
                 .addContainerGap(197, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,9 +111,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(lbPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(btIniciarSesion)
-                .addGap(48, 48, 48))
+                .addGap(32, 32, 32))
         );
 
         pack();

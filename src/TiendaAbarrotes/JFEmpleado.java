@@ -67,12 +67,24 @@ public class JFEmpleado extends javax.swing.JFrame {
             }
         });
 
+        lbNombreEmpleado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbNombreEmpleado.setForeground(new java.awt.Color(0, 102, 153));
         lbNombreEmpleado.setText("Nombre:");
 
+        tfNombreEmpleado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        lbDomicilioEmpleado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbDomicilioEmpleado.setForeground(new java.awt.Color(0, 102, 153));
         lbDomicilioEmpleado.setText("Domicilio:");
 
+        tfDomicilioEmpleado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        lbFechaNacEmpleado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbFechaNacEmpleado.setForeground(new java.awt.Color(0, 102, 153));
         lbFechaNacEmpleado.setText("Fecha nacimiento:");
 
+        btInsertarEmpleado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btInsertarEmpleado.setForeground(new java.awt.Color(0, 153, 153));
         btInsertarEmpleado.setText("Insertar");
         btInsertarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,6 +92,8 @@ public class JFEmpleado extends javax.swing.JFrame {
             }
         });
 
+        btModificarEmpleado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btModificarEmpleado.setForeground(new java.awt.Color(0, 153, 153));
         btModificarEmpleado.setText("Modificar");
         btModificarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +101,8 @@ public class JFEmpleado extends javax.swing.JFrame {
             }
         });
 
+        btEliminarEmpleado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        btEliminarEmpleado.setForeground(new java.awt.Color(0, 153, 153));
         btEliminarEmpleado.setText("Eliminar");
         btEliminarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +110,7 @@ public class JFEmpleado extends javax.swing.JFrame {
             }
         });
 
+        tableEmpleado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tableEmpleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -112,9 +129,17 @@ public class JFEmpleado extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableEmpleado);
 
+        lbUsuarioEmpleado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbUsuarioEmpleado.setForeground(new java.awt.Color(0, 102, 153));
         lbUsuarioEmpleado.setText("Usuario:");
 
+        tfUsuarioEmpleado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        lbContrasenaEmpleado.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lbContrasenaEmpleado.setForeground(new java.awt.Color(0, 102, 153));
         lbContrasenaEmpleado.setText("Contraseña:");
+
+        tfContrasenaEmpleado.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,19 +150,18 @@ public class JFEmpleado extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfDomicilioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbNombreEmpleado, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbFechaNacEmpleado))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lbDomicilioEmpleado)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lbNombreEmpleado, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lbFechaNacEmpleado)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tfNombreEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dpFechaNacEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbDomicilioEmpleado)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfDomicilioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(44, 44, 44)
+                                    .addComponent(dpFechaNacEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lbUsuarioEmpleado)
@@ -146,52 +170,48 @@ public class JFEmpleado extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lbContrasenaEmpleado)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(btInsertarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85)
+                        .addGap(102, 102, 102)
+                        .addComponent(btInsertarEmpleado)
+                        .addGap(83, 83, 83)
                         .addComponent(btModificarEmpleado)
                         .addGap(81, 81, 81)
-                        .addComponent(btEliminarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addComponent(btEliminarEmpleado)))
+                .addContainerGap(93, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbNombreEmpleado)
-                            .addComponent(tfNombreEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbFechaNacEmpleado)
-                            .addComponent(dpFechaNacEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbUsuarioEmpleado)
-                            .addComponent(tfUsuarioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbContrasenaEmpleado))))
-                .addGap(30, 30, 30)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbNombreEmpleado)
+                    .addComponent(tfNombreEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbUsuarioEmpleado)
+                    .addComponent(tfUsuarioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbFechaNacEmpleado)
+                    .addComponent(dpFechaNacEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbContrasenaEmpleado)
+                    .addComponent(tfContrasenaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbDomicilioEmpleado)
                     .addComponent(tfDomicilioEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btInsertarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                    .addComponent(btModificarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btEliminarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(31, 31, 31)
+                    .addComponent(btModificarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(btEliminarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(33, 33, 33))
         );
 
         pack();

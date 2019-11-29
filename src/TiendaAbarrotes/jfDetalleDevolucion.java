@@ -55,10 +55,19 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
             }
         });
 
-        jMotivoDevEntrega.setText("Motivo devolución");
+        jMotivoDevEntrega.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jMotivoDevEntrega.setForeground(new java.awt.Color(0, 102, 153));
+        jMotivoDevEntrega.setText("Motivo devolución:");
 
-        jLProductoDetalleDev.setText("Producto");
+        jLProductoDetalleDev.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLProductoDetalleDev.setForeground(new java.awt.Color(0, 102, 153));
+        jLProductoDetalleDev.setText("Producto:");
 
+        jCMotivoDevolucionDetalle.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jCProductoDetalle.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        jTDetallesDevoluciones.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jTDetallesDevoluciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTDetallesDevolucionesMouseClicked(evt);
@@ -66,20 +75,26 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTDetallesDevoluciones);
 
-        jBAgregarDetalleDev.setText("Agregar");
+        jBAgregarDetalleDev.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jBAgregarDetalleDev.setForeground(new java.awt.Color(0, 153, 153));
+        jBAgregarDetalleDev.setText("Insertar");
         jBAgregarDetalleDev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBAgregarDetalleDevActionPerformed(evt);
             }
         });
 
-        jBEditarDetalleDev.setText("Editar");
+        jBEditarDetalleDev.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jBEditarDetalleDev.setForeground(new java.awt.Color(0, 153, 153));
+        jBEditarDetalleDev.setText("Modificar");
         jBEditarDetalleDev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBEditarDetalleDevActionPerformed(evt);
             }
         });
 
+        jBEliminarDetalleDev.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jBEliminarDetalleDev.setForeground(new java.awt.Color(0, 153, 153));
         jBEliminarDetalleDev.setText("Eliminar");
         jBEliminarDetalleDev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,67 +102,66 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
             }
         });
 
-        jLCantidad.setText("Cantidad");
+        jLCantidad.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLCantidad.setForeground(new java.awt.Color(0, 102, 153));
+        jLCantidad.setText("Cantidad:");
+
+        jTCantidadDetalleDev.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLProductoDetalleDev, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jMotivoDevEntrega, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCProductoDetalle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jCMotivoDevolucionDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(jLCantidad)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTCantidadDetalleDev, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(122, 122, 122))
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLProductoDetalleDev)
-                            .addComponent(jCProductoDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
                         .addComponent(jBAgregarDetalleDev)
-                        .addGap(18, 18, 18)
+                        .addGap(75, 75, 75)
                         .addComponent(jBEditarDetalleDev)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBEliminarDetalleDev)
-                        .addGap(35, 35, 35))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jMotivoDevEntrega)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLCantidad)
-                        .addGap(261, 261, 261))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jCMotivoDevolucionDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                        .addComponent(jTCantidadDetalleDev, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(191, 191, 191))))
+                        .addGap(79, 79, 79)
+                        .addComponent(jBEliminarDetalleDev)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLCantidad, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jMotivoDevEntrega))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCMotivoDevolucionDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTCantidadDetalleDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLProductoDetalleDev)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCProductoDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBAgregarDetalleDev)
-                            .addComponent(jBEditarDetalleDev)
-                            .addComponent(jBEliminarDetalleDev))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addComponent(jTCantidadDetalleDev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jMotivoDevEntrega)
+                    .addComponent(jLCantidad))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCProductoDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLProductoDetalleDev))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBAgregarDetalleDev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBEditarDetalleDev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBEliminarDetalleDev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
 
         pack();

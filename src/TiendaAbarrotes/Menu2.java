@@ -45,6 +45,8 @@ public class Menu2 extends javax.swing.JFrame {
         jBDevolucion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jBEntregaMenu = new javax.swing.JButton();
+        lbMenu = new javax.swing.JLabel();
+        lbIconoMenu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -53,6 +55,8 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
+        JbEmpleadoMenu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        JbEmpleadoMenu.setForeground(new java.awt.Color(0, 153, 153));
         JbEmpleadoMenu.setText("Empleado");
         JbEmpleadoMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,6 +64,8 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
+        jBProveedorMenu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBProveedorMenu.setForeground(new java.awt.Color(0, 153, 153));
         jBProveedorMenu.setText("Proveedor");
         jBProveedorMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,6 +73,8 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
+        jBProductoMenu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBProductoMenu.setForeground(new java.awt.Color(0, 153, 153));
         jBProductoMenu.setText("Producto");
         jBProductoMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,13 +82,17 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
-        jBPromocionMenu.setText("Promocion");
+        jBPromocionMenu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBPromocionMenu.setForeground(new java.awt.Color(0, 153, 153));
+        jBPromocionMenu.setText("Promoción");
         jBPromocionMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBPromocionMenuActionPerformed(evt);
             }
         });
 
+        jBVentaMenu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBVentaMenu.setForeground(new java.awt.Color(0, 153, 153));
         jBVentaMenu.setText("Venta");
         jBVentaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +100,8 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
+        jBDetalleVentaMenu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBDetalleVentaMenu.setForeground(new java.awt.Color(0, 153, 153));
         jBDetalleVentaMenu.setText("Detalle Venta");
         jBDetalleVentaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +109,8 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
+        jBCompraMenu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBCompraMenu.setForeground(new java.awt.Color(0, 153, 153));
         jBCompraMenu.setText("Compra");
         jBCompraMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +118,8 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
+        jBDetalleCompraMEnu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBDetalleCompraMEnu.setForeground(new java.awt.Color(0, 153, 153));
         jBDetalleCompraMEnu.setText("Detalle Compra");
         jBDetalleCompraMEnu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +127,8 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
+        jBDevolucion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBDevolucion.setForeground(new java.awt.Color(0, 153, 153));
         jBDevolucion.setText("Devolución");
         jBDevolucion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +136,8 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 153, 153));
         jButton1.setText("Detalle Devolución");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +145,8 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
+        jBEntregaMenu.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jBEntregaMenu.setForeground(new java.awt.Color(0, 153, 153));
         jBEntregaMenu.setText("Entrega");
         jBEntregaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,60 +154,77 @@ public class Menu2 extends javax.swing.JFrame {
             }
         });
 
+        lbMenu.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lbMenu.setForeground(new java.awt.Color(0, 102, 153));
+        lbMenu.setText("MENÚ");
+
+        lbIconoMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/TiendaAbarrotes/menu.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(JbEmpleadoMenu)
-                        .addGap(31, 31, 31)
-                        .addComponent(jBProveedorMenu)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBProductoMenu)
-                        .addGap(33, 33, 33)
-                        .addComponent(jBPromocionMenu))
+                        .addGap(257, 257, 257)
+                        .addComponent(lbIconoMenu)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbMenu))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBVentaMenu)
-                            .addComponent(jBCompraMenu))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBDetalleCompraMEnu)
-                            .addComponent(jBDetalleVentaMenu)))
+                        .addGap(39, 39, 39)
+                        .addComponent(JbEmpleadoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jBProveedorMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jBProductoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBDevolucion)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addComponent(jBEntregaMenu))
-                .addContainerGap(106, Short.MAX_VALUE))
+                        .addGap(137, 137, 137)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBCompraMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBVentaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBEntregaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBDetalleVentaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBDetalleCompraMEnu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBPromocionMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JbEmpleadoMenu)
-                    .addComponent(jBProveedorMenu)
-                    .addComponent(jBProductoMenu)
-                    .addComponent(jBPromocionMenu))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(lbMenu))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(lbIconoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBVentaMenu)
-                    .addComponent(jBDetalleVentaMenu))
-                .addGap(18, 18, 18)
+                    .addComponent(jBProveedorMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBProductoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JbEmpleadoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBCompraMenu)
-                    .addComponent(jBDetalleCompraMEnu))
-                .addGap(18, 18, 18)
+                    .addComponent(jBVentaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBDetalleVentaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBDevolucion)
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
-                .addComponent(jBEntregaMenu)
-                .addContainerGap(148, Short.MAX_VALUE))
+                    .addComponent(jBCompraMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBDetalleCompraMEnu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBDevolucion, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBEntregaMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBPromocionMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -319,5 +360,7 @@ public class Menu2 extends javax.swing.JFrame {
     private javax.swing.JButton jBProveedorMenu;
     private javax.swing.JButton jBVentaMenu;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel lbIconoMenu;
+    private javax.swing.JLabel lbMenu;
     // End of variables declaration//GEN-END:variables
 }
