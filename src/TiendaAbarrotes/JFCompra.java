@@ -63,8 +63,6 @@ public class JFCompra extends javax.swing.JFrame {
         lbProveedorCompra = new javax.swing.JLabel();
         lbEmpleadoCompra = new javax.swing.JLabel();
         lbFechaCompra = new javax.swing.JLabel();
-        lbTotalCompra = new javax.swing.JLabel();
-        tfTotalCompra = new javax.swing.JTextField();
         btInsertarCompra = new javax.swing.JButton();
         btModificarCompra = new javax.swing.JButton();
         btEliminarCompra = new javax.swing.JButton();
@@ -91,8 +89,6 @@ public class JFCompra extends javax.swing.JFrame {
         lbEmpleadoCompra.setText("Empleado:");
 
         lbFechaCompra.setText("Fecha:");
-
-        lbTotalCompra.setText("Total:");
 
         btInsertarCompra.setText("Insertar");
         btInsertarCompra.addActionListener(new java.awt.event.ActionListener() {
@@ -151,13 +147,9 @@ public class JFCompra extends javax.swing.JFrame {
                                     .addComponent(cbProveedorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(dpFechaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(37, 37, 37)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbEmpleadoCompra)
-                                    .addComponent(lbTotalCompra))
+                                .addComponent(lbEmpleadoCompra)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfTotalCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                    .addComponent(cbEmpleadoCompra, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(cbEmpleadoCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
@@ -180,8 +172,6 @@ public class JFCompra extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbFechaCompra)
-                    .addComponent(lbTotalCompra)
-                    .addComponent(tfTotalCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dpFechaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -199,7 +189,7 @@ public class JFCompra extends javax.swing.JFrame {
     private void btInsertarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarCompraActionPerformed
         int idProveedor = ((Item) cbProveedorCompra.getSelectedItem()).getId();
         int idEmpleado = ((Item) cbEmpleadoCompra.getSelectedItem()).getId();
-        float total = Float.parseFloat(tfTotalCompra.getText());
+        float total = 0.0f;
         LocalDate fecha = dpFechaCompra.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         compra.InsertaCompra(conexion, idProveedor, idEmpleado, fecha, total);
         resetControles();
@@ -209,7 +199,7 @@ public class JFCompra extends javax.swing.JFrame {
     private void btModificarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarCompraActionPerformed
         int idProveedor = ((Item) cbProveedorCompra.getSelectedItem()).getId();
         int idEmpleado = ((Item) cbEmpleadoCompra.getSelectedItem()).getId();
-        float total = Float.parseFloat(tfTotalCompra.getText());
+        float total = 0.0f;
         LocalDate fecha = dpFechaCompra.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         compra.ModificaCompra(conexion, idProveedor, idEmpleado, fecha, total, idRow);
         
@@ -237,7 +227,6 @@ public class JFCompra extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(jfVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tfTotalCompra.setText(source.getModel().getValueAt(row, 4).toString());
     }//GEN-LAST:event_tableCompraMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -254,7 +243,6 @@ public class JFCompra extends javax.swing.JFrame {
       public void resetControles(){
         cbProveedorCompra.setSelectedItem(null);
         cbEmpleadoCompra.setSelectedItem(null);
-        tfTotalCompra.setText("");
     }
     
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -344,8 +332,6 @@ public class JFCompra extends javax.swing.JFrame {
     private javax.swing.JLabel lbEmpleadoCompra;
     private javax.swing.JLabel lbFechaCompra;
     private javax.swing.JLabel lbProveedorCompra;
-    private javax.swing.JLabel lbTotalCompra;
     private javax.swing.JTable tableCompra;
-    private javax.swing.JTextField tfTotalCompra;
     // End of variables declaration//GEN-END:variables
 }

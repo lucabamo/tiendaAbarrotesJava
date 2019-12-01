@@ -166,7 +166,7 @@ public class Login extends javax.swing.JFrame {
         try {
             conexion = DriverManager.getConnection(url, usuario, password);
             if (conexion != null) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Conexión exitosa");
+                //javax.swing.JOptionPane.showMessageDialog(this, "Conexión exitosa");
                 this.setVisible(false);
                 Menu2 menu = new Menu2(conexion);
                 menu.setVisible(true);

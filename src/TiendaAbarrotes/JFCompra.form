@@ -43,15 +43,9 @@
                                   <Component id="dpFechaCompra" min="-2" pref="125" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lbEmpleadoCompra" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbTotalCompra" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="lbEmpleadoCompra" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="tfTotalCompra" pref="170" max="32767" attributes="0"/>
-                                  <Component id="cbEmpleadoCompra" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="cbEmpleadoCompra" min="-2" pref="170" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" alignment="0" min="-2" pref="621" max="-2" attributes="0"/>
                       </Group>
@@ -82,8 +76,6 @@
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbFechaCompra" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbTotalCompra" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfTotalCompra" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="dpFechaCompra" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
@@ -114,13 +106,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Fecha:"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbTotalCompra">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Total:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfTotalCompra">
     </Component>
     <Component class="javax.swing.JButton" name="btInsertarCompra">
       <Properties>

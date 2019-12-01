@@ -79,7 +79,7 @@ public class DetalleDevolucion {
             while(resultSet.next()){
                 auxiliar[0] = resultSet.getString(1);
                 auxiliar[1] = resultSet.getString(2);
-                modelo.addElement(new Item(Integer.parseInt(auxiliar[1]),auxiliar[0]));
+                modelo.addElement(new Item(Integer.parseInt(auxiliar[1]),auxiliar[1]+"_" +auxiliar[0]));
             }
            devoluciones.setModel(modelo);
         }
@@ -107,20 +107,56 @@ public class DetalleDevolucion {
         }
     }
     
+    
+    /*
+     "SELECT DISTINCT detalleventa.Cantidad " +
+                "FROM Inventario.Producto AS producto " +
+                "INNER JOIN Transaccion.DetalleVenta AS detalleventa ON detalleventa.IdProducto = producto.IdProducto " +
+                "INNER JOIN Transaccion.Devolucion AS devolucion ON devolucion.IdVenta = detalleventa.IdVenta " +
+                "WHERE devolucion.IdDevolucion = " + IdDevolucion + " AND " + "producto.IdProducto = " + IdProducto;
+    */
+    
        public void agregaDetalleDevolucion(Connection conexion, int idDevolucion , int idProducto, int cantidad) {
-        String query = "INSERT INTO Transaccion.DetalleDevolucion (IdDevolucion, IdProducto,Cantidad) VALUES (?,?,?)";
-        try {
-            preparedStatement = conexion.prepareCall(query);
+        String queryConsultaVendidos = "SELECT DISTINCT detalleventa.Cantidad FROM Inventario.Producto AS producto "
+                + "INNER JOIN Transaccion.DetalleVenta AS detalleventa ON detalleventa.IdProducto = producto.IdProducto "
+                + "INNER JOIN Transaccion.Devolucion AS devolucion ON devolucion.IdVenta = detalleventa.IdVenta "
+                + "WHERE devolucion.IdDevolucion = ?  AND producto.IdProducto = ?" ;
+           
+         try {
+            preparedStatement = conexion.prepareCall(queryConsultaVendidos);
             preparedStatement.setInt(1, idDevolucion);
             preparedStatement.setInt(2, idProducto);
-            preparedStatement.setInt(3, cantidad);
-            int register = preparedStatement.executeUpdate();
-            if (register > 0) {
-                JOptionPane.showMessageDialog(null, "Se ingresó correctamente");
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            
+            int[] auxiliar = new int[1];
+            while (resultSet.next()) {
+                auxiliar[0] = resultSet.getInt(1);
+            }
+            if(auxiliar[0] >= cantidad){
+                String query = "INSERT INTO Transaccion.DetalleDevolucion (IdDevolucion, IdProducto,Cantidad) VALUES (?,?,?)";
+                 try {
+                     preparedStatement = conexion.prepareCall(query);
+                     preparedStatement.setInt(1, idDevolucion);
+                     preparedStatement.setInt(2, idProducto);
+                     preparedStatement.setInt(3, cantidad);
+                     int register = preparedStatement.executeUpdate();
+                     if (register > 0) {
+                         JOptionPane.showMessageDialog(null, "Se ingresó correctamente");
+                     }
+                 } catch (Exception ex) {
+                     JOptionPane.showMessageDialog(null, "Hubo un error en la inserción");
+                 }            
+            }
+            else{
+                                 JOptionPane.showMessageDialog(null, "No puedes devolver más productos de lo que compraste");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Hubo un error en la inserción");
-        }
+        }       
+        
+        
+ 
     }
        
         public void modificaDetalleDevolucion(Connection conexion, int idDevolucion , int idProducto, int cantidad){

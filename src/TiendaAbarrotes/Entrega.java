@@ -48,7 +48,7 @@ public class Entrega {
            empleados.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
+            //javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -67,7 +67,7 @@ public class Entrega {
            proveedores.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
+           // javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -75,14 +75,19 @@ public class Entrega {
     public void cargaMotivoDevoluciones(Connection conexion, JComboBox devoluciones){
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         try{
-            String query = "SELECT Motivo, idDevolucion FROM Transaccion.Devolucion WHERE entregada = false";
+            String query = "SELECT detalle.IdDevolucion, producto.Nombre, devolucion.Motivo " +
+                "FROM Transaccion.DetalleDevolucion AS detalle " +
+                "INNER JOIN Inventario.Producto AS producto ON producto.IdProducto = detalle.IdProducto " +
+                "INNER JOIN Transaccion.Devolucion AS devolucion ON devolucion.IdDevolucion = detalle.IdDevolucion " +
+                "AND devolucion.Entregada = false";
             Statement statement = conexion.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-            String[] auxiliar = new String[2];
+            String[] auxiliar = new String[3];
             while(resultSet.next()){
                 auxiliar[0] = resultSet.getString(1);
                 auxiliar[1] = resultSet.getString(2);
-                modelo.addElement(new Item(Integer.parseInt(auxiliar[1]),auxiliar[0]));
+                auxiliar[2] = resultSet.getString(3);
+                modelo.addElement(new Item(Integer.parseInt(auxiliar[0]),auxiliar[1]+ "_" + auxiliar[2]));
             }
            devoluciones.setModel(modelo);
         }
@@ -116,7 +121,7 @@ public class Entrega {
            entregas.setModel(modelo);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
+           // javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -152,7 +157,7 @@ public class Entrega {
         idEntrega = rs.getInt(1);
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
+            //javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }   
     return idEntrega;
 }
@@ -189,7 +194,7 @@ public class Entrega {
             }
         }
         catch(SQLException ex){
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
+           // javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
     }
     
@@ -210,7 +215,7 @@ private void actualizaProducto(Connection conexion,int idProducto, int existenci
             }
         }
         catch(Exception ex){
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
+            //javax.swing.JOptionPane.showMessageDialog(null, "Error al cargar");
         }
 }
 

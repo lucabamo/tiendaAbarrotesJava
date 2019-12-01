@@ -177,6 +177,9 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         int idMotivo = ((Item) jCMotivoDevolucionDetalle.getSelectedItem()).getId();
         int idProducto = ((Item) jCProductoDetalle.getSelectedItem()).getId();
         int cantidad = Integer.parseInt(jTCantidadDetalleDev.getText());
+        
+        
+        
         detalleDevolucion.agregaDetalleDevolucion(conexion, idMotivo, idProducto, cantidad);
         detalleDevolucion.consultaDetallesDevolucion(conexion, jTDetallesDevoluciones);
         resetControles();

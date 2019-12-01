@@ -51,8 +51,6 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         cbProductoDetalleCompra = new javax.swing.JComboBox<>();
         lbCantidadDetalleCompra = new javax.swing.JLabel();
         tfCantidadDetalleCompra = new javax.swing.JTextField();
-        lbSubtotalDetalleCompra = new javax.swing.JLabel();
-        tfSubtotalDetalleCompra = new javax.swing.JTextField();
         btInsertarDetalleCompra = new javax.swing.JButton();
         btModificarDetalleCompra = new javax.swing.JButton();
         btEliminarDetalleCompra = new javax.swing.JButton();
@@ -71,8 +69,6 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         lbProductoDetalleCompra.setText("Producto:");
 
         lbCantidadDetalleCompra.setText("Cantidad:");
-
-        lbSubtotalDetalleCompra.setText("Subtotal:");
 
         btInsertarDetalleCompra.setText("Insertar");
         btInsertarDetalleCompra.addActionListener(new java.awt.event.ActionListener() {
@@ -131,13 +127,9 @@ public class JFDetalleCompra extends javax.swing.JFrame {
                                     .addComponent(cbCompraDetalleCompra, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tfCantidadDetalleCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
                                 .addGap(37, 37, 37)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbProductoDetalleCompra)
-                                    .addComponent(lbSubtotalDetalleCompra))
+                                .addComponent(lbProductoDetalleCompra)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfSubtotalDetalleCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                    .addComponent(cbProductoDetalleCompra, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(cbProductoDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
@@ -160,9 +152,7 @@ public class JFDetalleCompra extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbCantidadDetalleCompra)
-                    .addComponent(tfCantidadDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbSubtotalDetalleCompra)
-                    .addComponent(tfSubtotalDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfCantidadDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btInsertarDetalleCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,7 +170,7 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         int idCompra = Integer.parseInt(cbCompraDetalleCompra.getSelectedItem().toString());
         int idProducto = ((Item) cbProductoDetalleCompra.getSelectedItem()).getId();
         int cantidad = Integer.parseInt(tfCantidadDetalleCompra.getText());
-        float subtotal = Float.parseFloat(tfSubtotalDetalleCompra.getText());
+        float subtotal = 0.0f;
         detalleCompra.InsertaDetalleCompra(conexion, idCompra, idProducto, cantidad, subtotal);
         ActualizaTablaDetalleCompra();
     }//GEN-LAST:event_btInsertarDetalleCompraActionPerformed
@@ -189,7 +179,7 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         int idCompra = Integer.parseInt(cbCompraDetalleCompra.getSelectedItem().toString());
         int idProducto = ((Item) cbProductoDetalleCompra.getSelectedItem()).getId();
         int cantidad = Integer.parseInt(tfCantidadDetalleCompra.getText());
-        float subtotal = Float.parseFloat(tfSubtotalDetalleCompra.getText());
+        float subtotal = 0.0f;
         detalleCompra.ModificaDetalleCompra(conexion, idCompra, idProducto, cantidad, subtotal);
         ActualizaTablaDetalleCompra();
     }//GEN-LAST:event_btModificarDetalleCompraActionPerformed
@@ -207,7 +197,6 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         cbCompraDetalleCompra.setSelectedItem(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
         cbProductoDetalleCompra.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 1).toString())));
         tfCantidadDetalleCompra.setText((String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 2));
-        tfSubtotalDetalleCompra.setText((String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 3));
     }//GEN-LAST:event_tableDetalleCompraMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -296,9 +285,7 @@ public class JFDetalleCompra extends javax.swing.JFrame {
     private javax.swing.JLabel lbCantidadDetalleCompra;
     private javax.swing.JLabel lbCompraDetalleCompra;
     private javax.swing.JLabel lbProductoDetalleCompra;
-    private javax.swing.JLabel lbSubtotalDetalleCompra;
     private javax.swing.JTable tableDetalleCompra;
     private javax.swing.JTextField tfCantidadDetalleCompra;
-    private javax.swing.JTextField tfSubtotalDetalleCompra;
     // End of variables declaration//GEN-END:variables
 }
