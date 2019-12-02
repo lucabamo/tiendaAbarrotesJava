@@ -27,14 +27,20 @@ import static org.postgresql.util.ByteConverter.float8;
  * @author Karla Rosas
  */
 public class Venta {
-    
+    /*
+    declaracion de variables
+    */
     private int idVenta;
     private PreparedStatement preparedStatement;
     
+    //constructor de la clase
     public Venta(){
         idVenta= -1;
     }
     
+    /*
+    consulta las ventas y las agrega a la tabla
+    */
     public void seleccionaVentas(Connection conexion, JTable ventas){
         
         DefaultTableModel modelo = new DefaultTableModel();
@@ -64,6 +70,9 @@ public class Venta {
         }
     }
     
+    /*
+    consulta el id y el nombre del empleado y los agrega a un combobox
+    */
     public void seleccionaEmpleados(Connection conexion, JComboBox empleados){
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         try{
@@ -72,8 +81,8 @@ public class Venta {
             ResultSet resultSet = statement.executeQuery(query);
             String[] auxiliar = new String[2];
             while(resultSet.next()){
-                auxiliar[0] = resultSet.getString(1);
-                auxiliar[1] = resultSet.getString(2);
+                auxiliar[0] = resultSet.getString(1);//nombre
+                auxiliar[1] = resultSet.getString(2);//id
                 modelo.addElement(new Item(Integer.parseInt(auxiliar[1]),auxiliar[0]));
             }
            empleados.setModel(modelo);
@@ -83,6 +92,10 @@ public class Venta {
         }
     }
     
+    /*
+    agrega una venta
+    recibe la conexion, el id del empleado y la fecha de la venta
+    */
     public void agregaVenta(Connection conexion,int idEmpleado, LocalDate fechaVenta){
         String query ="INSERT INTO Transaccion.Venta (idEmpleado, FechaVenta, Total) VALUES (?,?,?)";
         try{
@@ -99,7 +112,10 @@ public class Venta {
             JOptionPane.showMessageDialog(null, "Hubo un error en la inserción");
         }
     }
-    
+    /*
+    modifica una venta
+    recibe la conexion, el id del empleado y la fecha de la venta
+    */
     public void modificaVenta(Connection conexion,int idEmpleado, LocalDate fechaVenta){
         String query = "UPDATE Transaccion.Venta SET idEmpleado = ?, FechaVenta = ? WHERE IdVenta = ?";
          try{
@@ -117,6 +133,7 @@ public class Venta {
         }
     }
     
+    //elimina una venta 
     public void eliminaVenta(Connection conexion)
     {
         String query ="DELETE FROM Transaccion.Venta WHERE IdVenta = ?";    
@@ -133,6 +150,9 @@ public class Venta {
         }    
     }
     
+    /*
+    getters y setters
+    */
     public int getIdVenta() {
         return idVenta;
     }

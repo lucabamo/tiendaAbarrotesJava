@@ -24,6 +24,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JFProducto extends javax.swing.JFrame {
 
+    /*
+    Declaracion de variables globales
+     */
     Connection conexion;
     Producto producto;
     private DefaultTableModel modelo;
@@ -32,7 +35,8 @@ public class JFProducto extends javax.swing.JFrame {
     private ResultSet rs;
     private String Qry;
     private String idRow;
-    
+
+    //Constructor de la clase
     public JFProducto() {
         initComponents();
         producto = new Producto(conexion);
@@ -180,67 +184,88 @@ public class JFProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    Metodo del boton insertar, manda a llamar a inserta producto con la informacion de los controles y actualiza la tabla
+     */
     private void btInsertarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarProductoActionPerformed
         producto.InsertaProducto(conexion, tfNombreProducto.getText(), tfExistenciaProducto.getText(), tfCostoProvProducto.getText(), tfCostoVentaProducto.getText());
         resetControles();
         ActualizaTablaProducto();
     }//GEN-LAST:event_btInsertarProductoActionPerformed
 
+    /*
+    metodo del boton modificar, manda a llamar a modifica producto 
+    con la informacion de los controles y actualiza la tabla
+     */
     private void btModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarProductoActionPerformed
         producto.ModificaProducto(conexion, tfNombreProducto.getText(), tfExistenciaProducto.getText(), tfCostoProvProducto.getText(), tfCostoVentaProducto.getText(), idRow);
         resetControles();
         ActualizaTablaProducto();
     }//GEN-LAST:event_btModificarProductoActionPerformed
 
+    /*
+    metodo del boton eliminar
+    manda a llamar a elimina producto y actualiza la tabla
+     */
     private void btEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarProductoActionPerformed
-        producto.EliminaProducto(conexion,idRow);
-        resetControles();       
+        producto.EliminaProducto(conexion, idRow);
+        resetControles();
         ActualizaTablaProducto();
     }//GEN-LAST:event_btEliminarProductoActionPerformed
-
+    /*
+        metodo que se activa al darle click a la tabla.
+        recupera la informacion del registro y la carga en los controles
+     */
     private void tableProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProductoMouseClicked
-        
-                JTable source = (JTable) evt.getSource();
+
+        JTable source = (JTable) evt.getSource();
         int row = source.rowAtPoint(evt.getPoint());
         producto.setIdProducto(Integer.parseInt(source.getModel().getValueAt(row, 0).toString()));
-        tfNombreProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 1));
-        tfExistenciaProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 2));
-        tfCostoProvProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 3));
-        tfCostoVentaProducto.setText((String)tableProducto.getValueAt(tableProducto.getSelectedRow(), 4));
+        tfNombreProducto.setText((String) tableProducto.getValueAt(tableProducto.getSelectedRow(), 1));
+        tfExistenciaProducto.setText((String) tableProducto.getValueAt(tableProducto.getSelectedRow(), 2));
+        tfCostoProvProducto.setText((String) tableProducto.getValueAt(tableProducto.getSelectedRow(), 3));
+        tfCostoVentaProducto.setText((String) tableProducto.getValueAt(tableProducto.getSelectedRow(), 4));
     }//GEN-LAST:event_tableProductoMouseClicked
 
-    private void resetControles(){
+    /*
+    resetea los controles
+    */
+    private void resetControles() {
         tfNombreProducto.setText("");
         tfExistenciaProducto.setText("");
         tfCostoProvProducto.setText("");
         tfCostoVentaProducto.setText("");
     }
+    
+    //actualiza la tabla al abrirse la ventana
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
         // TODO add your handling code here:
         ActualizaTablaProducto();
     }//GEN-LAST:event_formWindowOpened
 
-    public void AsignaConexion(Connection con)
-    {
+    /*
+        asigna la conexion
+    */
+    public void AsignaConexion(Connection con) {
         conexion = con;
     }
-    
-    public void ActualizaTablaProducto()
-    {
+
+    //actualiza la tabla
+    public void ActualizaTablaProducto() {
         modelo = new DefaultTableModel();
         modelo.addColumn("Id Producto");
         modelo.addColumn("Nombre");
         modelo.addColumn("Existencia");
         modelo.addColumn("Costo proveedor");
         modelo.addColumn("Costo venta");
-        
+
         try {
             Qry = "SELECT * FROM Inventario.Producto";
             st = conexion.createStatement();
             rs = st.executeQuery(Qry);
             String Aux[] = new String[5];
-            while(rs.next()) {
+            while (rs.next()) {
                 Aux[0] = rs.getString(1);
                 Aux[1] = rs.getString(2);
                 Aux[2] = rs.getString(3);
@@ -249,13 +274,12 @@ public class JFProducto extends javax.swing.JFrame {
                 modelo.addRow(Aux);
             }
             tableProducto.setModel(modelo);
+        } catch (Exception e) {
+
         }
-        catch(Exception e) {
-            
-        }
-        
+
     }
-    
+
     /**
      * @param args the command line arguments
      */

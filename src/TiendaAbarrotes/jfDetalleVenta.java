@@ -15,10 +15,14 @@ import java.awt.event.ItemEvent;
  */
 public class jfDetalleVenta extends javax.swing.JFrame {
 
+    /*
+    declaracion de variables
+    */
     private Connection conexion;
 
     private DetalleVenta detalleVenta;
 
+    //constructor
     public jfDetalleVenta() {
         initComponents();
     }
@@ -168,7 +172,11 @@ public class jfDetalleVenta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/*
+    metodo del boton agregar
+    recupera la informacion de los controles y manda a llamar agregadetalleventa
+    actualiza la tabla
+    */
     private void btAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarActionPerformed
         int idVenta = Integer.parseInt(cbVentas.getSelectedItem().toString());
         int idEmpleado = Integer.parseInt(cbPromocion.getSelectedItem().toString());
@@ -180,6 +188,10 @@ public class jfDetalleVenta extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btAgregarActionPerformed
 
+    /*
+    metodo que se activa al abrir la ventana
+    actualiza los combo box y la tabla
+    */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         detalleVenta = new DetalleVenta();
         detalleVenta.seleccionaDetallesVenta(conexion, jtDetalles);
@@ -188,6 +200,10 @@ public class jfDetalleVenta extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_formWindowOpened
 
+    /*
+    metodo que se activa al darle click a la tabla
+    recupera la informacion del registro y la carga en los controles
+    */
     private void jtDetallesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtDetallesMouseClicked
         JTable source = (JTable) evt.getSource();
         int row = source.rowAtPoint(evt.getPoint());
@@ -199,6 +215,10 @@ public class jfDetalleVenta extends javax.swing.JFrame {
         tfCantidad.setText(source.getModel().getValueAt(row, 4).toString());
     }//GEN-LAST:event_jtDetallesMouseClicked
 
+    /*
+    metodo que se activa cuando seleccionas un item del combo box
+    manda a llamar al evento seleciona id producto para seleccionar las promociones
+    */
     private void cbProductoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbProductoItemStateChanged
         
         if(evt.getStateChange() == ItemEvent.SELECTED)
@@ -208,6 +228,12 @@ public class jfDetalleVenta extends javax.swing.JFrame {
            detalleVenta.seleccionaPromocion(conexion, cbPromocion, idProducto);   
         }
     }//GEN-LAST:event_cbProductoItemStateChanged
+
+    /*
+    metodo del boton modificar
+    recupera la informacion de los controles y manda a llamar modificardetalleventa
+    actualiza la tabla
+    */
 
     private void btModificarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarDetalleActionPerformed
         int idVenta = Integer.parseInt(cbVentas.getSelectedItem().toString());
@@ -219,16 +245,22 @@ public class jfDetalleVenta extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_btModificarDetalleActionPerformed
 
+    /*
+    metodo del boton eliminar
+    elmina la venta y actualiza la tabla
+    */
     private void btEliminarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarDetalleActionPerformed
        detalleVenta.eliminaDetalleVenta(conexion);
        detalleVenta.seleccionaDetallesVenta(conexion, jtDetalles);
        resetControles();
     }//GEN-LAST:event_btEliminarDetalleActionPerformed
 
+    //asigna conexion
     public void asignaConexion(Connection connection) {
         this.conexion = connection;
     }
 
+    //reseta controles
     public void resetControles() {
         cbVentas.setSelectedItem(null);
         cbPromocion.setSelectedItem(null);

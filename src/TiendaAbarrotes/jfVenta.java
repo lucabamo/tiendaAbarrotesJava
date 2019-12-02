@@ -29,10 +29,14 @@ import javax.swing.JTable;
  */
 public class jfVenta extends javax.swing.JFrame {
 
+    /*
+        Declaración de variables globales
+    */
     private Connection conexion = null;
     Venta venta;
 
 
+    //Constructor del form
     public jfVenta() {
         initComponents();
         venta = new Venta();
@@ -159,6 +163,10 @@ public class jfVenta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+        Método que se activa cuando la ventana se abre.
+        Actualiza la información del la tabla y el comboBox del empleado
+    */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         venta.seleccionaVentas(conexion, jtVentas);
         venta.seleccionaEmpleados(conexion, cbEmpleadoVenta);
@@ -173,6 +181,12 @@ public class jfVenta extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cbEmpleadoVentaItemStateChanged
 
+    /*
+        Método del botón agregar.
+        Recolecta la información del los controles y se la pasa al método 
+        agrega venta. 
+        Actualiza la tabla.
+    */
     private void btAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarActionPerformed
         int idEmpleado = ((Item) cbEmpleadoVenta.getSelectedItem()).getId();
         LocalDate fecha = dpFechaVenta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -181,6 +195,10 @@ public class jfVenta extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_btAgregarActionPerformed
 
+    /*
+        Método que se activa al darle click a la tabla.
+        Recupera la información de la tabla y la asigna a los controles, además recupera el Id de la venta
+    */
     private void jtVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtVentasMouseClicked
         JTable source = (JTable) evt.getSource();
         int row = source.rowAtPoint(evt.getPoint());
@@ -196,6 +214,11 @@ public class jfVenta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtVentasMouseClicked
 
+    /*
+        Método del botón modificar.
+        Recupera la información de los controles y llama al método modificaVenta.
+        Actualiza la tabla.
+    */
     private void btModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarActionPerformed
         int idEmpleado = ((Item) cbEmpleadoVenta.getSelectedItem()).getId();
         LocalDate fecha = dpFechaVenta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -205,16 +228,26 @@ public class jfVenta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btModificarActionPerformed
 
+    /*
+        Método del botón eliminar.
+        Manda a llamar al método eliminar la venta y actualiza la tabla
+    */
     private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
        venta.eliminaVenta(conexion);
        venta.seleccionaVentas(conexion, jtVentas);
        resetControles();
     }//GEN-LAST:event_btEliminarActionPerformed
 
+    /*
+        Resetea los controles
+    */
     public void resetControles(){
         cbEmpleadoVenta.setSelectedItem(null);
     }
     
+    /*
+        Recibe la conexión 
+    */
     public void asignaConexion(Connection connection){
         this.conexion = connection;
     }

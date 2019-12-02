@@ -15,6 +15,7 @@ import java.sql.SQLException;
  */
 public class Menu2 extends javax.swing.JFrame {
 
+    //declaracion de variables globales
     private Connection conexion;
 
     /**
@@ -220,76 +221,99 @@ public class Menu2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+        metodo del boton empleado, pasa la conexion a empleado y abre una nueva ventana
+     */
     private void JbEmpleadoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbEmpleadoMenuActionPerformed
         // TODO add your handling code here:
         JFEmpleado empleado = new JFEmpleado();
         empleado.AsignaConexion(conexion);
         empleado.setVisible(true);
     }//GEN-LAST:event_JbEmpleadoMenuActionPerformed
-
+    /*
+        metodo del boton roveedor, pasa la conexion a proveedor y abre una nueva ventana
+     */
     private void jBProveedorMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProveedorMenuActionPerformed
         // TODO add your handling code here:
         jfProveedor proveedorFrame = new jfProveedor();
         proveedorFrame.asignaConexion(conexion);
         proveedorFrame.setVisible(true);
     }//GEN-LAST:event_jBProveedorMenuActionPerformed
-
+    /*
+        metodo del boton producto, pasa la conexion a producto y abre una nueva ventana
+     */
     private void jBProductoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBProductoMenuActionPerformed
         // TODO add your handling code here:
         JFProducto producto = new JFProducto();
         producto.AsignaConexion(conexion);
         producto.setVisible(true);
     }//GEN-LAST:event_jBProductoMenuActionPerformed
-
+    /*
+        metodo del boton promocion, pasa la conexion a promocion y abre una nueva ventana
+     */
     private void jBPromocionMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPromocionMenuActionPerformed
         // TODO add your handling code here:
         jfPromocion promocionFrame = new jfPromocion();
         promocionFrame.asignaConexion(conexion);
         promocionFrame.setVisible(true);
     }//GEN-LAST:event_jBPromocionMenuActionPerformed
-
+    /*
+        metodo del boton venta, pasa la conexion a venta y abre una nueva ventana
+     */
     private void jBVentaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVentaMenuActionPerformed
         // TODO add your handling code here:
         jfVenta ventaFrame = new jfVenta();
         ventaFrame.asignaConexion(conexion);
         ventaFrame.setVisible(true);
     }//GEN-LAST:event_jBVentaMenuActionPerformed
-
+    /*
+        metodo del boton detalleVenta, pasa la conexion a detalleVenta y abre una nueva ventana
+     */
     private void jBDetalleVentaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDetalleVentaMenuActionPerformed
         // TODO add your handling code here:
         jfDetalleVenta detalleFrame = new jfDetalleVenta();
         detalleFrame.asignaConexion(conexion);
         detalleFrame.setVisible(true);
     }//GEN-LAST:event_jBDetalleVentaMenuActionPerformed
-
+    /*
+        metodo del boton compra, pasa la conexion a compra y abre una nueva ventana
+     */
     private void jBCompraMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCompraMenuActionPerformed
         // TODO add your handling code here:
         JFCompra compra = new JFCompra();
         compra.AsignaConexion(conexion);
         compra.setVisible(true);
     }//GEN-LAST:event_jBCompraMenuActionPerformed
-
+    /*
+        metodo del boton detalleCompra, pasa la conexion a detalleCompra y abre una nueva ventana
+     */
     private void jBDetalleCompraMEnuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDetalleCompraMEnuActionPerformed
         // TODO add your handling code here:
         JFDetalleCompra detalleCompra = new JFDetalleCompra();
         detalleCompra.AsignaConexion(conexion);
         detalleCompra.setVisible(true);
     }//GEN-LAST:event_jBDetalleCompraMEnuActionPerformed
-
+    /*
+        metodo del boton devolucion, pasa la conexion a devoluciony abre una nueva ventana
+     */
     private void jBDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDevolucionActionPerformed
         // TODO add your handling code here:
         jfDevolucion devolucionFrame = new jfDevolucion();
         devolucionFrame.asignaConexion(conexion);
         devolucionFrame.setVisible(true);
     }//GEN-LAST:event_jBDevolucionActionPerformed
-
+    /*
+        metodo del boton detalledevolucion, pasa la conexion a detalledevolucion y abre una nueva ventana
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         jfDetalleDevolucion detalleDevolucionFrame = new jfDetalleDevolucion();
         detalleDevolucionFrame.asignaConexion(conexion);
         detalleDevolucionFrame.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    /*
+        metodo del boton entrega, pasa la conexion a entrega y abre una nueva ventana
+     */
     private void jBEntregaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEntregaMenuActionPerformed
         // TODO add your handling code here:
         jfEntrega entregaFrame = new jfEntrega(conexion);

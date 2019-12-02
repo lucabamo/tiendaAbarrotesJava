@@ -18,16 +18,24 @@ import java.sql.Date;
  */
 public class Empleado {
     
+    /*
+        Declaración de variables
+    */
     private int idEmpleado;
     private String Qry;
     private PreparedStatement pt;
     private PreparedStatement preparedStatement;
 
+    //Constructor de la clase
     public Empleado(Connection con)
     {
         idEmpleado = -1;
     }
     
+    /*
+        Inserta un nuevo empleado.
+        Recibe la conexion, el nombre, domicilio, la fecha, usuario y contraseña
+    */
     public void InsertaEmpleado(Connection conexion, String nombre, String domicilio, LocalDate fecha,String usuario, String contraseña)
     {
         //INSERT INTO Empresa.Empleado (Nombre, Domicilio, FechaNac, Edad, Usuario, Contrasenia) VALUES ('Luis', 'calle', '10-09-2019',NULL, 'yes', 'pass')
@@ -52,6 +60,10 @@ public class Empleado {
         }
     }
     
+    /*
+        Modifica empleado.
+        Recibe la conexion, el nombre, domicilio, la fecha, usuario y contraseña
+    */
     public void ModificaEmpleado(Connection conexion, String nombre, String domicilio, LocalDate fecha,String usuario, String contraseña, String IdEmpleado)
     {
         String query = "UPDATE Empresa.Empleado SET Nombre = ?, Domicilio = ?, FechaNac = ?, Usuario = ?, Contrasenia = ? WHERE IdEmpleado = ?";
@@ -74,6 +86,9 @@ public class Empleado {
         }
     }
     
+    /*
+       Elimina un empleado
+    */
     public void EliminaEmpleado(Connection conexion)
     {
         String query = "DELETE FROM Empresa.Empleado WHERE IdEmpleado = ?";
@@ -90,7 +105,9 @@ public class Empleado {
         }
     }
 
-    
+    /*
+        Getters y setters
+    */
     public int getIdEmpleado() {
         return idEmpleado;
     }

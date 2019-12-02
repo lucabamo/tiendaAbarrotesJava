@@ -25,9 +25,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Promocion {
     
+    /*
+        declaracion de variables
+    */
     private int idPromocion;
     private PreparedStatement preparedStatement;
 
+    /*
+    setters y getters
+    */
     public int getIdPromocion() {
         return idPromocion;
     }
@@ -35,11 +41,13 @@ public class Promocion {
     public void setIdPromocion(int idPromocion) {
         this.idPromocion = idPromocion;
     }
-    
+    //constructo de la clase
     public Promocion(){
         this.idPromocion = -1;
     }
-    
+    /*
+    consulta las promociones que hay y las guarda en la tabla
+    */
     public void seleccionaPromociones(Connection conexion, JTable promociones){
         
         DefaultTableModel modelo = new DefaultTableModel();
@@ -71,6 +79,9 @@ public class Promocion {
         }
     }
     
+    /*
+    selecciona el nombre y el id del producto y los asigna a un combo box
+    */
     public void seleccionaProductos(Connection conexion, JComboBox productos){
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         try{
@@ -79,8 +90,8 @@ public class Promocion {
             ResultSet resultSet = statement.executeQuery(query);
             String[] auxiliar = new String[2];
             while(resultSet.next()){
-                auxiliar[0] = resultSet.getString(1);
-                auxiliar[1] = resultSet.getString(2);
+                auxiliar[0] = resultSet.getString(1);// nombre
+                auxiliar[1] = resultSet.getString(2);// id
                 modelo.addElement(new Item(Integer.parseInt(auxiliar[1]),auxiliar[0]));
             }
            productos.setModel(modelo);
@@ -90,6 +101,10 @@ public class Promocion {
         }
     }
     
+    /*
+    agrega una promocion nueva
+    recibe la conexion, el id del producto, la fecha de inicio y final y el descuento
+    */
     public void agregaPromocion(Connection conexion,int idProducto, LocalDate fechaInicio, LocalDate fechaFinal, float descuento){
         String query ="INSERT INTO Transaccion.Promocion (IdProducto, FechaInicio, FechaFinal, Descuento) VALUES (?,?,?,?)";
         try{
@@ -107,7 +122,10 @@ public class Promocion {
             JOptionPane.showMessageDialog(null, "Hubo un error en la inserción");
         }
     }
-    
+    /*
+    modifica una promocion nueva
+    recibe la conexion, el id del producto, la fecha de inicio y final y el descuento
+    */
     public void modificaPromocion(Connection conexion,int idProducto, LocalDate fechaInicio, LocalDate fechaFinal, float descuento)
     {
         String query = "UPDATE Transaccion.Promocion SET IdProducto = ?, FechaInicio= ?, FechaFinal=?, Descuento=? WHERE IdPromocion = ?";
@@ -128,6 +146,7 @@ public class Promocion {
         }
     }
     
+    //elimina una promocion
     public void eliminaPromocion(Connection conexion){
         String query = "DELETE FROM Transaccion.Promocion WHERE IdPromocion = ?";
         try{

@@ -13,11 +13,14 @@ import javax.swing.JTable;
  * @author Karla Rosas
  */
 public class jfProveedor extends javax.swing.JFrame {
-    
+    /*
+    declaracion de variables
+    */
     private Connection conexion;
     
     private Proveedor proveedor;
  
+    //constructor
     public jfProveedor() {
         initComponents();
     }
@@ -177,30 +180,52 @@ public class jfProveedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    metodo del boto agregar
+    recupera la informacion y agrega una promocion
+    actualiza la tabla
+    */
     private void btAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarActionPerformed
         proveedor.agregaProveedor(conexion, tfNombre.getText(), tfTelefono.getText(), tfEmail.getText(), tfRFC.getText(), tfDomicilio.getText());
         proveedor.seleccionaProveedores(conexion, jtProveedores);
         resetControles();
     }//GEN-LAST:event_btAgregarActionPerformed
 
+    /*
+    metodo del boto modifica
+    recupera la informacion y modifica una promocion
+    actualiza la tabla
+    */
     private void btModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarActionPerformed
         proveedor.modificaProveedor(conexion, tfNombre.getText(), tfTelefono.getText(), tfEmail.getText(), tfRFC.getText(), tfDomicilio.getText());
         proveedor.seleccionaProveedores(conexion, jtProveedores);
         resetControles();
     }//GEN-LAST:event_btModificarActionPerformed
 
+    /*
+    metodo del boton eliminar
+    elimina una promocion y actualiza la tabla
+    */
     private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
         proveedor.eliminaProveedor(conexion);
         proveedor.seleccionaProveedores(conexion, jtProveedores);
         resetControles();
     }//GEN-LAST:event_btEliminarActionPerformed
 
+    /*
+    metodo que se activa cuando se abre una ventana
+    actualiza la tabla
+    */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         proveedor = new Proveedor();
         proveedor.seleccionaProveedores(conexion, jtProveedores);
         resetControles();
     }//GEN-LAST:event_formWindowOpened
 
+    /*
+    metodo que se activa cuando se da click en la tabla
+    recupera la informacion del registro y carga los controles
+    */
     private void jtProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProveedoresMouseClicked
         JTable source = (JTable) evt.getSource();
         int row = source.rowAtPoint(evt.getPoint());
@@ -215,10 +240,12 @@ public class jfProveedor extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jtProveedoresMouseClicked
 
+    //asigna una conexion
     public void asignaConexion(Connection connection){
         this.conexion = connection;
     }
     
+    //resetea los controles
     public void resetControles(){
         tfNombre.setText("");
         tfTelefono.setText("");

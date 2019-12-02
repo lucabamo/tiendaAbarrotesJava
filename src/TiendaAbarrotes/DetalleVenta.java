@@ -25,9 +25,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DetalleVenta {
 
+    /*Declaración de variables globales*/
     private int idDetalleVenta;
     private PreparedStatement preparedStatement;
 
+    /*
+        Setters y getters
+    */
     public int getIdDetalleVenta() {
         return idDetalleVenta;
     }
@@ -36,10 +40,14 @@ public class DetalleVenta {
         this.idDetalleVenta = idDetalleVenta;
     }
 
+    //Constructor de la clase detalle venta
     public DetalleVenta() {
         this.idDetalleVenta = -1;
     }
 
+    /*
+        Consulta los detalles de ventay actualiza la tabla
+    */
     public void seleccionaDetallesVenta(Connection conexion, JTable detallesVenta) {
 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -56,14 +64,14 @@ public class DetalleVenta {
             ResultSet resultSet = statement.executeQuery(query);
             Object auxiliar[] = new Object[6];
             while (resultSet.next()) {
-                auxiliar[0] = resultSet.getString(1);
-                auxiliar[1] = resultSet.getString(2);
-                auxiliar[2] = resultSet.getString(3);
-                auxiliar[3] = resultSet.getString(4);
-                auxiliar[4] = resultSet.getString(5);
+                auxiliar[0] = resultSet.getString(1);//id
+                auxiliar[1] = resultSet.getString(2);//id venta
+                auxiliar[2] = resultSet.getString(3);//id promocion
+                auxiliar[3] = resultSet.getString(4);//id producto
+                auxiliar[4] = resultSet.getString(5);//cantidad
                 BigDecimal bd = new BigDecimal(Float.toString(resultSet.getFloat(6)));
                 bd = bd.setScale(2, BigDecimal.ROUND_CEILING);
-                auxiliar[5] = bd.floatValue();
+                auxiliar[5] = bd.floatValue(); //subtotal
                 modelo.addRow(auxiliar);
             }
             detallesVenta.setModel(modelo);
@@ -72,6 +80,9 @@ public class DetalleVenta {
         }
     }
 
+    /*
+        Rellena el comboBox con los ids de las ventas
+    */
     public void seleccionaVentas(Connection conexion, JComboBox ventas) {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         try {
@@ -89,6 +100,9 @@ public class DetalleVenta {
         }
     }
 
+    /*
+        Rellena el comboBox con el nombre y el id de los productos
+    */
     public void seleccionaProductos(Connection conexion, JComboBox productos) {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         try {
@@ -99,6 +113,7 @@ public class DetalleVenta {
             while (resultSet.next()) {
                 auxiliar[0] = resultSet.getString(1);
                 auxiliar[1] = resultSet.getString(2);
+                //Convierte el nombre y el id a un objeto Item para agregarlo al comboBox
                 modelo.addElement(new Item(Integer.parseInt(auxiliar[1]), auxiliar[0]));
             }
             productos.setModel(modelo);
@@ -107,6 +122,9 @@ public class DetalleVenta {
         }
     }
 
+    /*
+        Consulta las promociones del producto seleccionado y rellena el comboBox
+    */
     public void seleccionaPromocion(Connection conexion, JComboBox empleados, int idProducto) {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         try {
@@ -125,6 +143,9 @@ public class DetalleVenta {
         }
     }
     
+    /*
+        Selecciona el id del producto
+    */
     public int seleccionaIdProducto(Connection conexion, String nombre){
         try{
             String query = "SELECT IdProducto FROM Inventario.Producto WHERE Nombre = ?";
@@ -143,6 +164,10 @@ public class DetalleVenta {
         }        
     }
 
+    /*
+        Inserta un nuevo detalle de venta
+        Recibe la conexion, el id de la venta, el id de la promocion, el id del producto y la cantidad
+    */
     public void agregaDetalleVenta(Connection conexion, int idVenta, int idPromocion, int idProducto, int cantidad) {
         String query = "INSERT INTO Transaccion.DetalleVenta (IdVenta, IdPromocion,IdProducto,Cantidad, SubTotal) VALUES (?,?,?,?,?)";
         try {
@@ -161,6 +186,10 @@ public class DetalleVenta {
         }
     }
     
+    /*
+        Modifica un detalle de venta
+        Recibe la conexion, el id de la venta, el id de la promocion, el id del producto y la cantidad
+    */
     public void modificaDetalleVenta(Connection conexion, int idVenta, int idPromocion, int idProducto, int cantidad){
         String query = "UPDATE Transaccion.DetalleVenta SET IdVenta = ?, IdPromocion = ?, IdProducto = ?, Cantidad = ?, SubTotal = ? WHERE IdDetalleVenta = ?";
         try {
@@ -180,6 +209,9 @@ public class DetalleVenta {
         }
     }
     
+    /*
+        Elimina un detalle de venta
+    */
     public void eliminaDetalleVenta(Connection conexion){
         String query = "DELETE FROM Transaccion.DetalleVenta WHERE IdDetalleVenta = ?";
         try {

@@ -24,13 +24,18 @@ import javax.swing.JTable;
  */
 public class jfPromocion extends javax.swing.JFrame {
 
+    /*+
+    declaracion de variables
+    */
     private Connection conexion;
     private Promocion promocion;
 
+    //constructor
     public jfPromocion() {
         initComponents();
     }
 
+    //asigna la conexion
     public void asignaConexion(Connection connection) {
         this.conexion = connection;
     }
@@ -178,12 +183,16 @@ public class jfPromocion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //elimina una promocion
     private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
         promocion.eliminaPromocion(conexion);
         promocion.seleccionaPromociones(conexion, jtPromociones);
         resetControles();
     }//GEN-LAST:event_btEliminarActionPerformed
-
+/*
+    metodo que se activa cuando una nueva ventana se abre
+    actualiza los combobox y la tabla
+    */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         promocion = new Promocion();
         promocion.seleccionaPromociones(conexion, jtPromociones);
@@ -191,6 +200,11 @@ public class jfPromocion extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_formWindowOpened
 
+    /*
+    metodo del boton agregar
+    recupera la informacion y agrega una nueva promocion
+    actualiza la tabla
+    */
     private void btAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarActionPerformed
         int idProducto = ((Item) cbProductoPromocion.getSelectedItem()).getId();
         LocalDate fechaInicio = dpFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -202,7 +216,12 @@ public class jfPromocion extends javax.swing.JFrame {
         promocion.seleccionaPromociones(conexion, jtPromociones);
         resetControles();
     }//GEN-LAST:event_btAgregarActionPerformed
-
+/*
+    metodo del boton modificar
+    recupera la informacion y modifica una promocion
+    actualiza la tabla
+    */
+    
     private void btModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarActionPerformed
         int idProducto = ((Item) cbProductoPromocion.getSelectedItem()).getId();
         LocalDate fechaInicio = dpFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -218,6 +237,10 @@ public class jfPromocion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btModificarMouseClicked
 
+    /*
+    metodo que se activa cuando se da click a la tabla
+    se recupera la informacion del registro y se carga en los controles
+    */
     private void jtPromocionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtPromocionesMouseClicked
         JTable source = (JTable) evt.getSource();
         int row = source.rowAtPoint(evt.getPoint());
@@ -237,6 +260,9 @@ public class jfPromocion extends javax.swing.JFrame {
        // jCDescuento.setText(source.getModel().getValueAt(row, 4).toString());
     }//GEN-LAST:event_jtPromocionesMouseClicked
 
+    /*
+    resetea los controles
+    */
      public void resetControles(){
         cbProductoPromocion.setSelectedItem(null);
         dpFechaInicio.setDate(null);

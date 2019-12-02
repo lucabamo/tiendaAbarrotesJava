@@ -36,6 +36,9 @@ import static org.postgresql.util.ByteConverter.float8;
  */
 public class JFCompra extends javax.swing.JFrame {
 
+    /*
+        Declaracion de varaibles globales
+    */
     private Connection conexion = null;
     private Compra compra;
     private DefaultTableModel modelo;
@@ -44,8 +47,9 @@ public class JFCompra extends javax.swing.JFrame {
     private String Qry;
     private String idRow;
 
-    
-    
+    /*
+        Constructor de la clase
+    */    
     public JFCompra() {
         initComponents();
         compra = new Compra(conexion);
@@ -186,6 +190,11 @@ public class JFCompra extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+        Método para el boton insertar.
+        Recupera la informacion de los controles y manda a llamar el metodo insertaCompra de la clase compra.
+        Actualiza la tabla.
+    */
     private void btInsertarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarCompraActionPerformed
         int idProveedor = ((Item) cbProveedorCompra.getSelectedItem()).getId();
         int idEmpleado = ((Item) cbEmpleadoCompra.getSelectedItem()).getId();
@@ -196,6 +205,11 @@ public class JFCompra extends javax.swing.JFrame {
         ActualizaTablaCompra();
     }//GEN-LAST:event_btInsertarCompraActionPerformed
 
+    /*
+        Método para el boton modifica.
+        Recupera la informacion de los controles y manda a llamar el metodo modificaCompra de la clase compra.
+        Actualiza la tabla.
+    */
     private void btModificarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarCompraActionPerformed
         int idProveedor = ((Item) cbProveedorCompra.getSelectedItem()).getId();
         int idEmpleado = ((Item) cbEmpleadoCompra.getSelectedItem()).getId();
@@ -207,12 +221,20 @@ public class JFCompra extends javax.swing.JFrame {
         ActualizaTablaCompra();
     }//GEN-LAST:event_btModificarCompraActionPerformed
 
+    /*
+        Método para el botón eliminar.
+        Manda a llamar al metodo eliminaCompra de la clase comprs
+    */
     private void btEliminarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarCompraActionPerformed
         compra.EliminarCompra(conexion,idRow);
         resetControles();
         ActualizaTablaCompra();
     }//GEN-LAST:event_btEliminarCompraActionPerformed
 
+    /*
+        Metodo que se activa cuando se da click en la tabla.
+        Recupera la informacion del registro y la carga en los controles
+    */
     private void tableCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCompraMouseClicked
         JTable source = (JTable) evt.getSource();
         int row = source.rowAtPoint(evt.getPoint());
@@ -229,6 +251,10 @@ public class JFCompra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tableCompraMouseClicked
 
+    /*
+        Método que se activa cuando se abre la ventana.
+        Actualiza la información de los comboBox y la tabla
+    */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         compra.cargaNombreEmpleados(conexion, cbEmpleadoCompra);
@@ -240,6 +266,9 @@ public class JFCompra extends javax.swing.JFrame {
         dpFechaCompra.setEnabled(false);
     }//GEN-LAST:event_formWindowOpened
 
+    /*
+        Resetea los controles
+    */
       public void resetControles(){
         cbProveedorCompra.setSelectedItem(null);
         cbEmpleadoCompra.setSelectedItem(null);
@@ -248,15 +277,18 @@ public class JFCompra extends javax.swing.JFrame {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
 
     }//GEN-LAST:event_formMouseClicked
-
-        
-   
-    
+     
+    /*
+        Asigna la conexion para la clase
+    */
     public void AsignaConexion(Connection con)
     {
         conexion = con;
     }
     
+    /*
+        actualiza la informacion de la tabla
+    */
     public void ActualizaTablaCompra()
     {
         modelo = new DefaultTableModel();

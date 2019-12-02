@@ -21,20 +21,23 @@ import javax.swing.JTable;
  */
 public class jfDevolucion extends javax.swing.JFrame {
 
-    /**
-     * Creates new form jfDevolucion
-     */
+    
+    
+    //Declaracion de variables globales
      private Connection conexion = null;
      private float monto = 0.0f;
     Devolucion devolucion;
 
 
-    
+    /**
+     * Creates new form jfDevolucion
+     */
     public jfDevolucion() {
         initComponents();
         devolucion = new Devolucion();
     }
 
+    //asigna la conexion
     public void asignaConexion(Connection connection){
         this.conexion = connection;
     }
@@ -177,6 +180,11 @@ public class jfDevolucion extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_formWindowOpened
 
+    /*
+    metodo del boton agregar.
+    recupera la informacion de los controles y manda a llamar a agrega devolucion
+    actualiza la tabla
+    */
     private void jBAgregarDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarDevolucionActionPerformed
         // TODO add your handling code here:
         int idVenta = Integer.parseInt(jCVentaDevolucion.getSelectedItem().toString());
@@ -188,7 +196,10 @@ public class jfDevolucion extends javax.swing.JFrame {
         resetControles();
         //resetControles();
     }//GEN-LAST:event_jBAgregarDevolucionActionPerformed
-
+/*
+    metodo que se activa cuando das click en la tabla
+    recupera la informacion del registro y lo carga en los controles
+    */
     private void jTDevolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDevolucionesMouseClicked
         // TODO add your handling code here:
         JTable source = (JTable) evt.getSource();
@@ -214,7 +225,11 @@ public class jfDevolucion extends javax.swing.JFrame {
         devolucion.eliminaDevolucion(conexion);
         devolucion.consultaDevoluciones(conexion, jTDevoluciones);
     }//GEN-LAST:event_jBEliminarDevolucionActionPerformed
-
+ /*
+    metodo del boton editar.
+    recupera la informacion de los controles y manda a llamar a modific< devolucion
+    actualiza la tabla
+    */
     private void jBEditarDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarDevolucionActionPerformed
         // TODO add your handling code here:
         int idVenta = Integer.parseInt(jCVentaDevolucion.getSelectedItem().toString());
@@ -225,8 +240,9 @@ public class jfDevolucion extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_jBEditarDevolucionActionPerformed
 
-    
-    
+    /*
+    resetea los controles
+    */    
     public void resetControles() {
         jCEmpleadoDevolucion.setSelectedItem(null);
         jCVentaDevolucion.setSelectedItem(null);

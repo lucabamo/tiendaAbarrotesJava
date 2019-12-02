@@ -20,9 +20,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Proveedor {
 
+    /*
+    declaracion de variables globales
+     */
     private int idProveedor;
     private PreparedStatement preparedStatement;
 
+    /*
+    getters y setters
+     */
     public int getIdProveedor() {
         return idProveedor;
     }
@@ -31,10 +37,14 @@ public class Proveedor {
         this.idProveedor = idProveedor;
     }
 
+    //constructor
     public Proveedor() {
         this.idProveedor = -1;
     }
 
+    /*
+    consulta los proveedores que existen y los guarda en la tabla
+     */
     public void seleccionaProveedores(Connection conexion, JTable proveedores) {
 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -65,6 +75,10 @@ public class Proveedor {
         }
     }
 
+    /*
+    agrega un nuevo proveedor
+    recibe la conexion, el nombre, telefono, email, rfc y domicilio
+     */
     public void agregaProveedor(Connection conexion, String nombre, String telefono, String email, String rfc, String domicilioFiscal) {
         String query = "INSERT INTO Empresa.Proveedor(Nombre, Telefono, Email, RFC, DomicilioFiscal) VALUES (?,?,?,?,?)";
         try {
@@ -83,6 +97,10 @@ public class Proveedor {
         }
     }
 
+    /*
+    modifica un nuevo proveedor
+    recibe la conexion, el nombre, telefono, email, rfc y domicilio
+     */
     public void modificaProveedor(Connection conexion, String nombre, String telefono, String email, String rfc, String domicilioFiscal) {
         String query = "UPDATE Empresa.Proveedor SET Nombre = ?, Telefono = ?, Email = ?, RFC = ?, DomicilioFiscal = ? WHERE IdProveedor = ?";
         try {
@@ -102,6 +120,7 @@ public class Proveedor {
         }
     }
 
+    //elimina un proveedor
     public void eliminaProveedor(Connection conexion) {
         String query = "DELETE FROM Empresa.Proveedor WHERE IdProveedor = ?";
         try {

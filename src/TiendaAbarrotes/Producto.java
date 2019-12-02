@@ -22,15 +22,20 @@ import javax.swing.JOptionPane;
  */
 public class Producto {
     
+    //declaracion de variables
     private String Qry;
     private PreparedStatement pt;
     private int idProducto;
     
+    //constructor
     public Producto(Connection con)
     {
         idProducto = -1;
     }
     
+    /*
+    setters y getters
+    */
     public int getIdProducto(){
         return idProducto;
     }
@@ -39,6 +44,10 @@ public class Producto {
         this.idProducto = idProducto;
     }
     
+    /*
+    inserta un producto nuevo.
+    recibe la conexion, nombre,existencia,costo del proveedor y el costo de la venta
+    */
     public void InsertaProducto(Connection conexion, String nombre, String existencia, String costoProv, String costoVenta)
     {
         Qry = "INSERT INTO Inventario.Producto (Nombre, Existencia, CostoProveedor, CostoVenta) VALUES (?, ?, ?, ?)";
@@ -58,7 +67,10 @@ public class Producto {
                 JOptionPane.showMessageDialog(null, "Hubo un error en la inserción.");            
         }
     }
-    
+    /*
+    modifica un producto nuevo.
+    recibe la conexion, nombre,existencia,costo del proveedor y el costo de la venta
+    */
     public void ModificaProducto(Connection conexion, String nombre, String existencia, String costoProv, String costoVenta, String IdProducto)
     {
         Qry = "UPDATE Inventario.Producto SET Nombre = ?, Existencia = ?, CostoProveedor = ?, CostoVenta = ? WHERE IdProducto = ?";
@@ -79,7 +91,7 @@ public class Producto {
             JOptionPane.showMessageDialog(null, "Hubo un error en la edición");
         }
     }
-    
+    //elimina un producto
     public void EliminaProducto(Connection conexion, String IdProducto)
     {
         Qry = "DELETE FROM Inventario.Producto WHERE IdProducto = ?";

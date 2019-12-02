@@ -20,6 +20,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JFDetalleCompra extends javax.swing.JFrame {
 
+    /*
+        Declaracion de variables globales
+    */
     private Connection conexion = null;
     private DetalleCompra detalleCompra;
     private DefaultTableModel modelo;
@@ -31,6 +34,7 @@ public class JFDetalleCompra extends javax.swing.JFrame {
     private List<String> compras;
     private List<String[]> productos;
     
+    //Constructor de la clase
     public JFDetalleCompra() {
         initComponents();
         detalleCompra = new DetalleCompra(conexion);
@@ -166,6 +170,10 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+        Metodo para el boton insertar.
+        Recupera la informacion de los controles, manda a llamar InsertaDetalleCompra y actualiza la tabla
+    */
     private void btInsertarDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarDetalleCompraActionPerformed
         int idCompra = Integer.parseInt(cbCompraDetalleCompra.getSelectedItem().toString());
         int idProducto = ((Item) cbProductoDetalleCompra.getSelectedItem()).getId();
@@ -175,6 +183,10 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         ActualizaTablaDetalleCompra();
     }//GEN-LAST:event_btInsertarDetalleCompraActionPerformed
 
+    /*
+        Metodo para el boton agregar.
+        Recupera la informacion de los controles, manda a llamar ModificaDetalleCompra y actualiza la tabla
+    */
     private void btModificarDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarDetalleCompraActionPerformed
         int idCompra = Integer.parseInt(cbCompraDetalleCompra.getSelectedItem().toString());
         int idProducto = ((Item) cbProductoDetalleCompra.getSelectedItem()).getId();
@@ -184,11 +196,19 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         ActualizaTablaDetalleCompra();
     }//GEN-LAST:event_btModificarDetalleCompraActionPerformed
 
+    /*
+        Metodo para el boton insertar.
+        Llama al metodo EliminaDetalleCompra y actualiza la clase
+    */
     private void btEliminarDetalleCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarDetalleCompraActionPerformed
         detalleCompra.EliminaDetalleCompra(conexion);
         ActualizaTablaDetalleCompra();
     }//GEN-LAST:event_btEliminarDetalleCompraActionPerformed
 
+    /*
+        Metodo que se activa al darle click a la tabla
+        Recupera la informacion del registro y lo carga en los controles
+    */
     private void tableDetalleCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDetalleCompraMouseClicked
         
              JTable source = (JTable) evt.getSource();
@@ -199,6 +219,10 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         tfCantidadDetalleCompra.setText((String)tableDetalleCompra.getValueAt(tableDetalleCompra.getSelectedRow(), 2));
     }//GEN-LAST:event_tableDetalleCompraMouseClicked
 
+    /*
+        metodo que se activa cuando abres una ventana
+        actualiza los combobox y la tabla
+    */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         ActualizaTablaDetalleCompra();
         detalleCompra.seleccionaCompras(conexion, cbCompraDetalleCompra);
@@ -206,12 +230,17 @@ public class JFDetalleCompra extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
 
-    
+    /*
+        asgina la conexion
+    */    
     public void AsignaConexion(Connection con)
     {
         conexion = con;
     }
     
+    /*
+       actualiza la tabla 
+    */
     public void ActualizaTablaDetalleCompra()
     {
         modelo = new DefaultTableModel();

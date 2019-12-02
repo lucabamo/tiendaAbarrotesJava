@@ -29,6 +29,9 @@ import javax.swing.JTable;
  */
 public class JFEmpleado extends javax.swing.JFrame {
 
+    /*
+        Declaracion de variables globales
+    */
     private Connection conexion = null;
     private Empleado empleado;
     private DefaultTableModel modelo;
@@ -37,6 +40,7 @@ public class JFEmpleado extends javax.swing.JFrame {
     private String Qry;
     private String idRow;
     
+    //Constructor de la clase
     public JFEmpleado() {
         initComponents();
         empleado = new Empleado(conexion);
@@ -200,6 +204,11 @@ public class JFEmpleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+        Metodo del boton insertar.
+        Recupera la informacion de los controles y manda a llamar al metodo insertarEmpleado.
+        Actualiza la tabla
+    */
     private void btInsertarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarEmpleadoActionPerformed
         LocalDate fecha = dpFechaNacEmpleado.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -208,6 +217,11 @@ public class JFEmpleado extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_btInsertarEmpleadoActionPerformed
 
+    /*
+        Metodo del boton modificar.
+        Recupera la informacion de los controles y manda a llamar al metodo modificaEmpleado.
+        Actualiza la tabla
+    */
     private void btModificarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarEmpleadoActionPerformed
         LocalDate fecha = dpFechaNacEmpleado.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         empleado.ModificaEmpleado(conexion, tfNombreEmpleado.getText(), tfDomicilioEmpleado.getText(), fecha, tfUsuarioEmpleado.getText(), new String(tfContrasenaEmpleado.getPassword()), idRow);
@@ -215,13 +229,21 @@ public class JFEmpleado extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_btModificarEmpleadoActionPerformed
 
+    /*
+        Metodo del boton Eliminar.
+        manda a llamar al metodo eliminaEmpleado.
+        Actualiza la tabla
+    */
     private void btEliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarEmpleadoActionPerformed
         empleado.EliminaEmpleado(conexion);
         ActualizaTablaEmpleado();
         resetControles();
     }//GEN-LAST:event_btEliminarEmpleadoActionPerformed
 
-    
+    /*
+        Metodo que se activa cuando das click en la tabla.
+        Recupera la informacion del registro y la carga en los controles
+    */
     private void tableEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableEmpleadoMouseClicked
         
         JTable source = (JTable) evt.getSource();
@@ -242,7 +264,9 @@ public class JFEmpleado extends javax.swing.JFrame {
         tfContrasenaEmpleado.setText(source.getModel().getValueAt(row, 6).toString()); 
     }//GEN-LAST:event_tableEmpleadoMouseClicked
 
-    
+    /*
+        Resetea los controles
+    */
     public void resetControles(){
 
         tfNombreEmpleado.setText("");
@@ -253,6 +277,10 @@ public class JFEmpleado extends javax.swing.JFrame {
 
     }
     
+    /*
+        Metodo que se activa al abrir la venta.
+        Actualiza la tabla.
+    */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         Date fecha = new Date(2000, 01, 01);
@@ -260,11 +288,13 @@ public class JFEmpleado extends javax.swing.JFrame {
         ActualizaTablaEmpleado();
     }//GEN-LAST:event_formWindowOpened
 
+    //Asigna la conexion
     public void AsignaConexion(Connection con)
     {
         conexion = con;
     }
     
+    //Actualiza la tabla 
     public void ActualizaTablaEmpleado()
     {
         modelo = new DefaultTableModel();

@@ -15,12 +15,12 @@ import java.sql.SQLException;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
-    
+    //Declaracion de variables globales
     private Connection conexion;
 
+    /*
+     Constructor de la clase
+     */
     public Login() {
         initComponents();
         cbUsuario.removeAllItems();
@@ -116,9 +116,13 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+        Metodo del boton iniciar sesion.
+        conecta la base de datos de acuerdo al usuario que inicio sesion
+     */
     private void btIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarSesionActionPerformed
         // TODO add your handling code here:
-        conectaBD(cbUsuario.getSelectedItem().toString(),new String(tfPassword1.getPassword()));
+        conectaBD(cbUsuario.getSelectedItem().toString(), new String(tfPassword1.getPassword()));
     }//GEN-LAST:event_btIniciarSesionActionPerformed
 
     /**
@@ -155,12 +159,16 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
-    
-      public void conectaBD(String usuario, String password) {
+
+    /*
+        hace la conexion a la base de datos con el usuario y la contraseña que se especifican
+        y abre el menu
+     */
+    public void conectaBD(String usuario, String password) {
         String url;
         //jdbc::postgres://localhost:5432/
         url = "jdbc:postgresql://localhost:5432/tiendaAbarrotes";
-      /*  nombre = "postgres";
+        /*  nombre = "postgres";
         password = "postgres";*/
 
         try {

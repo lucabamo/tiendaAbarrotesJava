@@ -7,15 +7,20 @@ package TiendaAbarrotes;
 
 import java.sql.Connection;
 import javax.swing.JTable;
+
 /**
  *
  * @author Luis Bacasehua
  */
 public class jfDetalleDevolucion extends javax.swing.JFrame {
 
+    /*
+    declaracion de variables
+     */
     private Connection conexion;
 
     private DetalleDevolucion detalleDevolucion;
+
     /**
      * Creates new form jfDetalleDevolucion
      */
@@ -23,10 +28,11 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         initComponents();
     }
 
-    
-        public void asignaConexion(Connection connection) {
+    //asigna la conexion
+    public void asignaConexion(Connection connection) {
         this.conexion = connection;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -153,6 +159,10 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    metodo que se activa cuando se abre la ventana
+    actualiza la informacion de los combobox y de la tabla
+    */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         detalleDevolucion = new DetalleDevolucion();
@@ -161,6 +171,10 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         detalleDevolucion.cargaProductos(conexion, jCProductoDetalle);
     }//GEN-LAST:event_formWindowOpened
 
+    /*
+    metodo que se activa cuando se da click en la tabla
+    carga la informacion del registro en los controles
+    */
     private void jTDetallesDevolucionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTDetallesDevolucionesMouseClicked
         // TODO add your handling code here:
         JTable source = (JTable) evt.getSource();
@@ -169,22 +183,30 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         jCMotivoDevolucionDetalle.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 1).toString())));
         jCProductoDetalle.setSelectedItem(new Item(Integer.parseInt(source.getModel().getValueAt(row, 2).toString())));
         jTCantidadDetalleDev.setText(source.getModel().getValueAt(row, 3).toString());
-     
+
     }//GEN-LAST:event_jTDetallesDevolucionesMouseClicked
 
+    /*
+    metodo del boton agregar
+    recupera la informacion de los controles y se la pasa al metodo agregar detalle devoulicion de detalle devolucion
+    actualiza la tabla
+    */
     private void jBAgregarDetalleDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarDetalleDevActionPerformed
         // TODO add your handling code here:
         int idMotivo = ((Item) jCMotivoDevolucionDetalle.getSelectedItem()).getId();
         int idProducto = ((Item) jCProductoDetalle.getSelectedItem()).getId();
         int cantidad = Integer.parseInt(jTCantidadDetalleDev.getText());
-        
-        
-        
+
         detalleDevolucion.agregaDetalleDevolucion(conexion, idMotivo, idProducto, cantidad);
         detalleDevolucion.consultaDetallesDevolucion(conexion, jTDetallesDevoluciones);
         resetControles();
     }//GEN-LAST:event_jBAgregarDetalleDevActionPerformed
 
+    /*
+    metodo del boton modificar
+    recupera la informacion de los controles y se la pasa al metodo modifica detalle devoulicion de detalle devolucion
+    actualiza la tabla
+    */
     private void jBEditarDetalleDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarDetalleDevActionPerformed
         // TODO add your handling code here:
         int idMotivo = ((Item) jCMotivoDevolucionDetalle.getSelectedItem()).getId();
@@ -195,13 +217,19 @@ public class jfDetalleDevolucion extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_jBEditarDetalleDevActionPerformed
 
+    /*
+    elimina un detalle de venta y se actualiza la tabla
+    */
     private void jBEliminarDetalleDevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarDetalleDevActionPerformed
         // TODO add your handling code here:
         detalleDevolucion.eliminaEntrega(conexion);
-        detalleDevolucion.consultaDetallesDevolucion(conexion, jTDetallesDevoluciones);        
+        detalleDevolucion.consultaDetallesDevolucion(conexion, jTDetallesDevoluciones);
         resetControles();
     }//GEN-LAST:event_jBEliminarDetalleDevActionPerformed
-    
+
+    /*
+    resetea los controles
+    */
     public void resetControles() {
         jCMotivoDevolucionDetalle.setSelectedItem(null);
         jCProductoDetalle.setSelectedItem(null);

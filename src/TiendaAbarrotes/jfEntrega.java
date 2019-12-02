@@ -28,6 +28,9 @@ import javax.swing.JTable;
  */
 public class jfEntrega extends javax.swing.JFrame {
 
+    /*
+        declaracion de variables
+    */
     private Connection conexion = null;
     Entrega entrega;
 
@@ -41,6 +44,9 @@ public class jfEntrega extends javax.swing.JFrame {
     }
 
     
+    /*
+    resetea los controles
+    */
     public void limpiaFormulario(){
         jcEmpleadoEntrega.setSelectedItem(null);
         jcProveedorEntrega.setSelectedItem(null);
@@ -191,6 +197,10 @@ public class jfEntrega extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_formWindowOpened
 
+    /*
+    metodo del boton eliminar
+    elimina una entrega y actualiza la tabla
+    */
     private void jBEliminarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarEntregaActionPerformed
         // TODO add your handling code here:
         entrega.eliminaEntrega(conexion);
@@ -199,6 +209,10 @@ public class jfEntrega extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jBEliminarEntregaActionPerformed
 
+    /*
+        metodo del boton agregar
+    agrega una entrega y actualiza la tabla
+    */
     private void jBAgregarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarEntregaActionPerformed
         // TODO add your handling code here:
         int idProveedor = ((Item) jcProveedorEntrega.getSelectedItem()).getId();
@@ -210,6 +224,11 @@ public class jfEntrega extends javax.swing.JFrame {
         resetControles();
     }//GEN-LAST:event_jBAgregarEntregaActionPerformed
 
+    /*
+    /*
+        metodo del boton agregar
+    modifica una entrega y actualiza la tabla
+    */
     private void jBEditarEntregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEditarEntregaActionPerformed
         // TODO add your handling code here:
         int idProveedor = ((Item) jcProveedorEntrega.getSelectedItem()).getId();
@@ -221,18 +240,24 @@ public class jfEntrega extends javax.swing.JFrame {
         resetControles();
 
     }//GEN-LAST:event_jBEditarEntregaActionPerformed
-
+ /*
+    asigna la conexion
+    */
+    
     public void asignaConexion(Connection connection) {
         this.conexion = connection;
     }
-    
+    /*resetea los controles*/
     public void resetControles(){
         jcProveedorEntrega.setSelectedItem(null);
         jcMotivoDevEntrega.setSelectedItem(null);
         jcEmpleadoEntrega.setSelectedItem(null);
         jDtFechaEntrega.setDate(null);
     }
-    
+    /*
+    evento cuando se da click en la tabla
+    carga la informacion del registro a los controles
+    */
     private void jTEntregasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTEntregasMouseClicked
         // TODO add your handling code here:
         JTable source = (JTable) evt.getSource();
